@@ -1,0 +1,23 @@
+body {
+    display: flex;
+    padding: 5vh 5vw;
+}
+
+.menu {
+    width: 20vw;
+    display: flex;
+    flex-direction: column;
+}
+
+.menu .item {
+    margin-bottom: 20px;
+    font-size: 3vh;
+}
+
+.about-me {
+    width: 50vw;
+}
+
+.picture {
+    width: 20vw;
+}
