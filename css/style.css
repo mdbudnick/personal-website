@@ -9,10 +9,11 @@ body {
     opacity: 100%;
     padding: 2vh 2vw;
     border-radius: 1vh;
+    margin-top: 2vh;
 }
 
 .top-row .menu {
-    margin-top: 6vh;
+    margin-top: 8vh;
     width: 10vw;
     display: flex;
     flex-direction: column;
