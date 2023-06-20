@@ -4,7 +4,7 @@ body {
 }
 
 .menu {
-    width: 20vw;
+    width: 10vw;
     display: flex;
     flex-direction: column;
 }
@@ -15,7 +15,22 @@ body {
 }
 
 .about-me {
-    width: 50vw;
+    display: flex;
+    flex-direction: column;
+    width: 60vw;
+}
+
+.about-me .points {
+    display: flex;
+}
+
+.about-me .point {
+    font-size: large;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    padding: 15px;
+    border-left: 1px solid;
+    border-right: 1px solid;
+    align-self: baseline;
 }
 
 .picture {
