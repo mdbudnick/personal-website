@@ -1,9 +1,13 @@
 body {
-    display: flex;
     padding: 5vh 5vw;
 }
 
+.top-row {
+    display: flex;
+}
+
 .menu {
+    margin-top: 5vh;
     width: 10vw;
     display: flex;
     flex-direction: column;
@@ -31,8 +35,16 @@ body {
     border-left: 1px solid;
     border-right: 1px solid;
     align-self: baseline;
+    font-weight: 900;
 }
 
 .picture {
     width: 20vw;
+}
+
+.about-me .bio {
+    font-size: medium;
+    font-weight: lighter;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    margin-top: 3vh;
 }
