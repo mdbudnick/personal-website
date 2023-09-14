@@ -10,6 +10,7 @@ body {
     padding: 2vh 2vw;
     border-radius: 1vh;
     margin-top: 2vh;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .top-row .menu {
@@ -44,10 +45,16 @@ body {
     height: 100%;
 }
 
-.about-me {
+.middle {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
+    align-items: center;
     width: 60vw;
+}
+
+.middle .title {
+    font-size: xx-large;
+    margin-bottom: 5vh;
 }
 
 .about-me .points {
@@ -56,7 +63,6 @@ body {
 
 .about-me .point {
     font-size: large;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     padding: 15px;
     border-left: 1px solid;
     border-right: 1px solid;
@@ -64,14 +70,13 @@ body {
     font-weight: 900;
 }
 
-.picture {
+.avatar {
     width: 20vw;
 }
 
 .about-me .bio {
     font-size: medium;
     font-weight: lighter;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
     margin-top: 3vh;
 }
 
