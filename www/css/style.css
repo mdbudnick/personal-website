@@ -5,8 +5,8 @@ body {
 
 .top-row {
     display: flex;
-    background-color: rgba(254, 254, 254, 0.7);
-    opacity: 100%;
+    background-color: rgba(254, 254, 254, 0.5);
+    backdrop-filter: grayscale(0.4);
     padding: 2vh 2vw;
     border-radius: 1vh;
     margin-top: 2vh;
@@ -18,7 +18,6 @@ body {
     width: 10vw;
     display: flex;
     flex-direction: column;
-    opacity: 100%;
 }
 
 .menu .item {
@@ -49,7 +48,6 @@ body {
     display: flex;
     flex-direction: column;
     width: 60vw;
-    opacity: 100%;
 }
 
 .about-me .points {
@@ -68,7 +66,6 @@ body {
 
 .picture {
     width: 20vw;
-    opacity: 100%;
 }
 
 .about-me .bio {
