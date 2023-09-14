@@ -1,6 +1,7 @@
 body {
     padding: 5vh 5vw;
     background-size: cover;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .top-row {
@@ -10,7 +11,6 @@ body {
     padding: 2vh 2vw;
     border-radius: 1vh;
     margin-top: 2vh;
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
 .top-row .menu {
@@ -82,4 +82,28 @@ body {
 
 .four-oh-four {
     height: 60vh;
+}
+
+.certifications {
+    background-color: rgba(254, 254, 254, 0.5);
+    backdrop-filter: grayscale(0.4);
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.cert {
+    display: flex;
+}
+
+.cert .badge {
+    padding: 10px;
+    margin: 20px;
+    width: 30vh;
+    background-color: white;
+    border: solid 2px white;
+    border-radius: 50%;
+}
+
+.cert .about {
+    margin-top: 30px;
 }
