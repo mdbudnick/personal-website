@@ -114,3 +114,21 @@ body {
     margin-left: 5vw;
     width: 45vw;
 }
+
+.blog {
+    display: flex;
+    background-color: rgba(254, 254, 254, 0.5);
+    backdrop-filter: grayscale(0.4);
+}
+
+.blog .wordcloud {
+    display: flex;
+    flex-wrap: wrap;
+    width: 20vw;
+    height: 20vw;
+    padding: 10px;
+}
+
+.blog .posts {
+    width: 45vw;
+}
