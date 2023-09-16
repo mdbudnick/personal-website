@@ -7,18 +7,18 @@ export class CdkStack extends cdk.Stack {
     super(scope, id, props);
 
     const mainTemplate = new cfninc.CfnInclude(this, 'MainStack', {
-      templateFile: '../cfn-templates/main.json',
-      loadNestedStacks: {
-        'Certificate': {
-          templateFile: '../cfn-templates/acmcert.json',
-        },
-        'Cloudfront': {
-          templateFile: '../cfn-templates/cloudfront.json',
-        },
-        'CustomResources': {
-          templateFile: '../cfn-templates/customresources.json',
-        },
-      },
+      templateFile: 'cfn-templates/main.json',
+      // loadNestedStacks: {
+      //   'AcmCertificateStack': {
+      //     templateFile: 'cfn-templates/acmcert.json',
+      //   },
+      //   'CloudFrontStack': {
+      //     templateFile: 'cfn-templates/cloudfront.json',
+      //   },
+      //   'CustomResourceStack': {
+      //     templateFile: 'cfn-templates/customresources.json',
+      //   },
+      // },
     });
   }
 }
