@@ -1,0 +1,15 @@
+{
+  "name": "blog",
+  "version": "1.0.0",
+  "description": "Holds the infra for the blog posts: lambda to dynamodb hooked up to existing Cloudfront from www",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "author": "michael budnick",
+  "license": "ISC",
+  "dependencies": {
+    "@aws-solutions-constructs/core": "^2.44.0",
+    "constructs": "^10.2.70"
+  }
+}
