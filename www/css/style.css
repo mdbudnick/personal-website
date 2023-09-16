@@ -127,8 +127,19 @@ body {
     width: 20vw;
     height: 20vw;
     padding: 10px;
+    margin-top: 3vw;
+}
+
+.wordcloud span {
+    padding: 5px;
 }
 
 .blog .posts {
-    width: 45vw;
+    display: flex;
+    flex-direction: column-reverse;
+}
+
+.blog .posts .post-item {
+    border-bottom: 1px solid black;
+    margin-right: 3vw;
 }
