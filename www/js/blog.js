@@ -1,11 +1,11 @@
 function generateBlogListing() {
-    const blogListing = document.querySelector(".blog-listing");
+    const posts = document.querySelector(".posts");
 
     blogPosts.forEach(post => {
         const postItem = document.createElement("div");
         postItem.classList.add("post-item");
 
-        const postTitle = document.createElement("h2");
+        const postTitle = document.createElement("h4");
         const titleLink = document.createElement("a");
         titleLink.textContent = post.title;
         titleLink.href = post.link;
@@ -13,22 +13,17 @@ function generateBlogListing() {
 
         const postInfo = document.createElement("div");
         postInfo.classList.add("post-info");
-        postInfo.innerHTML = `<span>${post.posted}</span> | <span>${post.author}</span>`;
-
-        const postTags = document.createElement("div");
-        postTags.classList.add("post-tags");
-        postTags.textContent = "Tags: " + post.tags.join(", ");
+        postInfo.innerHTML = `<span>${post.posted}</span>`;
 
         postItem.appendChild(postTitle);
         postItem.appendChild(postInfo);
-        postItem.appendChild(postTags);
 
-        blogListing.appendChild(postItem);
+        posts.appendChild(postItem);
     });
 }
 
 function generateWordCloud() {
-    const wordCloud = document.querySelector(".word-cloud");
+    const wordCloud = document.querySelector(".wordcloud");
     
     const tagCounts = {};
 
@@ -45,14 +40,14 @@ function generateWordCloud() {
     for (const tag in tagCounts) {
         const tagElement = document.createElement("span");
         tagElement.textContent = tag;
-        tagElement.style.fontSize = `${tagCounts[tag] * 1.1}vw`; // Adjust font size based on counts
+        tagElement.style.fontSize = `${Math.log2(tagCounts[tag]) * 0.5}vw`; // Adjust font size based on counts
         wordCloud.appendChild(tagElement);
     }
 }
 
 async function loadBlogPosts() {
     try {
-        const response = await fetch('./posts/summary-json'); // Adjust the path as needed
+        const response = await fetch('./posts/summary.json'); // Adjust the path as needed
         if (!response.ok) {
             throw new Error('Failed to load blog posts data');
         }
