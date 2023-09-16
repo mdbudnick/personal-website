@@ -1,0 +1,7 @@
+{
+    "TemplateBody": "AWSTemplateFormatVersion: '2010-09-09'\nDescription: ACFS3 - Certificate creation\nParameters:\n  DomainName:\n    Type: String\n  SubDomain:\n    Type: String\n  CreateApex:\n    Type: String\n  HostedZoneId:\n    Type: String\nConditions:\n  CreateApexConfig:\n    Fn::Equals:\n    - Ref: CreateApex\n    - 'yes'\nResources:\n  Certificate:\n    Type: AWS::CertificateManager::Certificate\n    Properties:\n      DomainName:\n        Fn::Sub: ${SubDomain}.${DomainName}\n      SubjectAlternativeNames:\n        Fn::If:\n        - CreateApexConfig\n        - - Ref: DomainName\n        - Ref: AWS::NoValue\n      DomainValidationOptions:\n      - DomainName:\n          Fn::Sub: ${SubDomain}.${DomainName}\n        HostedZoneId:\n          Ref: HostedZoneId\n      - Fn::If:\n        - CreateApexConfig\n        - DomainName:\n            Ref: DomainName\n          HostedZoneId:\n            Ref: HostedZoneId\n        - Ref: AWS::NoValue\n      ValidationMethod: DNS\nOutputs:\n  CertificateArn:\n    Description: Issued certificate\n    Value:\n      Ref: Certificate\n",
+    "StagesAvailable": [
+        "Original",
+        "Processed"
+    ]
+}
