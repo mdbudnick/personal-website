@@ -2,6 +2,7 @@ import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
+import { Construct } from 'constructs';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -9,10 +10,13 @@ import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 
-const domainName = "mike-budnick.com"
-
 export class MyWebsiteAppStack extends cdk.Stack {
-  constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+    if (!process.env.DOMAIN_NAME) {
+      throw new Error('The DOMAIN_NAME environment variable is not defined.');
+    }
+    const domainName = process.env.DOMAIN_NAME!;
+
     super(scope, id, props);
 
     const blogTable = new dynamodb.Table(this, 'BlogPosts', {
@@ -62,11 +66,11 @@ export class MyWebsiteAppStack extends cdk.Stack {
       principals: [new iam.CanonicalUserPrincipal(cloudfrontOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
     }));
 
-    const zone = route53.HostedZone.fromLookup(this, 'HostedZone', { domainName: domainName });
+    const zone = route53.HostedZone.fromLookup(this, 'HostedZone', { domainName });
 
     const certificate = new acm.Certificate(this, 'SiteCertificate',
       {
-        domainName: domainName,
+        domainName,
         validation: { method: acm.ValidationMethod.DNS, props: { hostedZone: zone } }
       });
 
@@ -129,10 +133,10 @@ export class MyWebsiteAppStack extends cdk.Stack {
           '/posts/*': { origin: new origins.RestApiOrigin(api) }
         }
       });
-
+      
       new route53.NsRecord(this, 'NSRecord', {
         zone,
-        values: zone.hostedZoneNameServers!
+        values: zone.hostedZoneNameServers ? zone.hostedZoneNameServers : []
       });
   
   }
