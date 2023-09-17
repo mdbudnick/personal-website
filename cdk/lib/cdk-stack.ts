@@ -129,8 +129,12 @@ export class MyWebsiteAppStack extends cdk.Stack {
           '/posts/*': { origin: new origins.RestApiOrigin(api) }
         }
       });
-  
 
+      new route53.NsRecord(this, 'NSRecord', {
+        zone,
+        values: zone.hostedZoneNameServers!
+      });
+  
   }
 }
 
