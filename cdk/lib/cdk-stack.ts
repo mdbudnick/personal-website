@@ -1,3 +1,4 @@
+import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -26,6 +27,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
   blogTable.grantReadData(readBlogFunction);
   blogTable.grantReadWriteData(createBlogFunction);
+
+
+  const api = new apigateway.RestApi(this, 'BlogApi');
+
+  const readBlogIntegration = new apigateway.LambdaIntegration(readBlogFunction);
+  const createBlogIntegration = new apigateway.LambdaIntegration(createBlogFunction);
+
+  api.root.addMethod('GET', readBlogIntegration);
+  api.root.addMethod('POST', createBlogIntegration);
+
 
   }
 }
