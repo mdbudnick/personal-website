@@ -106,9 +106,21 @@ export class MyWebsiteAppStack extends cdk.Stack {
         certificate: certificate,
         domainNames: [domainName],
         defaultRootObject: 'index.html',
+        errorResponses: [
+            {
+              httpStatus: 403,
+              responseHttpStatus: 403,
+              responsePagePath: '/index.html',
+            },
+            {
+              httpStatus: 404,
+              responseHttpStatus: 404,
+              responsePagePath: '/404.html',
+            },
+        ],
         defaultBehavior: {
           origin: new origins.S3Origin(assetsBucket, {
-            originAccessIdentity: cloudfrontOriginAccessIdentity
+            originAccessIdentity: cloudfrontOriginAccessIdentity,
           }),
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           responseHeadersPolicy: responseHeaderPolicy
