@@ -1,11 +1,15 @@
+import * as acm from 'aws-cdk-lib/aws-certificatemanager';
 import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as s3 from 'aws-cdk-lib/aws-s3';
 import * as targets from 'aws-cdk-lib/aws-route53-targets';
+
+const domainName = "mike-budnick.com"
 
 export class MyWebsiteAppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
@@ -41,41 +45,31 @@ export class MyWebsiteAppStack extends cdk.Stack {
     api.root.addMethod('GET', readBlogIntegration);
     api.root.addMethod('POST', createBlogIntegration);
 
-    const websiteBucket = new s3.Bucket(this, 'personal-website-budnick', {
-      publicReadAccess: true,
+    const assetsBucket = new s3.Bucket(this, 'personal-website-budnick', {
+      publicReadAccess: false,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
       removalPolicy: cdk.RemovalPolicy.RETAIN,
-    });
-    
-    const websiteDistribution = new cloudfront.CloudFrontWebDistribution(this, 'WebsiteDistribution', {
-      originConfigs: [
-        {
-          s3OriginSource: {
-            s3BucketSource: websiteBucket,
-          },
-          behaviors: [{ isDefaultBehavior: true }],
-        },
-      ],
+      accessControl: s3.BucketAccessControl.PRIVATE,
+      objectOwnership: s3.ObjectOwnership.BUCKET_OWNER_ENFORCED,
+      encryption: s3.BucketEncryption.S3_MANAGED,
     });
 
-    const apiDistribution = new cloudfront.CloudFrontWebDistribution(this, 'ApiDistribution', {
-      originConfigs: [
-        {
-          customOriginSource: {
-            domainName: api.restApiId + '.execute-api.' + this.region + '.amazonaws.com',
-          },
-          behaviors: [{ isDefaultBehavior: true }],
-        },
-      ],
-    });
+    const cloudfrontOriginAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'CloudFrontOriginAccessIdentity');
 
-    // Hosted Zone for the mike-budnick.com domain
-    const hostedZone = route53.HostedZone.fromHostedZoneId(this, 'MikeBudnickHostedZone', 'Z00469253W1PDTJDW07L9');
-    
-    new route53.ARecord(this, 'ApiAliasRecord', {
-      zone: hostedZone,
-      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(websiteDistribution)),
-      recordName: 'mike-budnick.com',
-    });
+    assetsBucket.addToResourcePolicy(new iam.PolicyStatement({
+      actions: ['s3:GetObject'],
+      resources: [assetsBucket.arnForObjects('*')],
+      principals: [new iam.CanonicalUserPrincipal(cloudfrontOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
+    }));
+
+    const zone = route53.HostedZone.fromLookup(this, 'HostedZone', { domainName: domainName });
+
+    const certificate = new acm.Certificate(this, 'SiteCertificate',
+      {
+        domainName: domainName,
+        validation: { method: acm.ValidationMethod.DNS, props: { hostedZone: zone } }
+      });
+
   }
 }
 
