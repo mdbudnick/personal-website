@@ -125,6 +125,9 @@ export class MyWebsiteAppStack extends cdk.Stack {
           viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
           responseHeadersPolicy: responseHeaderPolicy
         },
+        additionalBehaviors: {
+          '/posts/*': { origin: new origins.RestApiOrigin(api) }
+        }
       });
   
 
