@@ -1,7 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
+import * as lambda from 'aws-cdk-lib/aws-lambda';
 
-export class MyBlogAppStack extends cdk.Stack {
+export class MyWebsiteAppStack extends cdk.Stack {
   constructor(scope: cdk.Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
@@ -9,6 +10,23 @@ export class MyBlogAppStack extends cdk.Stack {
       partitionKey: { name: 'postId', type: dynamodb.AttributeType.STRING },
       removalPolicy: cdk.RemovalPolicy.RETAIN // Only for dev, use different policy for production.
     });
+
+  const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
+    runtime: lambda.Runtime.NODEJS_18_X,
+    handler: 'read.handler', // You'll need to create this handler function.
+    code: lambda.Code.fromAsset('lambda'), // Put your Lambda code in a 'lambda' directory.
+  });
+
+  const createBlogFunction = new lambda.Function(this, 'CreateBlogFunction', {
+    runtime: lambda.Runtime.NODEJS_18_X,
+    handler: 'create.handler', // You'll need to create this handler function.
+    code: lambda.Code.fromAsset('lambda'),
+  });
+
+
+  blogTable.grantReadData(readBlogFunction);
+  blogTable.grantReadWriteData(createBlogFunction);
+
   }
 }
 
