@@ -5,9 +5,9 @@ import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
+import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as targets from 'aws-cdk-lib/aws-route53-targets';
 
 const domainName = "mike-budnick.com"
 
@@ -101,6 +101,20 @@ export class MyWebsiteAppStack extends cdk.Stack {
           }
         }
       });
+
+      const cloudfrontDistribution = new cloudfront.Distribution(this, 'CloudFrontDistribution', {
+        certificate: certificate,
+        domainNames: [domainName],
+        defaultRootObject: 'index.html',
+        defaultBehavior: {
+          origin: new origins.S3Origin(assetsBucket, {
+            originAccessIdentity: cloudfrontOriginAccessIdentity
+          }),
+          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+          responseHeadersPolicy: responseHeaderPolicy
+        },
+      });
+  
 
   }
 }
