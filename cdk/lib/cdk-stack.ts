@@ -70,6 +70,38 @@ export class MyWebsiteAppStack extends cdk.Stack {
         validation: { method: acm.ValidationMethod.DNS, props: { hostedZone: zone } }
       });
 
+      const responseHeaderPolicy = new cloudfront.ResponseHeadersPolicy(this, 'SecurityHeadersResponseHeaderPolicy', {
+        comment: 'Security headers response header policy',
+        securityHeadersBehavior: {
+          contentSecurityPolicy: {
+            override: true,
+            contentSecurityPolicy: "default-src 'self'"
+          },
+          strictTransportSecurity: {
+            override: true,
+            accessControlMaxAge: cdk.Duration.days(2 * 365),
+            includeSubdomains: true,
+            preload: true
+          },
+          contentTypeOptions: {
+            override: true
+          },
+          referrerPolicy: {
+            override: true,
+            referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+          },
+          xssProtection: {
+            override: true,
+            protection: true,
+            modeBlock: true
+          },
+          frameOptions: {
+            override: true,
+            frameOption: cloudfront.HeadersFrameOption.DENY
+          }
+        }
+      });
+
   }
 }
 
