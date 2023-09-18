@@ -4,7 +4,9 @@ if [[ $# -ge 2 ]]; then
     export CDK_DEPLOY_ACCOUNT=$1
     export CDK_DEPLOY_REGION=$2
     shift; shift
+    zip -r www.zip ../www
     npx cdk deploy "$@"
+    rm -r www.zip
     exit $?
 else
     echo 1>&2 "Provide account and region as first two args."
