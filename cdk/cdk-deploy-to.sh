@@ -5,8 +5,9 @@ if [[ $# -ge 4 ]]; then
     export CDK_DEPLOY_REGION=$2
     export BUCKET_NAME=$3
     export DOMAIN_NAME=$4
-    shift; shift
+    shift; shift; shift; shift
     zip -r www.zip ../www
+    npx cdk bootstrap
     npx cdk deploy "$@"
     rm -r www.zip
     exit $?

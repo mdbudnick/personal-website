@@ -3,6 +3,7 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { Construct } from 'constructs';
+import { Duration } from 'aws-cdk-lib/core';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
@@ -58,7 +59,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const assetsBucket = s3.Bucket.fromBucketName(this, 'WebsiteBucket', bucketName);
 
     new s3deployment.BucketDeployment(this, "StaticSite", {
-      sources: [s3deployment.Source.asset('../www.zip')],
+      sources: [s3deployment.Source.asset('./www.zip')],
       destinationBucket: assetsBucket,
     });
 
