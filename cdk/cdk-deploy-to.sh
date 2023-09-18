@@ -6,10 +6,8 @@ if [[ $# -ge 4 ]]; then
     export BUCKET_NAME=$3
     export DOMAIN_NAME=$4
     shift; shift; shift; shift
-    zip -r www.zip ../www
     npx cdk bootstrap
     npx cdk deploy "$@"
-    rm -r www.zip
     exit $?
 else
     echo 1>&2 "Provide account and region as first two args."
