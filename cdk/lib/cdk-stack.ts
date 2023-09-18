@@ -3,28 +3,31 @@ import * as apigateway from 'aws-cdk-lib/aws-apigateway';
 import * as cdk from 'aws-cdk-lib';
 import * as cloudfront from 'aws-cdk-lib/aws-cloudfront';
 import { Construct } from 'constructs';
-import { Duration } from 'aws-cdk-lib/core';
 import * as dynamodb from 'aws-cdk-lib/aws-dynamodb';
 import * as iam from 'aws-cdk-lib/aws-iam';
 import * as lambda from 'aws-cdk-lib/aws-lambda';
 import * as origins from 'aws-cdk-lib/aws-cloudfront-origins';
 import * as route53 from 'aws-cdk-lib/aws-route53';
 import * as s3 from 'aws-cdk-lib/aws-s3';
-import * as s3deployment from "aws-cdk-lib/aws-s3-deployment";
 
+export interface MyWebsiteAppStackProps extends cdk.StackProps {
+  stage: string;
+  domainName: string;
+  staticBucketName: string;
+}
 
 export class MyWebsiteAppStack extends cdk.Stack {
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
-    if (!process.env.DOMAIN_NAME) {
-      throw new Error('The DOMAIN_NAME environment variable is not defined.');
-    }
-    const domainName = process.env.DOMAIN_NAME!;
-    if (!process.env.BUCKET_NAME) {
-      throw new Error('The BUCKET_NAME environment variable is not defined.');
-    }
-    const bucketName = process.env.BUCKET_NAME;
-
+  constructor(scope: Construct, id: string, props?: MyWebsiteAppStackProps) {
     super(scope, id, props);
+    if (!props || !props.domainName || props.domainName == '') {
+      throw new Error('The domainName property is not defined.');
+    }
+    const domainName = props.domainName;
+
+    if (!props || !props.staticBucketName || props.staticBucketName == '') {
+      throw new Error('The staticBucketName property is not defined.');
+    }
+    const bucketName = props.staticBucketName;
 
     const blogTable = new dynamodb.Table(this, 'BlogPosts', {
       partitionKey: { name: 'postId', type: dynamodb.AttributeType.STRING },
@@ -33,13 +36,13 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
       runtime: lambda.Runtime.NODEJS_18_X,
-      handler: 'readHandler',
+      handler: 'index.readHandler',
       code: lambda.Code.fromAsset('lambda'),
     });
 
     const createBlogFunction = new lambda.Function(this, 'CreateBlogFunction', {
       runtime: lambda.Runtime.NODEJS_18_X,
-      handler: 'createHandler',
+      handler: 'index.createHandler',
       code: lambda.Code.fromAsset('lambda'),
     });
 
@@ -58,24 +61,28 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     const assetsBucket = s3.Bucket.fromBucketName(this, 'WebsiteBucket', bucketName);
 
-    new s3deployment.BucketDeployment(this, "StaticSite", {
-      sources: [s3deployment.Source.asset('./www.zip')],
-      destinationBucket: assetsBucket,
-    });
-
     const cloudfrontOriginAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'CloudFrontOriginAccessIdentity');
-
-    assetsBucket.addToResourcePolicy(new iam.PolicyStatement({
-      actions: ['s3:GetObject'],
-      resources: [assetsBucket.arnForObjects('*')],
-      principals: [new iam.CanonicalUserPrincipal(cloudfrontOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId)],
-    }));
+    
+    // We need to add this policy explicitly: https://stackoverflow.com/a/60917015/5637762
+    const policyStatement = new iam.PolicyStatement();
+    policyStatement.addActions('s3:GetBucket*');
+    policyStatement.addActions('s3:GetObject*');
+    policyStatement.addActions('s3:List*');
+    policyStatement.addResources(assetsBucket.bucketArn);
+    policyStatement.addResources(`${assetsBucket.bucketArn}/*`);
+    policyStatement.addCanonicalUserPrincipal(cloudfrontOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId);
+    if( !assetsBucket.policy ) {
+      new s3.BucketPolicy(this, 'Policy', { bucket: assetsBucket }).document.addStatements(policyStatement);
+    } else {
+      assetsBucket.policy.document.addStatements(policyStatement);
+    }
 
     const zone = route53.HostedZone.fromLookup(this, 'HostedZone', { domainName });
 
     const certificate = new acm.Certificate(this, 'SiteCertificate',
       {
         domainName,
+        subjectAlternativeNames: ['www.' + domainName],
         validation: { method: acm.ValidationMethod.DNS, props: { hostedZone: zone } }
       });
 
@@ -112,8 +119,10 @@ export class MyWebsiteAppStack extends cdk.Stack {
       });
 
       const cloudfrontDistribution = new cloudfront.Distribution(this, 'CloudFrontDistribution', {
-        certificate: certificate,
-        domainNames: [domainName],
+        certificate,
+        domainNames: [domainName, 'www.' + domainName],
+        sslSupportMethod: cloudfront.SSLMethod.SNI,
+        minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2018,
         defaultRootObject: 'index.html',
         errorResponses: [
             {
@@ -136,14 +145,12 @@ export class MyWebsiteAppStack extends cdk.Stack {
         },
         additionalBehaviors: {
           '/posts/*': { origin: new origins.RestApiOrigin(api) }
-        }
+        },
+        enableLogging: true,
+        logIncludesCookies: true,
+        logFilePrefix: 'cloudfront-logs/',
       });
-      
-      new route53.NsRecord(this, 'NSRecord', {
-        zone,
-        values: zone.hostedZoneNameServers ? zone.hostedZoneNameServers : []
-      });
-  
   }
+  
 }
 
