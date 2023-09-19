@@ -1,18 +1,25 @@
-#!/usr/bin/env bash
+#!/bin/bash
 
-if [[ $# -ge 4 ]]; then
-    export CDK_DEPLOY_ACCOUNT=$1
-    export CDK_DEPLOY_REGION=$2
-    export BUCKET_NAME=$3
-    export DOMAIN_NAME=$4
-    shift; shift; shift; shift
-    npm run build
-    npx cdk bootstrap
-    npx cdk deploy "$@"
-    exit $?
-else
-    echo 1>&2 "Provide account and region as first two args."
-    echo 1>&2 "Provide bucket and domain name as third and fourth args, respectively."
-    echo 1>&2 "Additional args are passed through to cdk deploy."
-    exit 1
+# Check if .env file exists
+if [ ! -f .env ]; then
+  echo "Error: .env file not found."
+  exit 1
 fi
+
+# Load environment variables from .env file
+set -a
+source .env
+set +a
+
+# Check if required environment variables are set
+if [ -z "$CDK_DEPLOY_ACCOUNT" ] || [ -z "$CDK_DEPLOY_REGION" ] || [ -z "$DOMAIN_NAME" ] || [ -z "$BUCKET_NAME" ]; then
+  echo "Error: Required environment variables not set in .env file."
+  exit 1
+fi
+
+# Compile Typescript
+npm run build
+
+# Continue with CDK deployment
+npx cdk bootstrap
+npx cdk deploy "$@"
