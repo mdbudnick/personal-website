@@ -30,21 +30,10 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     const bucketName = props.staticBucketName;
 
-    
     const blogTable = this.createDynamoDbTable();
 
-    const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
-      runtime: lambda.Runtime.NODEJS_16_X,
-      handler: 'read.handler',
-      code: lambda.Code.fromAsset('lambda')
-    });
-
-    const createBlogFunction = new lambda.Function(this, 'CreateBlogFunction', {
-      runtime: lambda.Runtime.NODEJS_16_X,
-      handler: 'create.handler',
-      code: lambda.Code.fromAsset('lambda'),
-    });
-
+    const readBlogFunction = this.createReadLambda();
+    const createBlogFunction = this.createUpsertLambda();
 
     blogTable.grantReadData(readBlogFunction);
     blogTable.grantReadWriteData(createBlogFunction);
@@ -170,6 +159,22 @@ export class MyWebsiteAppStack extends cdk.Stack {
       removalPolicy: cdk.RemovalPolicy.RETAIN
     });
   }
-  
+
+  createReadLambda() {
+    return new lambda.Function(this, 'ReadBlogFunction', {
+      runtime: lambda.Runtime.NODEJS_16_X,
+      handler: 'read.handler',
+      code: lambda.Code.fromAsset('lambda')
+    });
+  }
+
+  createUpsertLambda() {
+    return new lambda.Function(this, 'CreateBlogFunction', {
+      runtime: lambda.Runtime.NODEJS_16_X,
+      handler: 'create.handler',
+      code: lambda.Code.fromAsset('lambda')
+    });
+  }
+
 }
 
