@@ -49,21 +49,10 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const assetsBucket = s3.Bucket.fromBucketName(this, 'WebsiteBucket', bucketName);
 
     const cloudfrontOriginAccessIdentity = new cloudfront.OriginAccessIdentity(this, 'CloudFrontOriginAccessIdentity');
-    
     // We need to add this policy explicitly: https://stackoverflow.com/a/60917015/5637762
-    const policyStatement = new iam.PolicyStatement();
-    policyStatement.addActions('s3:GetBucket*');
-    policyStatement.addActions('s3:GetObject*');
-    policyStatement.addActions('s3:List*');
-    policyStatement.addResources(assetsBucket.bucketArn);
-    policyStatement.addResources(`${assetsBucket.bucketArn}/*`);
-    policyStatement.addCanonicalUserPrincipal(cloudfrontOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId);
-    if( !assetsBucket.policy ) {
-      new s3.BucketPolicy(this, 'Policy', { bucket: assetsBucket }).document.addStatements(policyStatement);
-    } else {
-      assetsBucket.policy.document.addStatements(policyStatement);
-    }
+    this.createCloudfrontBucketPolicy(assetsBucket, cloudfrontOriginAccessIdentity)
 
+    // We need to create this Zone beforehand because the domain name is not managed by AWS
     const zone = route53.HostedZone.fromLookup(this, 'HostedZone', { domainName });
 
     const certificate = new acm.Certificate(this, 'SiteCertificate',
@@ -176,5 +165,55 @@ export class MyWebsiteAppStack extends cdk.Stack {
     });
   }
 
+  createCloudfrontBucketPolicy(bucket: s3.IBucket, cfOriginAccessIdentity: cloudfront.OriginAccessIdentity) {
+    const policyStatement = new iam.PolicyStatement();
+    policyStatement.addActions('s3:GetBucket*');
+    policyStatement.addActions('s3:GetObject*');
+    policyStatement.addActions('s3:List*');
+    policyStatement.addResources(bucket.bucketArn);
+    policyStatement.addResources(`${bucket.bucketArn}/*`);
+    policyStatement.addCanonicalUserPrincipal(cfOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId);
+
+    if(!bucket.policy) {
+      new s3.BucketPolicy(this, 'Policy', { bucket }).document.addStatements(policyStatement);
+    } else {
+      bucket.policy.document.addStatements(policyStatement);
+    }
+  }
+
+  createCFResponseHeadersPolicy(): cloudfront.ResponseHeadersPolicy {
+    return new cloudfront.ResponseHeadersPolicy(this, 'SecurityHeadersResponseHeaderPolicy', {
+      comment: 'Security headers response header policy',
+      securityHeadersBehavior: {
+        contentSecurityPolicy: {
+          override: true,
+          contentSecurityPolicy: "default-src 'self'"
+        },
+        strictTransportSecurity: {
+          override: true,
+          accessControlMaxAge: cdk.Duration.days(2 * 365),
+          includeSubdomains: true,
+          preload: true
+        },
+        contentTypeOptions: {
+          override: true
+        },
+        referrerPolicy: {
+          override: true,
+          referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
+        },
+        xssProtection: {
+          override: true,
+          protection: true,
+          modeBlock: true
+        },
+        frameOptions: {
+          override: true,
+          frameOption: cloudfront.HeadersFrameOption.DENY
+        }
+      }
+    });
+  }
+  
 }
 
