@@ -30,14 +30,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const bucketName = props.staticBucketName;
 
     const blogTable = new dynamodb.Table(this, 'BlogPosts', {
+      tableName: 'BlogPosts',
       partitionKey: { name: 'postId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'created', type: dynamodb.AttributeType.NUMBER },
       removalPolicy: cdk.RemovalPolicy.RETAIN
     });
 
     const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
       runtime: lambda.Runtime.NODEJS_18_X,
       handler: 'index.readHandler',
-      code: lambda.Code.fromAsset('lambda'),
+      code: lambda.Code.fromAsset('lambda')
     });
 
     const createBlogFunction = new lambda.Function(this, 'CreateBlogFunction', {
@@ -144,6 +146,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
           responseHeadersPolicy: responseHeaderPolicy
         },
         additionalBehaviors: {
+          '/posts': { origin: new origins.RestApiOrigin(api) },
           '/posts/*': { origin: new origins.RestApiOrigin(api) }
         },
         enableLogging: true,
