@@ -35,13 +35,13 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
       runtime: lambda.Runtime.NODEJS_16_X,
-      handler: 'index.readHandler',
+      handler: 'read.handler',
       code: lambda.Code.fromAsset('lambda')
     });
 
     const createBlogFunction = new lambda.Function(this, 'CreateBlogFunction', {
       runtime: lambda.Runtime.NODEJS_16_X,
-      handler: 'index.createHandler',
+      handler: 'create.handler',
       code: lambda.Code.fromAsset('lambda'),
     });
 
