@@ -39,13 +39,13 @@ export class MyWebsiteAppStack extends cdk.Stack {
     });
 
     const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       handler: 'index.readHandler',
       code: lambda.Code.fromAsset('lambda')
     });
 
     const createBlogFunction = new lambda.Function(this, 'CreateBlogFunction', {
-      runtime: lambda.Runtime.NODEJS_18_X,
+      runtime: lambda.Runtime.NODEJS_16_X,
       handler: 'index.createHandler',
       code: lambda.Code.fromAsset('lambda'),
     });
@@ -53,7 +53,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     blogTable.grantReadData(readBlogFunction);
     blogTable.grantReadWriteData(createBlogFunction);
-
 
     const api = new apigateway.RestApi(this, 'BlogApi');
 
