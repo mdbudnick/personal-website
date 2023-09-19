@@ -38,13 +38,13 @@ export class MyWebsiteAppStack extends cdk.Stack {
     blogTable.grantReadData(readBlogFunction);
     blogTable.grantReadWriteData(createBlogFunction);
 
-    const api = new apigateway.RestApi(this, 'BlogApi');
+    const lambdaApiGateway = new apigateway.RestApi(this, 'BlogApi');
 
     const readBlogIntegration = new apigateway.LambdaIntegration(readBlogFunction);
     const createBlogIntegration = new apigateway.LambdaIntegration(createBlogFunction);
 
-    api.root.addMethod('GET', readBlogIntegration);
-    api.root.addMethod('POST', createBlogIntegration);
+    lambdaApiGateway.root.addMethod('GET', readBlogIntegration);
+    lambdaApiGateway.root.addMethod('POST', createBlogIntegration);
 
     const assetsBucket = s3.Bucket.fromBucketName(this, 'WebsiteBucket', bucketName);
 
@@ -62,77 +62,15 @@ export class MyWebsiteAppStack extends cdk.Stack {
         validation: { method: acm.ValidationMethod.DNS, props: { hostedZone: zone } }
       });
 
-      const responseHeaderPolicy = new cloudfront.ResponseHeadersPolicy(this, 'SecurityHeadersResponseHeaderPolicy', {
-        comment: 'Security headers response header policy',
-        securityHeadersBehavior: {
-          contentSecurityPolicy: {
-            override: true,
-            contentSecurityPolicy: "default-src 'self'"
-          },
-          strictTransportSecurity: {
-            override: true,
-            accessControlMaxAge: cdk.Duration.days(2 * 365),
-            includeSubdomains: true,
-            preload: true
-          },
-          contentTypeOptions: {
-            override: true
-          },
-          referrerPolicy: {
-            override: true,
-            referrerPolicy: cloudfront.HeadersReferrerPolicy.STRICT_ORIGIN_WHEN_CROSS_ORIGIN
-          },
-          xssProtection: {
-            override: true,
-            protection: true,
-            modeBlock: true
-          },
-          frameOptions: {
-            override: true,
-            frameOption: cloudfront.HeadersFrameOption.DENY
-          }
-        }
-      });
+      const responseHeaderPolicy = this.createCFResponseHeadersPolicy();
 
-      const cloudfrontDistribution = new cloudfront.Distribution(this, 'CloudFrontDistribution', {
-        certificate,
-        domainNames: [domainName, `www.${domainName}`],
-        sslSupportMethod: cloudfront.SSLMethod.SNI,
-        minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2018,
-        defaultRootObject: 'index.html',
-        errorResponses: [
-            {
-              httpStatus: 403,
-              responseHttpStatus: 403,
-              responsePagePath: '/index.html',
-            },
-            {
-              httpStatus: 404,
-              responseHttpStatus: 404,
-              responsePagePath: '/404.html',
-            },
-        ],
-        defaultBehavior: {
-          origin: new origins.S3Origin(assetsBucket, {
-            originAccessIdentity: cloudfrontOriginAccessIdentity,
-          }),
-          viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
-          responseHeadersPolicy: responseHeaderPolicy
-        },
-        additionalBehaviors: {
-          '/posts': { origin: new origins.RestApiOrigin(api) },
-          '/posts/*': { origin: new origins.RestApiOrigin(api) }
-        },
-        enableLogging: true,
-        logIncludesCookies: true,
-        logFilePrefix: 'cloudfront-logs/',
-      });
+      const distribution = this.createDistribution(certificate, domainName, assetsBucket, cloudfrontOriginAccessIdentity, lambdaApiGateway, responseHeaderPolicy);
 
-      // Create a new CNAME record for "www." + domainName pointing to CloudFront
+      // Create a new CNAME record for "www." + domainName pointing to the new distribution
       new route53.CnameRecord(this, 'CnameRecord', {
         zone,
         recordName: `www.${domainName}`,
-        domainName: cloudfrontDistribution.domainName,
+        domainName: distribution.domainName,
         ttl: cdk.Duration.minutes(5),
         deleteExisting: true
       });
@@ -212,6 +150,42 @@ export class MyWebsiteAppStack extends cdk.Stack {
           frameOption: cloudfront.HeadersFrameOption.DENY
         }
       }
+    });
+  }
+
+  createDistribution(certificate: acm.Certificate, domainName: string, bucket: s3.IBucket, oai: cloudfront.OriginAccessIdentity, apiGateway: apigateway.RestApi, headersPolicy: cloudfront.ResponseHeadersPolicy): cloudfront.Distribution {
+    return new cloudfront.Distribution(this, 'CloudFrontDistribution', {
+      certificate,
+      domainNames: [domainName, `www.${domainName}`],
+      sslSupportMethod: cloudfront.SSLMethod.SNI,
+      minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2018,
+      defaultRootObject: 'index.html',
+      errorResponses: [
+          {
+            httpStatus: 403,
+            responseHttpStatus: 403,
+            responsePagePath: '/index.html',
+          },
+          {
+            httpStatus: 404,
+            responseHttpStatus: 404,
+            responsePagePath: '/404.html',
+          },
+      ],
+      defaultBehavior: {
+        origin: new origins.S3Origin(bucket, {
+          originAccessIdentity: oai,
+        }),
+        viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        responseHeadersPolicy: headersPolicy
+      },
+      additionalBehaviors: {
+        '/posts': { origin: new origins.RestApiOrigin(apiGateway) },
+        '/posts/*': { origin: new origins.RestApiOrigin(apiGateway) }
+      },
+      enableLogging: true,
+      logIncludesCookies: true,
+      logFilePrefix: 'cloudfront-logs/',
     });
   }
   
