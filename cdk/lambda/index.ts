@@ -22,7 +22,12 @@ interface BlogPost {
     updated?: string;     // Timestamp when the post was last updated (optional for creates)
   }
   
-
+/**
+ * Handles GET requests to retrieve blog posts from DynamoDB.
+ *
+ * @param {APIGatewayProxyEvent} event - The incoming API Gateway event.
+ * @returns {Promise<APIGatewayProxyResult>} The API Gateway response.
+ */
 export const readHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     // Handle GET /posts request
@@ -97,6 +102,12 @@ export const readHandler = async (event: APIGatewayProxyEvent): Promise<APIGatew
   }
 };
 
+/**
+ * Handles POST requests to upsert DynamoDB BlogPosts table.
+ *
+ * @param {APIGatewayProxyEvent} event - The incoming API Gateway event.
+ * @returns {Promise<APIGatewayProxyResult>} The API Gateway response.
+ */
 exports.createHandler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
       if (!event.body) {
