@@ -86,7 +86,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const certificate = new acm.Certificate(this, 'SiteCertificate',
       {
         domainName,
-        subjectAlternativeNames: ['www.' + domainName],
+        subjectAlternativeNames: [`www.${domainName}`],
         validation: { method: acm.ValidationMethod.DNS, props: { hostedZone: zone } }
       });
 
@@ -124,7 +124,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
       const cloudfrontDistribution = new cloudfront.Distribution(this, 'CloudFrontDistribution', {
         certificate,
-        domainNames: [domainName, 'www.' + domainName],
+        domainNames: [domainName, `www.${domainName}`],
         sslSupportMethod: cloudfront.SSLMethod.SNI,
         minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2018,
         defaultRootObject: 'index.html',
@@ -154,6 +154,15 @@ export class MyWebsiteAppStack extends cdk.Stack {
         enableLogging: true,
         logIncludesCookies: true,
         logFilePrefix: 'cloudfront-logs/',
+      });
+
+      // Create a new CNAME record for "www." + domainName pointing to CloudFront
+      new route53.CnameRecord(this, 'CnameRecord', {
+        zone,
+        recordName: `www.${domainName}`,
+        domainName: cloudfrontDistribution.domainName,
+        ttl: cdk.Duration.minutes(5),
+        deleteExisting: true
       });
   }
   

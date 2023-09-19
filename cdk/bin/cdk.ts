@@ -12,3 +12,5 @@ new MyWebsiteAppStack(app, 'PersonalWebsite', {
   domainName: process.env.DOMAIN_NAME || '',
   staticBucketName: process.env.BUCKET_NAME || ''
 });
+
+app.synth();
