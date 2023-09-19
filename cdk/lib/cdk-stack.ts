@@ -77,7 +77,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
   }
  
   createDynamoDbTable() {
-    let existingTable = dynamodb.Table.fromTableName(this, 'ExistingBlogPostsTable', 'BlogPosts');
+    const existingTable = dynamodb.Table.fromTableName(this, 'ExistingBlogPostsTable', 'BlogPosts');
     
     return existingTable ? existingTable : new dynamodb.Table(this, 'BlogPosts', {
       tableName: 'BlogPosts',
