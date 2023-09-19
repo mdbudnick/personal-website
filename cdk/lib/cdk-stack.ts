@@ -67,6 +67,15 @@ export class MyWebsiteAppStack extends cdk.Stack {
         },
       ],
     });
+
+    // Hosted Zone for the mike-budnick.com domain
+    const hostedZone = route53.HostedZone.fromHostedZoneId(this, 'MikeBudnickHostedZone', 'Z00469253W1PDTJDW07L9');
+    
+    new route53.ARecord(this, 'ApiAliasRecord', {
+      zone: hostedZone,
+      target: route53.RecordTarget.fromAlias(new targets.CloudFrontTarget(websiteDistribution)),
+      recordName: 'mike-budnick.com',
+    });
   }
 }
 
