@@ -6,6 +6,7 @@ if [[ $# -ge 4 ]]; then
     export BUCKET_NAME=$3
     export DOMAIN_NAME=$4
     shift; shift; shift; shift
+    npm run build
     npx cdk bootstrap
     npx cdk deploy "$@"
     exit $?
