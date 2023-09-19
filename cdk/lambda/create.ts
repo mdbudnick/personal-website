@@ -1,13 +1,15 @@
-import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { DynamoDB } from "aws-sdk";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
 interface BlogPost {
     postId: string;       // Unique identifier for the post
     tags: string[];       // List of tags associated with the post
     title: string;        // Title of the blog post
     html: string;         // HTML content of the blog post
-    created?: string;     // Timestamp when the post was created (optional for updates)
-    updated?: string;     // Timestamp when the post was last updated (optional for creates)
+    // Timestamp when the post was created (optional for updates)
+    created?: string;
+    // Timestamp when the post was last updated (optional for creates)     
+    updated?: string;
 }
 
 const dynamoDb = new DynamoDB.DocumentClient();
@@ -18,12 +20,13 @@ const dynamoDb = new DynamoDB.DocumentClient();
  * @param {APIGatewayProxyEvent} event - The incoming API Gateway event.
  * @returns {Promise<APIGatewayProxyResult>} The API Gateway response.
  */
+// eslint-disable-next-line max-len
 exports.handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
     try {
       if (!event.body) {
         return {
             statusCode: 400,
-            body: JSON.stringify({ message: 'Blog post required' }),
+            body: JSON.stringify({ message: "Blog post required" }),
           };
       }
       const requestBody = JSON.parse(event.body);
@@ -32,7 +35,7 @@ exports.handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
       if (!requestBody.title || !requestBody.html) {
         return {
           statusCode: 400,
-          body: JSON.stringify({ message: 'Title and HTML are required' }),
+          body: JSON.stringify({ message: "Title and HTML are required" }),
         };
       }
   
@@ -41,7 +44,8 @@ exports.handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
   
       const timestamp = new Date().toISOString();
       const item: BlogPost = {
-        postId: isUpdate ? requestBody.postId : timestamp, // Use postId for update or timestamp for create
+        // Use postId for update or timestamp for create
+        postId: isUpdate ? requestBody.postId : timestamp, 
         tags: requestBody.tags || [],
         title: requestBody.title,
         html: requestBody.html,
@@ -50,7 +54,7 @@ exports.handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
       };
   
       const params = {
-        TableName: 'BlogPosts',
+        TableName: "BlogPosts",
         Item: item,
       };
   
@@ -59,14 +63,16 @@ exports.handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyRe
   
       return {
         statusCode: isUpdate ? 200 : 201,
-        body: JSON.stringify({ message: isUpdate ? 'Post updated' : 'Post created' }),
+        body: JSON.stringify(
+          { message: isUpdate ? "Post updated" : "Post created" }
+        ),
       };
     } catch (error) {
-      console.error('Error:', error);
+      console.error("Error:", error);
   
       return {
         statusCode: 500,
-        body: JSON.stringify({ error: 'Internal Server Error' }),
+        body: JSON.stringify({ error: "Internal Server Error" }),
       };
     }
   };

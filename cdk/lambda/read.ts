@@ -1,5 +1,5 @@
-import { DynamoDB } from 'aws-sdk';
-import { APIGatewayProxyEvent, APIGatewayProxyResult } from 'aws-lambda';
+import { DynamoDB } from "aws-sdk";
+import { APIGatewayProxyEvent, APIGatewayProxyResult } from "aws-lambda";
 
 const dynamoDb = new DynamoDB.DocumentClient();
   
@@ -9,12 +9,13 @@ const dynamoDb = new DynamoDB.DocumentClient();
  * @param {APIGatewayProxyEvent} event - The incoming API Gateway event.
  * @returns {Promise<APIGatewayProxyResult>} The API Gateway response.
  */
+// eslint-disable-next-line max-len
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     // Handle GET /posts request
-    if (event.path === '/posts' || event.path === '/posts/') {
+    if (event.path === "/posts" || event.path === "/posts/") {
       const params = {
-        TableName: 'BlogPosts',
+        TableName: "BlogPosts",
         Limit: 20,
       };
 
@@ -36,16 +37,16 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     } else {
         return {
             statusCode: 500,
-            body: JSON.stringify({ error: 'Problem retrieving posts' }),
+            body: JSON.stringify({ error: "Problem retrieving posts" }),
         };
     }
 
     // Handle GET /posts/{postId} request
-    if (event.path.startsWith('/posts/')) {
-      const postId = event.path.substring('/posts/'.length);
+    if (event.path.startsWith("/posts/")) {
+      const postId = event.path.substring("/posts/".length);
 
       const params = {
-        TableName: 'BlogPosts',
+        TableName: "BlogPosts",
         Key: {
           postId: postId,
         },
@@ -56,7 +57,7 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
       if (!data.Item) {
         return {
           statusCode: 404,
-          body: JSON.stringify({ message: 'Post not found' }),
+          body: JSON.stringify({ message: "Post not found" }),
         };
       }
 
@@ -71,14 +72,14 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
     // Handle unsupported routes
     return {
       statusCode: 404,
-      body: JSON.stringify({ message: 'Not Found' }),
+      body: JSON.stringify({ message: "Not Found" }),
     };
   } catch (error) {
-    console.error('Error reading from DynamoDB', error);
+    console.error("Error reading from DynamoDB", error);
 
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Internal Server Error' }),
+      body: JSON.stringify({ error: "Internal Server Error" }),
     };
   }
 };
