@@ -18,8 +18,8 @@ export interface MyWebsiteAppStackProps extends cdk.StackProps {
 
 export class MyWebsiteAppStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: MyWebsiteAppStackProps) {
-  
     super(scope, id, props);
+
     if (!props || !props.domainName || props.domainName == '') {
       throw new Error('The domainName property is not defined.');
     }
@@ -29,14 +29,9 @@ export class MyWebsiteAppStack extends cdk.Stack {
       throw new Error('The staticBucketName property is not defined.');
     }
     const bucketName = props.staticBucketName;
+
     
-    let existingTable = dynamodb.Table.fromTableName(this, 'ExistingBlogPostsTable', 'BlogPosts');
-    const blogTable = existingTable ? existingTable : new dynamodb.Table(this, 'BlogPosts', {
-      tableName: 'BlogPosts',
-      partitionKey: { name: 'postId', type: dynamodb.AttributeType.STRING },
-      sortKey: { name: 'created', type: dynamodb.AttributeType.NUMBER },
-      removalPolicy: cdk.RemovalPolicy.RETAIN
-    });
+    const blogTable = this.createDynamoDbTable();
 
     const readBlogFunction = new lambda.Function(this, 'ReadBlogFunction', {
       runtime: lambda.Runtime.NODEJS_16_X,
@@ -163,6 +158,17 @@ export class MyWebsiteAppStack extends cdk.Stack {
         ttl: cdk.Duration.minutes(5),
         deleteExisting: true
       });
+  }
+ 
+  createDynamoDbTable() {
+    let existingTable = dynamodb.Table.fromTableName(this, 'ExistingBlogPostsTable', 'BlogPosts');
+    
+    return existingTable ? existingTable : new dynamodb.Table(this, 'BlogPosts', {
+      tableName: 'BlogPosts',
+      partitionKey: { name: 'postId', type: dynamodb.AttributeType.STRING },
+      sortKey: { name: 'created', type: dynamodb.AttributeType.NUMBER },
+      removalPolicy: cdk.RemovalPolicy.RETAIN
+    });
   }
   
 }
