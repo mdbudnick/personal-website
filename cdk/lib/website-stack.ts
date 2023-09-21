@@ -69,7 +69,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     // We need to create this Zone beforehand because the domain name is not managed by AWS
     const zone =
       props.environment == "test"
-        ? new route53.HostedZone(this, "TestZone", {zoneName: "testing"})
+        ? new route53.HostedZone(this, "TestZone", { zoneName: "testing" })
         : route53.HostedZone.fromLookup(this, "HostedZone", {
             domainName,
           });
@@ -109,20 +109,18 @@ export class MyWebsiteAppStack extends cdk.Stack {
     let table: dynamodb.ITable;
 
     if (environment == "production") {
-      table = dynamodb.Table.fromTableName(
-        this,
-        "BlogPostsTable",
-        "BlogPosts"
-      );
-    } else {
-      table = new dynamodb.Table(this, "BlogPosts", {
-        tableName: "BlogPosts-" + environment,
-        partitionKey: { name: "postId", type: dynamodb.AttributeType.STRING },
-        sortKey: { name: "created", type: dynamodb.AttributeType.NUMBER },
-        removalPolicy: cdk.RemovalPolicy.RETAIN,
-      });
+      table = dynamodb.Table.fromTableName(this, "BlogPostsTable", "BlogPosts");
     }
-    
+    table ??= new dynamodb.Table(this, "BlogPosts", {
+      tableName: "BlogPosts-" + environment,
+      partitionKey: { name: "postId", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "created", type: dynamodb.AttributeType.NUMBER },
+      removalPolicy:
+        environment == "production"
+          ? cdk.RemovalPolicy.RETAIN
+          : cdk.RemovalPolicy.DESTROY,
+    });
+
     return table;
   }
 
