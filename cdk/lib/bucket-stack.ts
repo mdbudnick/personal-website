@@ -16,7 +16,7 @@ export class StaticWebsiteBucket extends cdk.Stack {
   constructor(scope: Construct, id: string, props?: StaticWebsiteBucketProps) {
     super(scope, id, props);
     
-    const bucket = new s3.Bucket(this, "WebsiteFiles", {
+    const bucket = new s3.Bucket(this, "WebsiteBucket", {
       bucketName: props?.bucketName,
       websiteIndexDocument: "index.html",
       blockPublicAccess: {
@@ -27,17 +27,19 @@ export class StaticWebsiteBucket extends cdk.Stack {
       },
       publicReadAccess: true,
       removalPolicy:
-        props?.environment == "development"
+        props?.environment != "production"
           ? cdk.RemovalPolicy.DESTROY
           : cdk.RemovalPolicy.RETAIN,
-          autoDeleteObjects: props?.environment == "development",
+          autoDeleteObjects: props?.environment != "production",
     });
+
+    // We do this to have an explicit dependency
+    // Creating an output was not working
+    this.bucketName = bucket.bucketName;
 
     new s3deployment.BucketDeployment(this, "PushFiles", {
       sources: [s3deployment.Source.asset(path)],
       destinationBucket: bucket,
     });
-
-    this.bucketName = bucket.bucketName;
   }
 }
