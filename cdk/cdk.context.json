@@ -2,5 +2,9 @@
   "hosted-zone:account=685200932158:domainName=mike-budnick.com:region=us-east-1": {
     "Id": "/hostedzone/Z00469253W1PDTJDW07L9",
     "Name": "mike-budnick.com."
+  },
+  "hosted-zone:account=685200932158:domainName=michaelbudnick.dev:region=us-east-1": {
+    "Id": "/hostedzone/Z01881881CAYHFJLNBTNE",
+    "Name": "michaelbudnick.dev."
   }
 }

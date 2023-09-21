@@ -11,7 +11,7 @@ import * as route53 from "aws-cdk-lib/aws-route53";
 import * as s3 from "aws-cdk-lib/aws-s3";
 
 export interface MyWebsiteAppStackProps extends cdk.StackProps {
-  stage: string;
+  environment: string;
   domainName: string;
   staticBucketName: string;
 }
@@ -73,7 +73,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     const certificate = new acm.Certificate(this, "SiteCertificate", {
       domainName,
-      subjectAlternativeNames: [`www.${domainName}`],
+      subjectAlternativeNames: [`*.${domainName}`],
       validation: {
         method: acm.ValidationMethod.DNS,
         props: { hostedZone: zone },
