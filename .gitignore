@@ -86,9 +86,10 @@ web_modules/
 .yarn-integrity
 
 .env
-.env.development.local
-.env.test.local
-.env.production.local
+.env.development
+.env.test
+.env.staging
+.env.production
 .env.local
 
 .cache
