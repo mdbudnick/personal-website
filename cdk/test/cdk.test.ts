@@ -100,15 +100,20 @@ describe("PersonalWebsiteBucket", () => {
         });
       });
 
-      test("Route53 RecordSet Created", () => {
-
-      })
+      const hostedZoneName = "testing.";
+      test("Route53 HostedZone is present", () => {
+        template.resourceCountIs("AWS::Route53::HostedZone", 1);
+        
+        template.hasResourceProperties("AWS::Route53::HostedZone", {
+            "Name": hostedZoneName
+        });
+      });
 
       test("Route53 RecordSet Created", () => {
         template.resourceCountIs("AWS::Route53::RecordSet", 1);
         
         template.hasResourceProperties("AWS::Route53::RecordSet", {
-            "Name": ["www", process.env.DOMAIN_NAME, "testing."].join("."),
+            "Name": ["www", process.env.DOMAIN_NAME, hostedZoneName].join("."),
             "Type": "CNAME"
         });
       });
