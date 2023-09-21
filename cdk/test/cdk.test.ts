@@ -92,6 +92,12 @@ describe("PersonalWebsiteBucket", () => {
       test("ACM Certificate Created", () => {
         template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
 
+        template.hasResourceProperties("AWS::CertificateManager::Certificate", {
+            "DomainName": process.env.DOMAIN_NAME,
+            "SubjectAlternativeNames": [
+                "*." + process.env.DOMAIN_NAME
+              ]
+        });
       });
 
       test("Route53 RecordSet Created", () => {
