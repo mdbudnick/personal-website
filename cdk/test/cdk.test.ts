@@ -101,8 +101,17 @@ describe("PersonalWebsiteBucket", () => {
       });
 
       test("Route53 RecordSet Created", () => {
-        template.resourceCountIs("AWS::Route53::RecordSet", 1);
+
       })
+
+      test("Route53 RecordSet Created", () => {
+        template.resourceCountIs("AWS::Route53::RecordSet", 1);
+        
+        template.hasResourceProperties("AWS::Route53::RecordSet", {
+            "Name": ["www", process.env.DOMAIN_NAME, "testing."].join("."),
+            "Type": "CNAME"
+        });
+      });
 
       test("Route53 RecordSet Deleted", () => {
         template.resourceCountIs("Custom::DeleteExistingRecordSet", 1);
