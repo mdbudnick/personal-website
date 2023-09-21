@@ -30,7 +30,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     const bucketName = props.staticBucketName;
 
-    const blogTable = this.createDynamoDbTable();
+    const blogTable = this.createDynamoDbTable(props.environment);
 
     const readBlogFunction = this.createReadLambda();
     const createBlogFunction = this.createUpsertLambda();
@@ -104,21 +104,26 @@ export class MyWebsiteAppStack extends cdk.Stack {
     });
   }
 
-  createDynamoDbTable() {
-    const existingTable = dynamodb.Table.fromTableName(
-      this,
-      "ExistingBlogPostsTable",
-      "BlogPosts"
-    );
+  createDynamoDbTable(environment: string): dynamodb.ITable {
+    // Only the production table is stable
+    let table: dynamodb.ITable;
 
-    return existingTable
-      ? existingTable
-      : new dynamodb.Table(this, "BlogPosts", {
-          tableName: "BlogPosts",
-          partitionKey: { name: "postId", type: dynamodb.AttributeType.STRING },
-          sortKey: { name: "created", type: dynamodb.AttributeType.NUMBER },
-          removalPolicy: cdk.RemovalPolicy.RETAIN,
-        });
+    if (environment == "production") {
+      table = dynamodb.Table.fromTableName(
+        this,
+        "BlogPostsTable",
+        "BlogPosts"
+      );
+    } else {
+      table = new dynamodb.Table(this, "BlogPosts", {
+        tableName: "BlogPosts-" + environment,
+        partitionKey: { name: "postId", type: dynamodb.AttributeType.STRING },
+        sortKey: { name: "created", type: dynamodb.AttributeType.NUMBER },
+        removalPolicy: cdk.RemovalPolicy.RETAIN,
+      });
+    }
+    
+    return table;
   }
 
   createReadLambda() {
