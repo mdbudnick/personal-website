@@ -1,6 +1,7 @@
 import * as cdk from "aws-cdk-lib";
 import { Template } from "aws-cdk-lib/assertions";
 import { StaticWebsiteBucket } from "../lib/bucket-stack";
+import { MyWebsiteAppStack } from "../lib/website-stack"
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: ".env.test" });
@@ -46,3 +47,55 @@ describe("PersonalWebsiteBucket", () => {
     });
   });
 });
+
+describe("PersonalWebsiteBucket", () => {
+    const app = new cdk.App();
+  
+    const websiteStack = new MyWebsiteAppStack(app, "PersonalWebsite", {
+        env: {
+            account: process.env.CDK_DEFAULT_ACCOUNT,
+            region: process.env.CDK_DEFAULT_REGION,
+          },
+          environment: "test",
+          domainName: process.env.DOMAIN_NAME || "",
+          staticBucketName: process.env.BUCKET_NAME!,
+    });
+  
+    const template = Template.fromStack(websiteStack);
+  
+    test("Lambda Functions Created", () => {
+      // 1 each for Read and Create blog posts
+      // 1 for replacing the CNAME record
+      template.resourceCountIs("AWS::Lambda::Function", 3);
+    });
+  
+    test("APIGateway Created", () => {
+        template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
+        // 1 GET and 1 POST
+        template.resourceCountIs("AWS::ApiGateway::Method", 2);
+      });
+    
+      test("ACM Certificate Created", () => {
+        template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
+      });
+
+      test("Route53 RecordSet Created", () => {
+        template.resourceCountIs("AWS::Route53::RecordSet", 1);
+      })
+
+      test("Route53 RecordSet Deleted", () => {
+        template.resourceCountIs("Custom::DeleteExistingRecordSet", 1);
+      })
+
+      test("Cloudfront Distribution Created", () => {
+        template.resourceCountIs("AWS::CloudFront::Distribution", 1);
+      })
+
+      test("Cloudfront ResponseHeadersPolicy Created", () => {
+        template.resourceCountIs("AWS::CloudFront::ResponseHeadersPolicy", 1);
+      });
+
+      test("Cloudfront's S3BucketPolicy Created", () => {
+        template.resourceCountIs("AWS::S3::BucketPolicy", 1);
+      });
+  });

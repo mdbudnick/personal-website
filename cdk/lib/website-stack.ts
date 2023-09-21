@@ -67,9 +67,12 @@ export class MyWebsiteAppStack extends cdk.Stack {
     );
 
     // We need to create this Zone beforehand because the domain name is not managed by AWS
-    const zone = route53.HostedZone.fromLookup(this, "HostedZone", {
-      domainName,
-    });
+    const zone =
+      props.environment == "test"
+        ? new route53.HostedZone(this, "TestZone", {zoneName: "testing"})
+        : route53.HostedZone.fromLookup(this, "HostedZone", {
+            domainName,
+          });
 
     const certificate = new acm.Certificate(this, "SiteCertificate", {
       domainName,
@@ -79,7 +82,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
         props: { hostedZone: zone },
       },
     });
-    
+
     const responseHeaderPolicy = this.createCFResponseHeadersPolicy();
 
     const distribution = this.createDistribution(
