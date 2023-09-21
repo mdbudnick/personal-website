@@ -67,6 +67,16 @@ describe("PersonalWebsiteBucket", () => {
       // 1 each for Read and Create blog posts
       // 1 for replacing the CNAME record
       template.resourceCountIs("AWS::Lambda::Function", 3);
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        Handler: "create.handler",
+        Runtime: "nodejs16.x",
+      });
+
+      template.hasResourceProperties("AWS::Lambda::Function", {
+        Handler: "read.handler",
+        Runtime: "nodejs16.x",
+      });
     });
   
     test("APIGateway Created", () => {
