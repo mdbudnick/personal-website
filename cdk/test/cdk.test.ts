@@ -1,5 +1,5 @@
 import * as cdk from "aws-cdk-lib";
-import { Template } from "aws-cdk-lib/assertions";
+import { Match, Template } from "aws-cdk-lib/assertions";
 import { StaticWebsiteBucket } from "../lib/bucket-stack";
 import { MyWebsiteAppStack } from "../lib/website-stack"
 
@@ -124,6 +124,39 @@ describe("PersonalWebsiteBucket", () => {
 
       test("Cloudfront Distribution Created", () => {
         template.resourceCountIs("AWS::CloudFront::Distribution", 1);
+
+        template.hasResourceProperties("AWS::CloudFront::Distribution", {
+            "DistributionConfig": Match.objectLike({
+                "Aliases": [
+                    process.env.DOMAIN_NAME,
+                    "www." + process.env.DOMAIN_NAME
+                ],
+                "CacheBehaviors": Match.anyValue(),
+                "CustomErrorResponses": [
+                    {
+                        "ErrorCode": 403,
+                        "ResponseCode": 403,
+                        "ResponsePagePath": "/index.html"
+                    },
+                    {
+                        "ErrorCode": 404,
+                        "ResponseCode": 404,
+                        "ResponsePagePath": "/404.html"
+                    }
+                ],
+                "DefaultCacheBehavior": Match.anyValue(),
+                "DefaultRootObject": "index.html",
+                "Enabled": true,
+                "HttpVersion": "http2",
+                "IPV6Enabled": true,
+                "Logging": Match.anyValue(),
+                "ViewerCertificate": {
+                    "AcmCertificateArn": Match.anyValue(),
+                    "MinimumProtocolVersion": "TLSv1.2_2018",
+                    "SslSupportMethod": "sni-only"
+                }
+            })
+        });
       })
 
       test("Cloudfront ResponseHeadersPolicy Created", () => {
