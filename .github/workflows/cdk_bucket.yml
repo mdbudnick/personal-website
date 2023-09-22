@@ -16,7 +16,19 @@ jobs:
         with:
           cdk_subcommand: 'deploy'
           cdk_stack: 'StaticWebsiteBucket'
-          cdk_args: '--require-approval never -c environment=production'
+          cdk_args: '--require-approval never -c environment=development'
+          actions_comment: false
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: 'us-east-1'
+
+      - name: cdk destroy
+        uses: youyo/aws-cdk-github-actions@v2
+        with:
+          cdk_subcommand: 'destroy'
+          cdk_stack: 'StaticWebsiteBucket'
+          cdk_args: '--all --require-approval never -c environment=development'
           actions_comment: false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
