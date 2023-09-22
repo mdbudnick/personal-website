@@ -87,7 +87,7 @@ web_modules/
 
 .env
 .env.development
-.env.test
+!.env.test
 .env.staging
 .env.production
 .env.local
