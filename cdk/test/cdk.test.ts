@@ -165,5 +165,9 @@ describe("PersonalWebsiteBucket", () => {
 
       test("Cloudfront's S3BucketPolicy Created", () => {
         template.resourceCountIs("AWS::S3::BucketPolicy", 1);
+
+        template.hasResourceProperties("AWS::S3::BucketPolicy", {
+            "Bucket": process.env.BUCKET_NAME,
+        });
       });
   });
