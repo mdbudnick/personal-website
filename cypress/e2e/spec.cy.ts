@@ -31,24 +31,6 @@ const middlePointContents = [
   "Scaling Addict",
 ];
 
-const certBadges = [
-  "img/cka-badge.png",
-  "img/ckad-badge.png",
-  "img/cks-badge.png"
-]
-
-const certTitles = [
-  "CKA: Certified Kubernetes Administrator",
-  "CKAD: Certified Kubernetes Application Developer",
-  "CKS: Certified Kubernetes Security Specialist"
-]
-
-const certCredlyLinks = [
-  "https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f",
-  "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
-  "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c"
-]
-
 describe("index.html", () => {
   it("has an index.html page", () => {
     cy.visit("http://localhost:3000/index.html");
@@ -163,6 +145,25 @@ describe("projects.html", () => {
     cy.get(".top-row .avatar")
   });
 });
+
+
+const certBadges = [
+  "img/cka-badge.png",
+  "img/ckad-badge.png",
+  "img/cks-badge.png"
+]
+
+const certTitles = [
+  "CKA: Certified Kubernetes Administrator",
+  "CKAD: Certified Kubernetes Application Developer",
+  "CKS: Certified Kubernetes Security Specialist"
+]
+
+const certCredlyLinks = [
+  "https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f",
+  "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
+  "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c"
+]
 
 describe("certifications.html", () => {
   it("has an certifications.html page", () => {
