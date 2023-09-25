@@ -114,6 +114,16 @@ describe("blog.html", () => {
   });
 });
 
+const projectHrefs = [
+  "https://www.breathbox.net",
+  "#"
+]
+
+const projectNames = [
+  "Breathbox",
+  "This website!"
+]
+
 describe("projects.html", () => {
   it("has an projects.html page", () => {
     cy.visit("http://localhost:3000/projects.html");
@@ -143,6 +153,14 @@ describe("projects.html", () => {
   it("projects.html avatar", () => {
     cy.visit("http://localhost:3000/projects.html");
     cy.get(".top-row .avatar")
+  });
+
+  it("projects.html projects", () => {
+    cy.visit("http://localhost:3000/projects.html");
+    cy.get(".projects .project").each(($el, i) => {
+      expect($el.children("a").attr("href")).equals(projectHrefs[i]);
+      expect($el.children("a").text()).equals(projectNames[i]);
+    });
   });
 });
 
