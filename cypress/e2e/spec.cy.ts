@@ -105,6 +105,13 @@ describe("blog.html", () => {
     cy.visit("http://localhost:3000/blog.html");
     cy.get(".top-row .avatar")
   });
+
+  it("blog.html blog", () => {
+    cy.visit("http://localhost:3000/blog.html");
+    cy.get(".blog")
+    cy.get(".blog .wordcloud")
+    cy.get(".blog .posts")
+  });
 });
 
 describe("projects.html", () => {
