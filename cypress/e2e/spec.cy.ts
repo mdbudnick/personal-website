@@ -31,6 +31,12 @@ const middlePointContents = [
   "Scaling Addict",
 ];
 
+const certBadges = [
+  "img/cka-badge.png",
+  "img/ckad-badge.png",
+  "img/cks-badge.png"
+]
+
 describe("index.html", () => {
   it("has an index.html page", () => {
     cy.visit("http://localhost:3000/index.html");
@@ -175,6 +181,13 @@ describe("certifications.html", () => {
   it("certifications.html avatar", () => {
     cy.visit("http://localhost:3000/certifications.html");
     cy.get(".top-row .avatar")
+  });
+
+  it("certifications.html certs (.cert)", () => {
+    cy.visit("http://localhost:3000/certifications.html");
+    cy.get(".cert .badge").each(($el, i) => {
+      expect($el.attr("src")).equals(certBadges[i]);
+    });
   });
 });
 
