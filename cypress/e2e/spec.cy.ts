@@ -37,6 +37,18 @@ const certBadges = [
   "img/cks-badge.png"
 ]
 
+const certTitles = [
+  "CKA: Certified Kubernetes Administrator",
+  "CKAD: Certified Kubernetes Application Developer",
+  "CKS: Certified Kubernetes Security Specialist"
+]
+
+const certCredlyLinks = [
+  "https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f",
+  "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
+  "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c"
+]
+
 describe("index.html", () => {
   it("has an index.html page", () => {
     cy.visit("http://localhost:3000/index.html");
@@ -187,6 +199,13 @@ describe("certifications.html", () => {
     cy.visit("http://localhost:3000/certifications.html");
     cy.get(".cert .badge").each(($el, i) => {
       expect($el.attr("src")).equals(certBadges[i]);
+    });
+
+    cy.get(".cert .about").each(($el, i) => {
+      expect($el.children("h2").text()).equals(certTitles[i])
+      expect($el.children("a").attr("href")).equals(certCredlyLinks[i])
+      expect($el.children("a").attr("target")).equals("_blank")
+      expect($el.children("a").text()).equals("Credly")
     });
   });
 });
