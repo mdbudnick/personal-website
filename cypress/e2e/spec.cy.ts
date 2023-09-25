@@ -12,6 +12,18 @@ const menuItemContents = [
   "projects",
 ];
 
+const socialMediaHrefs = [
+  "https://www.linkedin.com/in/michael-budnick-79a40b60",
+  "https://github.com/mdbudnick",
+  "https://twitter.com/metaphoricmage"
+];
+
+const socialMediaImgs = [
+  "img/linkedin.png",
+  "img/github.png",
+  "img/twitter-x.png"
+];
+
 const middlePointContents = [
   "Software Developer",
   "DevOps Enthusiast",
@@ -35,6 +47,11 @@ describe("index.html", () => {
     cy.get(".top-row .item").each(($el, i) => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
       expect($el.text()).equals(menuItemContents[i]);
+    });
+
+    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+      expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
 
@@ -69,6 +86,11 @@ describe("blog.html", () => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
       expect($el.text()).equals(menuItemContents[i]);
     });
+
+    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+      expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+    });
   });
 
   it("blog.html avatar", () => {
@@ -88,6 +110,11 @@ describe("projects.html", () => {
     cy.get(".top-row .item").each(($el, i) => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
       expect($el.text()).equals(menuItemContents[i]);
+    });
+
+    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+      expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
 
@@ -109,6 +136,11 @@ describe("certifications.html", () => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
       expect($el.text()).equals(menuItemContents[i]);
     });
+
+    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+      expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+    });
   });
 
   it("certifications.html avatar", () => {
@@ -128,6 +160,11 @@ describe("404.html", () => {
     cy.get(".top-row .menu .item").each(($el, i) => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
       expect($el.text()).equals(menuItemContents[i]);
+    });
+
+    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+      expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
 });
