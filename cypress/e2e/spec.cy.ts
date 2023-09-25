@@ -12,6 +12,13 @@ const topRowContents = [
   "projects",
 ];
 
+const middlePointContents = [
+  "Software Developer",
+  "DevOps Enthusiast",
+  "Cybersecurity Champion",
+  "Scaling Addict",
+];
+
 describe("index.html", () => {
   it("has an index.html page", () => {
     cy.visit("http://localhost:3000/index.html");
@@ -35,6 +42,20 @@ describe("index.html", () => {
       expect($el.text()).equals(topRowContents[i]);
     });
   });
+
+  it("index.html middle", () => {
+    cy.visit("http://localhost:3000/index.html");
+    cy.get(".middle .about-me .name").contains("Michael Budnick");
+
+    cy.get(".middle .points .point").each(($el, i) => {
+      expect($el.text()).equals(middlePointContents[i]);
+    });
+
+    cy.get(".middle .bio").each(($el, i) => {
+      expect($el.text()).contains("Experienced Senior Software Developer");
+    });
+  });
+
 });
 
 describe("blog.html", () => {
