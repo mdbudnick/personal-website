@@ -51,6 +51,7 @@ describe("index.html", () => {
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
@@ -89,6 +90,7 @@ describe("blog.html", () => {
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
@@ -120,6 +122,7 @@ describe("projects.html", () => {
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
@@ -151,6 +154,7 @@ describe("certifications.html", () => {
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
@@ -182,6 +186,7 @@ describe("404.html", () => {
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
   });
