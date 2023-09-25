@@ -11,6 +11,13 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
+      - name: Create .env.development file
+        run: |
+              touch .env.development
+              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.development
+              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.development
+              echo "BUCKET_NAME=${{ secrets.DEV_BUCKET_NAME }}" >> .env.development
+              echo "DOMAIN_NAME=${{ secrets.DEV_DOMAIN_NAME }}" >> .env.development
       - name: cdk deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
