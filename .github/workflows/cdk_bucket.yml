@@ -63,7 +63,8 @@ jobs:
           CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
         
   destroy:
-    needs: "deploy"
+    needs: [deploy, test]
+    if: needs.deploy.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
