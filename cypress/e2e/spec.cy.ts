@@ -93,6 +93,12 @@ describe("blog.html", () => {
     });
   });
 
+  it("blog.html middle", () => {
+    cy.visit("http://localhost:3000/blog.html");
+    cy.get(".middle h2").contains("Personal Blog")
+    cy.get(".middle .title").contains("Personal Blog")
+  });
+
   it("blog.html avatar", () => {
     cy.visit("http://localhost:3000/blog.html");
     cy.get(".top-row .avatar")
@@ -118,6 +124,12 @@ describe("projects.html", () => {
     });
   });
 
+  it("projects.html middle", () => {
+    cy.visit("http://localhost:3000/projects.html");
+    cy.get(".middle h2").contains("Projects")
+    cy.get(".middle .title").contains("Projects")
+  });
+
   it("projects.html avatar", () => {
     cy.visit("http://localhost:3000/projects.html");
     cy.get(".top-row .avatar")
@@ -141,6 +153,12 @@ describe("certifications.html", () => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
     });
+  });
+
+  it("certifications.html middle", () => {
+    cy.visit("http://localhost:3000/certifications.html");
+    cy.get(".middle h2").contains("Certifications")
+    cy.get(".middle .title").contains("Certifications")
   });
 
   it("certifications.html avatar", () => {
