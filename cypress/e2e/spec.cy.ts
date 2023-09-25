@@ -126,5 +126,13 @@ describe("404.html", () => {
   it("has an 404.html page", () => {
     cy.visit("http://localhost:3000/404.html");
   });
-  
+
+  it("404.html top-row", () => {
+    cy.visit("http://localhost:3000/404.html");
+    cy.get(".top-row");
+    cy.get(".top-row .item").each(($el, i) => {
+      expect($el.attr("href")).equals(topRowHrefs[i]);
+      expect($el.text()).equals(topRowContents[i]);
+    });
+  });
 });
