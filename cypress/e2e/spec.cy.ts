@@ -1,11 +1,11 @@
-const topRowHrefs = [
+const menuItemHrefs = [
   "index.html",
   "certifications.html",
   "blog.html",
   "projects.html",
 ];
 
-const topRowContents = [
+const menuItemContents = [
   "about",
   "certifications",
   "blog",
@@ -29,12 +29,12 @@ describe("index.html", () => {
     cy.get("title").contains("Michael Budnick");
   });
 
-  it("index.html top-row", () => {
+  it("index.html menu", () => {
     cy.visit("http://localhost:3000/index.html");
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(topRowHrefs[i]);
-      expect($el.text()).equals(topRowContents[i]);
+      expect($el.attr("href")).equals(menuItemHrefs[i]);
+      expect($el.text()).equals(menuItemContents[i]);
     });
   });
 
@@ -62,12 +62,12 @@ describe("blog.html", () => {
     cy.visit("http://localhost:3000/blog.html");
   });
 
-  it("blog.html top-row", () => {
+  it("blog.html menu", () => {
     cy.visit("http://localhost:3000/blog.html");
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(topRowHrefs[i]);
-      expect($el.text()).equals(topRowContents[i]);
+      expect($el.attr("href")).equals(menuItemHrefs[i]);
+      expect($el.text()).equals(menuItemContents[i]);
     });
   });
 
@@ -82,12 +82,12 @@ describe("projects.html", () => {
     cy.visit("http://localhost:3000/projects.html");
   });
 
-  it("projects.html top-row", () => {
+  it("projects.html menu", () => {
     cy.visit("http://localhost:3000/projects.html");
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(topRowHrefs[i]);
-      expect($el.text()).equals(topRowContents[i]);
+      expect($el.attr("href")).equals(menuItemHrefs[i]);
+      expect($el.text()).equals(menuItemContents[i]);
     });
   });
 
@@ -102,12 +102,12 @@ describe("certifications.html", () => {
     cy.visit("http://localhost:3000/certifications.html");
   });
 
-  it("certifications.html top-row", () => {
+  it("certifications.html menu", () => {
     cy.visit("http://localhost:3000/certifications.html");
     cy.get(".top-row");
-    cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(topRowHrefs[i]);
-      expect($el.text()).equals(topRowContents[i]);
+    cy.get(".top-row .menu .item").each(($el, i) => {
+      expect($el.attr("href")).equals(menuItemHrefs[i]);
+      expect($el.text()).equals(menuItemContents[i]);
     });
   });
 
@@ -122,12 +122,12 @@ describe("404.html", () => {
     cy.visit("http://localhost:3000/404.html");
   });
 
-  it("404.html top-row", () => {
+  it("404.html menu", () => {
     cy.visit("http://localhost:3000/404.html");
     cy.get(".top-row");
-    cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(topRowHrefs[i]);
-      expect($el.text()).equals(topRowContents[i]);
+    cy.get(".top-row .menu .item").each(($el, i) => {
+      expect($el.attr("href")).equals(menuItemHrefs[i]);
+      expect($el.text()).equals(menuItemContents[i]);
     });
   });
 });
