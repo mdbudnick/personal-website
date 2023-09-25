@@ -4,7 +4,7 @@ on:
   workflow_dispatch:
     paths:
       - www/**
-    branches: ["main", "test_action"]
+    branches: ["main"]
 
 jobs:
   deploy:
