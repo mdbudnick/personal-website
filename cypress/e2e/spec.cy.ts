@@ -56,6 +56,10 @@ describe("index.html", () => {
     });
   });
 
+  it("index.html avatar", () => {
+    cy.visit("http://localhost:3000/index.html");
+    cy.get(".top-row .avatar")
+  });
 });
 
 describe("blog.html", () => {
@@ -70,6 +74,11 @@ describe("blog.html", () => {
       expect($el.attr("href")).equals(topRowHrefs[i]);
       expect($el.text()).equals(topRowContents[i]);
     });
+  });
+
+  it("blog.html avatar", () => {
+    cy.visit("http://localhost:3000/blog.html");
+    cy.get(".top-row .avatar")
   });
 });
 
@@ -86,6 +95,11 @@ describe("projects.html", () => {
       expect($el.text()).equals(topRowContents[i]);
     });
   });
+
+  it("projects.html avatar", () => {
+    cy.visit("http://localhost:3000/projects.html");
+    cy.get(".top-row .avatar")
+  });
 });
 
 describe("certifications.html", () => {
@@ -100,6 +114,11 @@ describe("certifications.html", () => {
       expect($el.attr("href")).equals(topRowHrefs[i]);
       expect($el.text()).equals(topRowContents[i]);
     });
+  });
+
+  it("certifications.html avatar", () => {
+    cy.visit("http://localhost:3000/certifications.html");
+    cy.get(".top-row .avatar")
   });
 });
 
