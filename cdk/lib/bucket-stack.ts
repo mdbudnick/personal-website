@@ -3,7 +3,7 @@ import { Construct } from "constructs";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deployment from "aws-cdk-lib/aws-s3-deployment";
 
-const path = "../www";
+const path = "./www";
 
 export interface StaticWebsiteBucketProps extends cdk.StackProps {
   environment: string;
