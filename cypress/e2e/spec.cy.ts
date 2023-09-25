@@ -29,11 +29,6 @@ describe("index.html", () => {
     cy.get("title").contains("Michael Budnick");
   });
 
-  it("index.html title", () => {
-    cy.visit("http://localhost:3000/index.html");
-    cy.get("title").contains("Michael Budnick");
-  });
-
   it("index.html top-row", () => {
     cy.visit("http://localhost:3000/index.html");
     cy.get(".top-row");
