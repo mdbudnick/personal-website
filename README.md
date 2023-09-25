@@ -1,14 +1,5 @@
-# Welcome to your CDK TypeScript project
+# Personal Website
 
-This is a blank project for CDK development with TypeScript.
+www.mike-budnick.com
 
-The `cdk.json` file tells the CDK Toolkit how to execute your app.
-
-## Useful commands
-
-* `npm run build`   compile typescript to js
-* `npm run watch`   watch for changes and compile
-* `npm run test`    perform the jest unit tests
-* `cdk deploy`      deploy this stack to your default AWS account/region
-* `cdk diff`        compare deployed stack with current state
-* `cdk synth`       emits the synthesized CloudFormation template
+This repository also includes Github Actions which run npm test and do an AWS CDK deployment when resources for the website change
