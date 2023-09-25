@@ -32,7 +32,36 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "us-east-1"
+  
+  test:
+    needs: deploy
+    timeout-minutes: 15
+    runs-on: ubuntu-latest
+    container:
+      image: cypress/browsers:node14.17.0-chrome91-ff89
+      options: --user 1001
+    strategy:
+      matrix:
+        browser: [chrome, firefox]
+    steps:
+      - uses: actions/checkout@v2
 
+      # Download the build from the previous step.
+      - uses: actions/download-artifact@v2
+        with:
+          name: build
+          path: build
+
+      # Run all cypress tests.
+      - name: Cypress run
+        uses: cypress-io/github-action@v2
+        with:
+          wait-on: ${{ secrets.DEV_BASE_URL }}
+          wait-on-timeout: 10
+          browser: ${{ matrix.browser }}
+        env:
+          CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
+        
   destroy:
     needs: "deploy"
     runs-on: ubuntu-latest
