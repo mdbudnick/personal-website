@@ -1,4 +1,4 @@
-name: CDK Deploy On Bucket changes
+name: CDK Deploy (Development First with Cypress Tests)
 
 on:
   workflow_dispatch:
