@@ -4,7 +4,6 @@ import * as cdk from "aws-cdk-lib";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import { Construct } from "constructs";
 import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import * as iam from "aws-cdk-lib/aws-iam";
 import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
@@ -13,7 +12,7 @@ import * as s3 from "aws-cdk-lib/aws-s3";
 export interface MyWebsiteAppStackProps extends cdk.StackProps {
   environment: string;
   domainName: string;
-  staticBucketName: string;
+  assetsBucket: s3.Bucket;
 }
 
 export class MyWebsiteAppStack extends cdk.Stack {
@@ -24,11 +23,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
       throw new Error("The domainName property is not defined.");
     }
     const domainName = props.domainName;
-
-    if (!props || !props.staticBucketName || props.staticBucketName == "") {
-      throw new Error("The staticBucketName property is not defined.");
-    }
-    const bucketName = props.staticBucketName;
 
     const blogTable = this.createDynamoDbTable(props.environment);
 
@@ -49,22 +43,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     lambdaApiGateway.root.addMethod("GET", readBlogIntegration);
     lambdaApiGateway.root.addMethod("POST", createBlogIntegration);
-
-    const assetsBucket = s3.Bucket.fromBucketName(
-      this,
-      "WebsiteBucket",
-      bucketName
-    );
-
-    const cloudfrontOriginAccessIdentity = new cloudfront.OriginAccessIdentity(
-      this,
-      "CloudFrontOriginAccessIdentity"
-    );
-    // We need to add this policy explicitly: https://stackoverflow.com/a/60917015/5637762
-    this.createCloudfrontBucketPolicy(
-      assetsBucket,
-      cloudfrontOriginAccessIdentity
-    );
 
     // We need to create this Zone beforehand because the domain name is not managed by AWS
     const zone =
@@ -88,8 +66,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const distribution = this.createDistribution(
       certificate,
       domainName,
-      assetsBucket,
-      cloudfrontOriginAccessIdentity,
+      props.assetsBucket,
       lambdaApiGateway,
       responseHeaderPolicy
     );
@@ -140,29 +117,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
     });
   }
 
-  createCloudfrontBucketPolicy(
-    bucket: s3.IBucket,
-    cfOriginAccessIdentity: cloudfront.OriginAccessIdentity
-  ) {
-    const policyStatement = new iam.PolicyStatement();
-    policyStatement.addActions("s3:GetBucket*");
-    policyStatement.addActions("s3:GetObject*");
-    policyStatement.addActions("s3:List*");
-    policyStatement.addResources(bucket.bucketArn);
-    policyStatement.addResources(`${bucket.bucketArn}/*`);
-    policyStatement.addCanonicalUserPrincipal(
-      cfOriginAccessIdentity.cloudFrontOriginAccessIdentityS3CanonicalUserId
-    );
-
-    if (!bucket.policy) {
-      new s3.BucketPolicy(this, "Policy", { bucket }).document.addStatements(
-        policyStatement
-      );
-    } else {
-      bucket.policy.document.addStatements(policyStatement);
-    }
-  }
-
   createCFResponseHeadersPolicy(): cloudfront.ResponseHeadersPolicy {
     return new cloudfront.ResponseHeadersPolicy(
       this,
@@ -205,8 +159,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
   createDistribution(
     certificate: acm.Certificate,
     domainName: string,
-    bucket: s3.IBucket,
-    oai: cloudfront.OriginAccessIdentity,
+    bucket: s3.Bucket,
     apiGateway: apigateway.RestApi,
     headersPolicy: cloudfront.ResponseHeadersPolicy
   ): cloudfront.Distribution {
@@ -229,9 +182,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
         },
       ],
       defaultBehavior: {
-        origin: new origins.S3Origin(bucket, {
-          originAccessIdentity: oai,
-        }),
+        origin: new cdk.aws_cloudfront_origins.S3Origin(bucket),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         responseHeadersPolicy: headersPolicy,
       },

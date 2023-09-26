@@ -37,7 +37,7 @@ new MyWebsiteAppStack(app, `${environment}-PersonalWebsite`, {
   },
   environment,
   domainName: process.env.DOMAIN_NAME || "",
-  staticBucketName: bucketStack.bucketName,
+  assetsBucket: bucketStack.bucket,
 });
 
 app.synth();

@@ -50,6 +50,15 @@ describe("PersonalWebsiteBucket", () => {
 
 describe("PersonalWebsiteBucket", () => {
     const app = new cdk.App();
+
+    const bucketStack = new StaticWebsiteBucket(app, "PersonalWebsiteBucket", {
+      env: {
+        account: process.env.CDK_DEFAULT_ACCOUNT,
+        region: process.env.CDK_DEFAULT_REGION,
+      },
+      environment: "test",
+      bucketName: process.env.BUCKET_NAME || "",
+    });
   
     const websiteStack = new MyWebsiteAppStack(app, "PersonalWebsite", {
         env: {
@@ -58,7 +67,7 @@ describe("PersonalWebsiteBucket", () => {
           },
           environment: "test",
           domainName: process.env.DOMAIN_NAME || "",
-          staticBucketName: process.env.BUCKET_NAME!,
+          assetsBucket: bucketStack.bucket,
     });
   
     const template = Template.fromStack(websiteStack);
@@ -161,13 +170,5 @@ describe("PersonalWebsiteBucket", () => {
 
       test("Cloudfront ResponseHeadersPolicy Created", () => {
         template.resourceCountIs("AWS::CloudFront::ResponseHeadersPolicy", 1);
-      });
-
-      test("Cloudfront's S3BucketPolicy Created", () => {
-        template.resourceCountIs("AWS::S3::BucketPolicy", 1);
-
-        template.hasResourceProperties("AWS::S3::BucketPolicy", {
-            "Bucket": process.env.BUCKET_NAME,
-        });
       });
   });

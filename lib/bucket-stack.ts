@@ -11,7 +11,7 @@ export interface StaticWebsiteBucketProps extends cdk.StackProps {
 }
 
 export class StaticWebsiteBucket extends cdk.Stack {
-    public readonly bucketName: string;
+    public readonly bucket: s3.Bucket;
 
   constructor(scope: Construct, id: string, props?: StaticWebsiteBucketProps) {
     super(scope, id, props);
@@ -35,7 +35,7 @@ export class StaticWebsiteBucket extends cdk.Stack {
 
     // We do this to have an explicit dependency
     // Creating an output was not working
-    this.bucketName = bucket.bucketName;
+    this.bucket = bucket;
 
     new s3deployment.BucketDeployment(this, "PushFiles", {
       sources: [s3deployment.Source.asset(path)],
