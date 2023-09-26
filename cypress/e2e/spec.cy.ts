@@ -31,8 +31,6 @@ const middlePointContents = [
   "Scaling Addict",
 ];
 
-console.log("config " + Cypress.config("baseUrl"));
-
 describe("index.html", () => {
   it("has an index.html page", () => {
     cy.visit("index.html");
@@ -66,7 +64,7 @@ describe("index.html", () => {
       expect($el.text()).equals(middlePointContents[i]);
     });
 
-    cy.get(".middle .bio").each(($el, i) => {
+    cy.get(".middle .bio").each(($el) => {
       expect($el.text()).contains("Experienced Senior Software Developer");
     });
   });
