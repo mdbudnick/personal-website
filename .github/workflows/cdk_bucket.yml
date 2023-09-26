@@ -50,12 +50,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      # Download the build from the previous step.
-      - uses: actions/download-artifact@v2
-        with:
-          name: build
-          path: build
-
       # Run all cypress tests.
       - name: Cypress run
         uses: cypress-io/github-action@v2
@@ -68,7 +62,7 @@ jobs:
         
   destroy:
     needs: [deploy, test]
-    if: needs.deploy.result == 'success'
+    if: always() && needs.deploy.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
