@@ -7,7 +7,7 @@ on:
     branches: ["main"]
 
 jobs:
-  deploy:
+  deploy-dev:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -37,7 +37,7 @@ jobs:
           AWS_DEFAULT_REGION: "us-east-1"
   
   test:
-    needs: deploy
+    needs: deploy-dev
     timeout-minutes: 15
     runs-on: ubuntu-latest
     container:
@@ -65,9 +65,9 @@ jobs:
         env:
           CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
         
-  destroy:
-    needs: [deploy, test]
-    if: always() && needs.deploy.result == 'success'
+  destroy-dev:
+    needs: [deploy-dev, test]
+    if: always() && needs.deploy-dev.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -83,6 +83,34 @@ jobs:
         with:
           cdk_subcommand: "destroy"
           cdk_args: "--force -c environment=development"
+          actions_comment: false
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: "us-east-1"
+
+  deploy-prod:
+    runs-on: ubuntu-latest
+    needs: test
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '20.x'
+      - run: npm ci
+      - run: npm run build --if-present
+      - name: Create .env.production file
+        run: |
+              touch .env.production
+              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.production
+              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.production
+              echo "BUCKET_NAME=${{ secrets.PROD_BUCKET_NAME }}" >> .env.production
+              echo "DOMAIN_NAME=${{ secrets.PROD_DOMAIN_NAME }}" >> .env.production
+      - name: cdk deploy
+        uses: youyo/aws-cdk-github-actions@v2
+        with:
+          cdk_subcommand: "deploy"
+          cdk_args: "--require-approval never -c environment=production"
           actions_comment: false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
