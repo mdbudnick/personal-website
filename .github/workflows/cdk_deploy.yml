@@ -58,6 +58,8 @@ jobs:
       - name: Cypress run
         uses: cypress-io/github-action@v2
         with:
+          record: false
+          config-file: cypress.config.ts
           wait-on: ${{ secrets.DEV_BASE_URL }}
           wait-on-timeout: 10
           browser: ${{ matrix.browser }}
