@@ -28,7 +28,7 @@ const middlePointContents = [
   "Software Developer",
   "DevOps Enthusiast",
   "Cybersecurity Champion",
-  "Scaling Addict",
+  "Scaling Fanatic",
 ];
 
 describe("index.html", () => {
