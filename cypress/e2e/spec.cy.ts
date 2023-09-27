@@ -14,14 +14,12 @@ const menuItemContents = [
 
 const socialMediaHrefs = [
   "https://www.linkedin.com/in/michael-budnick-79a40b60",
-  "https://github.com/mdbudnick",
-  "https://twitter.com/metaphoricmage"
+  "https://github.com/mdbudnick"
 ];
 
 const socialMediaImgs = [
   "img/linkedin.png",
   "img/github.png",
-  "img/twitter-x.png"
 ];
 
 const middlePointContents = [
