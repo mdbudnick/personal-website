@@ -4,14 +4,14 @@ import * as cdk from "aws-cdk-lib";
 import { StaticWebsiteBucket } from "../lib/bucket-stack";
 import { MyWebsiteAppStack } from "../lib/website-stack";
 
-const environments = ["test", "development", "production"];
+const environments = ["test", "staging", "production"];
 
 const app = new cdk.App();
 const environment: string = app.node.tryGetContext("environment")?.toString();
 if (!environment) {
   throw new Error("An environment must be passed on deploy");
 } else if (!environments.includes(environment)) {
-  throw new Error("Valid environments are 'production' or 'development'");
+  throw new Error("Valid environments are 'staging' or 'production'");
 }
 
 /* eslint-disable @typescript-eslint/no-var-requires */

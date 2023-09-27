@@ -1,4 +1,4 @@
-name: CDK Deploy (Development First with Cypress Tests)
+name: CDK Deploy (staging first with Cypress tests)
 
 on:
   workflow_dispatch:
@@ -18,25 +18,25 @@ jobs:
       - run: npm run lint
       - run: npm run build --if-present
       - run: npm test
-      - name: Create .env.development file
+      - name: Create .env.staging file
         run: |
-              touch .env.development
-              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.development
-              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.development
-              echo "BUCKET_NAME=${{ secrets.DEV_BUCKET_NAME }}" >> .env.development
-              echo "DOMAIN_NAME=${{ secrets.DEV_DOMAIN_NAME }}" >> .env.development
+              touch .env.staging
+              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.staging
+              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.staging
+              echo "BUCKET_NAME=${{ secrets.DEV_BUCKET_NAME }}" >> .env.staging
+              echo "DOMAIN_NAME=${{ secrets.DEV_DOMAIN_NAME }}" >> .env.staging
       - name: cdk deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
           cdk_subcommand: "deploy"
-          cdk_args: "--require-approval never -c environment=development"
+          cdk_args: "--require-approval never -c environment=staging"
           actions_comment: false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "us-east-1"
   
-  test:
+  test-staging:
     needs: deploy-dev
     timeout-minutes: 15
     runs-on: ubuntu-latest
@@ -66,23 +66,23 @@ jobs:
           CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
         
   destroy-dev:
-    needs: [deploy-dev, test]
+    needs: [deploy-dev, test-staging]
     if: always() && needs.deploy-dev.result == 'success'
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Create .env.development file
+      - name: Create .env.staging file
         run: |
-              touch .env.development
-              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.development
-              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.development
-              echo "BUCKET_NAME=${{ secrets.DEV_BUCKET_NAME }}" >> .env.development
-              echo "DOMAIN_NAME=${{ secrets.DEV_DOMAIN_NAME }}" >> .env.development
+              touch .env.staging
+              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.staging
+              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.staging
+              echo "BUCKET_NAME=${{ secrets.DEV_BUCKET_NAME }}" >> .env.staging
+              echo "DOMAIN_NAME=${{ secrets.DEV_DOMAIN_NAME }}" >> .env.staging
       - name: cdk destroy
         uses: youyo/aws-cdk-github-actions@v2
         with:
           cdk_subcommand: "destroy"
-          cdk_args: "--force -c environment=development"
+          cdk_args: "--force -c environment=staging"
           actions_comment: false
         env:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -91,7 +91,7 @@ jobs:
 
   deploy-prod:
     runs-on: ubuntu-latest
-    needs: test
+    needs: test-staging
     steps:
       - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
