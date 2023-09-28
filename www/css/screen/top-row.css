@@ -69,33 +69,6 @@
     margin-top: 3vh;
 }
 
-.certifications {
-    background-color: rgba(254, 254, 254, 0.5);
-    backdrop-filter: grayscale(0.4);
-    display: flex;
-    flex-direction: column-reverse;
-    padding-top: 3vw;
-    border-radius: 0 0 1vh 1vh;
-}
-
-.cert {
-    display: flex;
-}
-
-.cert .badge {
-    padding: 10px;
-    margin: 20px;
-    width: 30vh;
-    background-color: white;
-    border: solid 2px white;
-    border-radius: 50%;
-}
-
-.cert .about {
-    margin-left: 5vw;
-    width: 45vw;
-}
-
 .blog {
     display: flex;
     background-color: rgba(254, 254, 254, 0.5);
