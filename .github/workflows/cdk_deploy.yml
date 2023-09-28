@@ -10,7 +10,7 @@ jobs:
   deploy-dev:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '20.x'
@@ -47,7 +47,7 @@ jobs:
       matrix:
         browser: [chrome, firefox]
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '20.x'
@@ -70,7 +70,7 @@ jobs:
     if: always() && needs.deploy-dev.result == 'success'
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Create .env.staging file
         run: |
               touch .env.staging
@@ -93,7 +93,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test-staging
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
           node-version: '20.x'
