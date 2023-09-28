@@ -3,14 +3,6 @@
         display: none;
     }
 
-    #mobile-badge {
-        display: flex;
-        width: 10vw;
-        padding: 1px;
-        margin: 3px;
-        margin-bottom: 10px;
-    }
-
     .cert .about {
         display: flex;
         flex-wrap: wrap;
