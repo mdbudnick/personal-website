@@ -1,0 +1,42 @@
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+
+    .avatar {
+        display: none;
+    }
+
+    .top-row {
+        flex-direction: column;
+    }
+
+    .middle {
+        width: 100%;
+        left: 15vw;
+    }
+
+    .third-party-sm {
+        width: 40vw;
+    }
+
+    .third-party-sm a {
+        height: 3em;
+        width: 3em;
+    }
+    
+    .third-party-sm img {
+        width: 100%;
+        height: 100%;
+    }
+
+    .top-row .name {
+        display: block;
+    }
+
+    .middle .name {
+        display: none;
+    }
+
+    .top-row .menu {
+        margin-top: 2vh;
+    }
+
+}

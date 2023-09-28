@@ -68,3 +68,7 @@
     font-weight: lighter;
     margin-top: 3vh;
 }
+
+.top-row .name {
+    display: none;
+}
