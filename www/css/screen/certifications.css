@@ -24,3 +24,7 @@
     margin-left: 5vw;
     width: 45vw;
 }
+
+.about .badge {
+    display: none;
+}
