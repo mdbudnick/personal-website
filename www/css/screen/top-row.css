@@ -68,32 +68,3 @@
     font-weight: lighter;
     margin-top: 3vh;
 }
-
-.blog {
-    display: flex;
-    background-color: rgba(254, 254, 254, 0.5);
-    backdrop-filter: grayscale(0.4);
-}
-
-.blog .wordcloud {
-    display: flex;
-    flex-wrap: wrap;
-    width: 20vw;
-    height: 20vw;
-    padding: 10px;
-    margin-top: 3vw;
-}
-
-.wordcloud span {
-    padding: 5px;
-}
-
-.blog .posts {
-    display: flex;
-    flex-direction: column-reverse;
-}
-
-.blog .posts .post-item {
-    border-bottom: 1px solid black;
-    margin-right: 3vw;
-}
