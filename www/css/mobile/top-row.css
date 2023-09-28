@@ -36,7 +36,16 @@
     }
 
     .top-row .menu {
-        margin-top: 2vh;
+        margin: 2vh;
+    }
+
+    .about-me .points {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .about-me .point {
+        border-right: none;
     }
 
 }
