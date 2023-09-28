@@ -25,6 +25,6 @@
     width: 45vw;
 }
 
-.about .badge {
+.about #mobile-badge {
     display: none;
 }
