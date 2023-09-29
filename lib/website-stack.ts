@@ -1,5 +1,4 @@
 import * as acm from "aws-cdk-lib/aws-certificatemanager";
-import * as apigateway from "aws-cdk-lib/aws-apigateway";
 import * as cdk from "aws-cdk-lib";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import { Construct } from "constructs";
@@ -54,22 +53,24 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const blogTable = this.createDynamoDbTable(props.environment);
 
     const readBlogFunction = this.createReadLambda();
+    const readFunctionUrl = new lambda.FunctionUrl(this, "Read Function URL", {
+      function: readBlogFunction,
+      authType: lambda.FunctionUrlAuthType.NONE,
+      cors: { allowedOrigins: ["*"] },
+    }).url;
     const createBlogFunction = this.createUpsertLambda();
+    const createFunctionUrl = new lambda.FunctionUrl(
+      this,
+      "Create Function URL",
+      {
+        function: createBlogFunction,
+        authType: lambda.FunctionUrlAuthType.AWS_IAM,
+        cors: { allowedOrigins: ["*"] },
+      }
+    ).url;
 
     blogTable.grantReadData(readBlogFunction);
     blogTable.grantReadWriteData(createBlogFunction);
-
-    const lambdaApiGateway = new apigateway.RestApi(this, "BlogApi");
-
-    const readBlogIntegration = new apigateway.LambdaIntegration(
-      readBlogFunction
-    );
-    const createBlogIntegration = new apigateway.LambdaIntegration(
-      createBlogFunction
-    );
-
-    lambdaApiGateway.root.addMethod("GET", readBlogIntegration);
-    lambdaApiGateway.root.addMethod("POST", createBlogIntegration);
 
     // We need to create this Zone beforehand because the domain name is not managed by AWS
     const zone =
@@ -95,8 +96,9 @@ export class MyWebsiteAppStack extends cdk.Stack {
       domainName,
       bucket,
       originAccessIdentity,
-      lambdaApiGateway,
-      responseHeaderPolicy
+      responseHeaderPolicy,
+      readFunctionUrl,
+      createFunctionUrl
     );
 
     // Create a new CNAME record for "www." + domainName pointing to the new distribution
@@ -107,6 +109,12 @@ export class MyWebsiteAppStack extends cdk.Stack {
       ttl: cdk.Duration.minutes(5),
       deleteExisting: true,
     });
+
+    new cdk.CfnOutput(this, "Bucket name", { value: bucketName });
+    new cdk.CfnOutput(this, "CloudfrontUrl", {
+      value: distribution.distributionDomainName,
+    });
+    new cdk.CfnOutput(this, "Create Lambda URL", { value: createFunctionUrl });
   }
 
   createDynamoDbTable(environment: string): dynamodb.ITable {
@@ -189,8 +197,9 @@ export class MyWebsiteAppStack extends cdk.Stack {
     domainName: string,
     bucket: s3.Bucket,
     originAccessIdentity: cloudfront.OriginAccessIdentity,
-    apiGateway: apigateway.RestApi,
-    headersPolicy: cloudfront.ResponseHeadersPolicy
+    headersPolicy: cloudfront.ResponseHeadersPolicy,
+    readFunctionUrl: string,
+    createFunctionUrl: string
   ): cloudfront.Distribution {
     return new cloudfront.Distribution(this, "CloudFrontDistribution", {
       certificate,
@@ -217,9 +226,22 @@ export class MyWebsiteAppStack extends cdk.Stack {
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         responseHeadersPolicy: headersPolicy,
       },
+
       additionalBehaviors: {
-        "/posts": { origin: new origins.RestApiOrigin(apiGateway) },
-        "/posts/*": { origin: new origins.RestApiOrigin(apiGateway) },
+        "/post": {
+          origin: new origins.HttpOrigin(
+            cdk.Fn.select(2, cdk.Fn.split("/", createFunctionUrl))
+          ),
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER,
+        },
+        "/posts/*": {
+          origin: new origins.HttpOrigin(
+            cdk.Fn.select(2, cdk.Fn.split("/", readFunctionUrl))
+          ),
+          allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
+          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER,
+        },
       },
       enableLogging: true,
       logIncludesCookies: true,
