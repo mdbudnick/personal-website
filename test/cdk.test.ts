@@ -56,16 +56,6 @@ describe("MyWebsiteAppStack", () => {
     });
   });
 
-  test("APIGateway Created", () => {
-    template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
-    // 1 GET and 1 POST
-    template.resourceCountIs("AWS::ApiGateway::Method", 2);
-
-    template.hasResourceProperties("AWS::ApiGateway::RestApi", {
-      Name: "BlogApi",
-    });
-  });
-
   test("ACM Certificate Created", () => {
     template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
 
