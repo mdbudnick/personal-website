@@ -38,8 +38,13 @@ export class MyWebsiteAppStack extends cdk.Stack {
         props?.environment != "production"
           ? cdk.RemovalPolicy.DESTROY
           : cdk.RemovalPolicy.RETAIN,
-          autoDeleteObjects: props?.environment != "production",
+      autoDeleteObjects: props?.environment != "production",
     });
+    const originAccessIdentity = new cloudfront.OriginAccessIdentity(
+      this,
+      "OriginAccessIdentity"
+    );
+    bucket.grantRead(originAccessIdentity);
 
     new s3deployment.BucketDeployment(this, "PushFiles", {
       sources: [s3deployment.Source.asset(assetsPath)],
@@ -89,6 +94,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
       certificate,
       domainName,
       bucket,
+      originAccessIdentity,
       lambdaApiGateway,
       responseHeaderPolicy
     );
@@ -182,6 +188,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     certificate: acm.Certificate,
     domainName: string,
     bucket: s3.Bucket,
+    originAccessIdentity: cloudfront.OriginAccessIdentity,
     apiGateway: apigateway.RestApi,
     headersPolicy: cloudfront.ResponseHeadersPolicy
   ): cloudfront.Distribution {
@@ -204,7 +211,9 @@ export class MyWebsiteAppStack extends cdk.Stack {
         },
       ],
       defaultBehavior: {
-        origin: new cdk.aws_cloudfront_origins.S3Origin(bucket),
+        origin: new cdk.aws_cloudfront_origins.S3Origin(bucket, {
+          originAccessIdentity,
+        }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         responseHeadersPolicy: headersPolicy,
       },
