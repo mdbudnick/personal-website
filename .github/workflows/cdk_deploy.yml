@@ -1,6 +1,7 @@
 name: CDK Deploy (staging first with Cypress tests)
 
 on:
+  workflow_dispatch:
   push:
     branches:
     - main
