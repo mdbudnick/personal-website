@@ -1,4 +1,4 @@
-name: CDK Deploy (staging first with Cypress tests)
+name: CDK Deploy (staging first with tests)
 
 on:
   workflow_dispatch:
