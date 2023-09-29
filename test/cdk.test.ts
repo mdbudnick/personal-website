@@ -1,27 +1,30 @@
 import * as cdk from "aws-cdk-lib";
 import { Match, Template } from "aws-cdk-lib/assertions";
-import { StaticWebsiteBucket } from "../lib/bucket-stack";
-import { MyWebsiteAppStack } from "../lib/website-stack"
+import { MyWebsiteAppStack } from "../lib/website-stack";
 
 /* eslint-disable @typescript-eslint/no-var-requires */
 require("dotenv").config({ path: ".env.test" });
 
-describe("PersonalWebsiteBucket", () => {
+describe("MyWebsiteAppStack", () => {
   const app = new cdk.App();
 
-  const bucketStack = new StaticWebsiteBucket(app, "PersonalWebsiteBucket", {
+  const websiteStack = new MyWebsiteAppStack(app, "PersonalWebsite", {
     env: {
       account: process.env.CDK_DEFAULT_ACCOUNT,
       region: process.env.CDK_DEFAULT_REGION,
     },
     environment: "test",
+    domainName: process.env.DOMAIN_NAME || "",
     bucketName: process.env.BUCKET_NAME || "",
   });
 
-  const template = Template.fromStack(bucketStack);
+  const template = Template.fromStack(websiteStack);
 
-  test("S3 bucket created", () => {
-    template.resourceCountIs("AWS::S3::Bucket", 1);
+  console.log(JSON.stringify(template));
+
+  test("S3 buckets created", () => {
+    // One for website and one for CloudFront logs
+    template.resourceCountIs("AWS::S3::Bucket", 2);
   });
 
   test("S3 bucket name is env variable", () => {
@@ -30,145 +33,105 @@ describe("PersonalWebsiteBucket", () => {
     });
   });
 
-  test("S3 bucket has public access set", () => {
-    template.hasResourceProperties("AWS::S3::Bucket", {
-      PublicAccessBlockConfiguration: {
-        BlockPublicAcls: false,
-        BlockPublicPolicy: false,
-        IgnorePublicAcls: false,
-        RestrictPublicBuckets: false,
-      },
-    });
-  });
-
   test("S3 bucket has index.html as defult", () => {
     template.hasResourceProperties("AWS::S3::Bucket", {
       WebsiteConfiguration: { IndexDocument: "index.html" },
     });
   });
-});
 
-describe("PersonalWebsiteBucket", () => {
-    const app = new cdk.App();
+  test("Lambda Functions Created", () => {
+    // 1 each for Read and Create blog posts
+    // 1 for replacing the CNAME record
+    // 2 for CDK
+    template.resourceCountIs("AWS::Lambda::Function", 5);
 
-    const bucketStack = new StaticWebsiteBucket(app, "PersonalWebsiteBucket", {
-      env: {
-        account: process.env.CDK_DEFAULT_ACCOUNT,
-        region: process.env.CDK_DEFAULT_REGION,
-      },
-      environment: "test",
-      bucketName: process.env.BUCKET_NAME || "",
+    template.hasResourceProperties("AWS::Lambda::Function", {
+      Handler: "create.handler",
+      Runtime: "nodejs16.x",
     });
-  
-    const websiteStack = new MyWebsiteAppStack(app, "PersonalWebsite", {
-        env: {
-            account: process.env.CDK_DEFAULT_ACCOUNT,
-            region: process.env.CDK_DEFAULT_REGION,
-          },
-          environment: "test",
-          domainName: process.env.DOMAIN_NAME || "",
-          assetsBucket: bucketStack.bucket,
+
+    template.hasResourceProperties("AWS::Lambda::Function", {
+      Handler: "read.handler",
+      Runtime: "nodejs16.x",
     });
-  
-    const template = Template.fromStack(websiteStack);
-  
-    test("Lambda Functions Created", () => {
-      // 1 each for Read and Create blog posts
-      // 1 for replacing the CNAME record
-      template.resourceCountIs("AWS::Lambda::Function", 3);
-
-      template.hasResourceProperties("AWS::Lambda::Function", {
-        Handler: "create.handler",
-        Runtime: "nodejs16.x",
-      });
-
-      template.hasResourceProperties("AWS::Lambda::Function", {
-        Handler: "read.handler",
-        Runtime: "nodejs16.x",
-      });
-    });
-  
-    test("APIGateway Created", () => {
-        template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
-        // 1 GET and 1 POST
-        template.resourceCountIs("AWS::ApiGateway::Method", 2);
-
-        template.hasResourceProperties("AWS::ApiGateway::RestApi", {
-            "Name": "BlogApi"
-        });
-      });
-    
-      test("ACM Certificate Created", () => {
-        template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
-
-        template.hasResourceProperties("AWS::CertificateManager::Certificate", {
-            "DomainName": process.env.DOMAIN_NAME,
-            "SubjectAlternativeNames": [
-                "*." + process.env.DOMAIN_NAME
-              ]
-        });
-      });
-
-      const hostedZoneName = "testing.";
-      test("Route53 HostedZone is present", () => {
-        template.resourceCountIs("AWS::Route53::HostedZone", 1);
-        
-        template.hasResourceProperties("AWS::Route53::HostedZone", {
-            "Name": hostedZoneName
-        });
-      });
-
-      test("Route53 RecordSet Created", () => {
-        template.resourceCountIs("AWS::Route53::RecordSet", 1);
-        
-        template.hasResourceProperties("AWS::Route53::RecordSet", {
-            "Name": ["www", process.env.DOMAIN_NAME, hostedZoneName].join("."),
-            "Type": "CNAME"
-        });
-      });
-
-      test("Route53 RecordSet Deleted", () => {
-        template.resourceCountIs("Custom::DeleteExistingRecordSet", 1);
-      })
-
-      test("Cloudfront Distribution Created", () => {
-        template.resourceCountIs("AWS::CloudFront::Distribution", 1);
-
-        template.hasResourceProperties("AWS::CloudFront::Distribution", {
-            "DistributionConfig": Match.objectLike({
-                "Aliases": [
-                    process.env.DOMAIN_NAME,
-                    "www." + process.env.DOMAIN_NAME
-                ],
-                "CacheBehaviors": Match.anyValue(),
-                "CustomErrorResponses": [
-                    {
-                        "ErrorCode": 403,
-                        "ResponseCode": 403,
-                        "ResponsePagePath": "/index.html"
-                    },
-                    {
-                        "ErrorCode": 404,
-                        "ResponseCode": 404,
-                        "ResponsePagePath": "/404.html"
-                    }
-                ],
-                "DefaultCacheBehavior": Match.anyValue(),
-                "DefaultRootObject": "index.html",
-                "Enabled": true,
-                "HttpVersion": "http2",
-                "IPV6Enabled": true,
-                "Logging": Match.anyValue(),
-                "ViewerCertificate": {
-                    "AcmCertificateArn": Match.anyValue(),
-                    "MinimumProtocolVersion": "TLSv1.2_2018",
-                    "SslSupportMethod": "sni-only"
-                }
-            })
-        });
-      })
-
-      test("Cloudfront ResponseHeadersPolicy Created", () => {
-        template.resourceCountIs("AWS::CloudFront::ResponseHeadersPolicy", 1);
-      });
   });
+
+  test("APIGateway Created", () => {
+    template.resourceCountIs("AWS::ApiGateway::RestApi", 1);
+    // 1 GET and 1 POST
+    template.resourceCountIs("AWS::ApiGateway::Method", 2);
+
+    template.hasResourceProperties("AWS::ApiGateway::RestApi", {
+      Name: "BlogApi",
+    });
+  });
+
+  test("ACM Certificate Created", () => {
+    template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
+
+    template.hasResourceProperties("AWS::CertificateManager::Certificate", {
+      DomainName: process.env.DOMAIN_NAME,
+      SubjectAlternativeNames: ["*." + process.env.DOMAIN_NAME],
+    });
+  });
+
+  const hostedZoneName = "testing.";
+  test("Route53 HostedZone is present", () => {
+    template.resourceCountIs("AWS::Route53::HostedZone", 1);
+
+    template.hasResourceProperties("AWS::Route53::HostedZone", {
+      Name: hostedZoneName,
+    });
+  });
+
+  test("Route53 RecordSet Created", () => {
+    template.resourceCountIs("AWS::Route53::RecordSet", 1);
+
+    template.hasResourceProperties("AWS::Route53::RecordSet", {
+      Name: ["www", process.env.DOMAIN_NAME, hostedZoneName].join("."),
+      Type: "CNAME",
+    });
+  });
+
+  test("Route53 RecordSet Deleted", () => {
+    template.resourceCountIs("Custom::DeleteExistingRecordSet", 1);
+  });
+
+  test("Cloudfront Distribution Created", () => {
+    template.resourceCountIs("AWS::CloudFront::Distribution", 1);
+
+    template.hasResourceProperties("AWS::CloudFront::Distribution", {
+      DistributionConfig: Match.objectLike({
+        Aliases: [process.env.DOMAIN_NAME, "www." + process.env.DOMAIN_NAME],
+        CacheBehaviors: Match.anyValue(),
+        CustomErrorResponses: [
+          {
+            ErrorCode: 403,
+            ResponseCode: 403,
+            ResponsePagePath: "/index.html",
+          },
+          {
+            ErrorCode: 404,
+            ResponseCode: 404,
+            ResponsePagePath: "/404.html",
+          },
+        ],
+        DefaultCacheBehavior: Match.anyValue(),
+        DefaultRootObject: "index.html",
+        Enabled: true,
+        HttpVersion: "http2",
+        IPV6Enabled: true,
+        Logging: Match.anyValue(),
+        ViewerCertificate: {
+          AcmCertificateArn: Match.anyValue(),
+          MinimumProtocolVersion: "TLSv1.2_2018",
+          SslSupportMethod: "sni-only",
+        },
+      }),
+    });
+  });
+
+  test("Cloudfront ResponseHeadersPolicy Created", () => {
+    template.resourceCountIs("AWS::CloudFront::ResponseHeadersPolicy", 1);
+  });
+});

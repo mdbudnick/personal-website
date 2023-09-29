@@ -8,11 +8,14 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as s3 from "aws-cdk-lib/aws-s3";
+import * as s3deployment from "aws-cdk-lib/aws-s3-deployment";
+
+const assetsPath = "./www";
 
 export interface MyWebsiteAppStackProps extends cdk.StackProps {
   environment: string;
   domainName: string;
-  assetsBucket: s3.Bucket;
+  bucketName: string;
 }
 
 export class MyWebsiteAppStack extends cdk.Stack {
@@ -23,6 +26,25 @@ export class MyWebsiteAppStack extends cdk.Stack {
       throw new Error("The domainName property is not defined.");
     }
     const domainName = props.domainName;
+    if (!props || !props.bucketName || props.bucketName == "") {
+      throw new Error("The bucketName property is not defined.");
+    }
+    const bucketName = props.bucketName;
+
+    const bucket = new s3.Bucket(this, "WebsiteBucket", {
+      bucketName,
+      websiteIndexDocument: "index.html",
+      removalPolicy:
+        props?.environment != "production"
+          ? cdk.RemovalPolicy.DESTROY
+          : cdk.RemovalPolicy.RETAIN,
+          autoDeleteObjects: props?.environment != "production",
+    });
+
+    new s3deployment.BucketDeployment(this, "PushFiles", {
+      sources: [s3deployment.Source.asset(assetsPath)],
+      destinationBucket: bucket,
+    });
 
     const blogTable = this.createDynamoDbTable(props.environment);
 
@@ -66,7 +88,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const distribution = this.createDistribution(
       certificate,
       domainName,
-      props.assetsBucket,
+      bucket,
       lambdaApiGateway,
       responseHeaderPolicy
     );
