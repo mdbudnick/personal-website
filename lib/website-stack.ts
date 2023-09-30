@@ -29,16 +29,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const bucketName = props.bucketName;
 
     const bucket = new s3.Bucket(this, "WebsiteBucket", {
-            bucketName,
-            removalPolicy:
-              props.environment != "production"
-                ? cdk.RemovalPolicy.DESTROY
-                : cdk.RemovalPolicy.RETAIN,
-            autoDeleteObjects: props.environment != "production",
-            encryption: s3.BucketEncryption.S3_MANAGED,
-            blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-            enforceSSL: true,
-          });
+      bucketName,
+      removalPolicy:
+        props.environment != "production"
+          ? cdk.RemovalPolicy.DESTROY
+          : cdk.RemovalPolicy.RETAIN,
+      autoDeleteObjects: props.environment != "production",
+      encryption: s3.BucketEncryption.S3_MANAGED,
+      blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+      enforceSSL: true,
+    });
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(
       this,
       "OriginAccessIdentity"
@@ -225,6 +225,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
           responsePagePath: "/404.html",
         },
       ],
+      defaultRootObject: "index.html",
       defaultBehavior: {
         origin: new cdk.aws_cloudfront_origins.S3Origin(bucket, {
           originAccessIdentity,
