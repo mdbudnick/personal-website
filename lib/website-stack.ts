@@ -120,8 +120,9 @@ export class MyWebsiteAppStack extends cdk.Stack {
       deleteExisting: true,
     });
 
+    new cdk.CfnOutput(this, "Domain", { value: `https://www.${domainName}` });
     new cdk.CfnOutput(this, "Bucket name", { value: bucketName });
-    new cdk.CfnOutput(this, "CloudfrontUrl", {
+    new cdk.CfnOutput(this, "CloudFrontUrl", {
       value: distribution.distributionDomainName,
     });
     new cdk.CfnOutput(this, "Create Lambda URL", { value: createFunctionUrl });
