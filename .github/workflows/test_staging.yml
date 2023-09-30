@@ -25,8 +25,6 @@ jobs:
               with:
                 record: false
                 config-file: cypress.config.ts
-                # wait-on: https://www.michaelbudnick.dev/
-                # wait-on-timeout: 10
                 browser: ${{ matrix.browser }}
               env:
                 CYPRESS_BASE_URL: https://www.michaelbudnick.dev/
