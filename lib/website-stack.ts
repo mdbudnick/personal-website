@@ -34,7 +34,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
       bucketName
     );
     const bucket =
-      props.environment != "testing" && existingBucket
+      (props.environment == "production" && existingBucket.bucketArn)
         ? (existingBucket as s3.Bucket)
         : new s3.Bucket(this, "WebsiteBucket", {
             bucketName,
