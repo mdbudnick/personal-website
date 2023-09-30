@@ -127,6 +127,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     new cdk.CfnOutput(this, "CloudFrontUrl", {
       value: distribution.distributionDomainName,
     });
+    new cdk.CfnOutput(this, "Read Lambda URL", { value: readFunctionUrl });
     new cdk.CfnOutput(this, "Create Lambda URL", { value: createFunctionUrl });
   }
 
