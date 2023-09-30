@@ -31,10 +31,25 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     const bucketName = props.bucketName;
 
-    const bucket = new s3.Bucket(this, "WebsiteBucket", {
-      bucketName,
-      publicReadAccess: true,
-    });
+
+    const bucket =
+      s3.Bucket.fromBucketName(this, "ExistingBucket", bucketName) ??
+      new s3.Bucket(this, "WebsiteBucket", {
+        bucketName,
+        removalPolicy:
+          props?.environment != "production"
+            ? cdk.RemovalPolicy.DESTROY
+            : cdk.RemovalPolicy.RETAIN,
+        autoDeleteObjects: props?.environment != "production",
+        encryption: s3.BucketEncryption.S3_MANAGED,
+        blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+        enforceSSL: true,
+      });
+    const originAccessIdentity = new cloudfront.OriginAccessIdentity(
+      this,
+      "OriginAccessIdentity"
+    );
+    bucket.grantRead(originAccessIdentity);
 
     new s3deployment.BucketDeployment(this, "PushFiles", {
       sources: [s3deployment.Source.asset(assetsPath)],
@@ -86,6 +101,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
       certificate,
       domainName,
       bucket as s3.Bucket,
+      originAccessIdentity,
       responseHeaderPolicy,
       readFunctionUrl,
       createFunctionUrl
@@ -198,6 +214,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     certificate: acm.Certificate,
     domainName: string,
     bucket: s3.Bucket,
+    originAccessIdentity: cloudfront.OriginAccessIdentity,
     headersPolicy: cloudfront.ResponseHeadersPolicy,
     readFunctionUrl: string,
     createFunctionUrl: string
@@ -207,7 +224,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
       domainNames: [domainName, `www.${domainName}`],
       sslSupportMethod: cloudfront.SSLMethod.SNI,
       minimumProtocolVersion: cloudfront.SecurityPolicyProtocol.TLS_V1_2_2018,
-      defaultRootObject: "index.html",
       errorResponses: [
         {
           httpStatus: 403,
@@ -221,8 +237,12 @@ export class MyWebsiteAppStack extends cdk.Stack {
         },
       ],
       defaultBehavior: {
-        origin: new cdk.aws_cloudfront_origins.S3Origin(bucket),
+        origin: new cdk.aws_cloudfront_origins.S3Origin(bucket, {
+          originAccessIdentity,
+        }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
+        originRequestPolicy:
+            cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
         responseHeadersPolicy: headersPolicy,
       },
 
