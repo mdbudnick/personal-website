@@ -246,14 +246,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
             cdk.Fn.select(2, cdk.Fn.split("/", createFunctionUrl))
           ),
           allowedMethods: cloudfront.AllowedMethods.ALLOW_ALL,
-          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER,
+          originRequestPolicy:
+            cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
         },
         "/posts/*": {
           origin: new origins.HttpOrigin(
             cdk.Fn.select(2, cdk.Fn.split("/", readFunctionUrl))
           ),
           allowedMethods: cloudfront.AllowedMethods.ALLOW_GET_HEAD_OPTIONS,
-          originRequestPolicy: cloudfront.OriginRequestPolicy.ALL_VIEWER,
+          originRequestPolicy:
+            cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
         },
       },
       enableLogging: true,
