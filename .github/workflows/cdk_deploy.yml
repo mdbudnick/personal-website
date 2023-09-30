@@ -2,11 +2,6 @@ name: CDK Deploy (staging first with tests)
 
 on:
   workflow_dispatch:
-  push:
-    branches:
-    - main
-    paths:
-    - www/**
 
 jobs:
   deploy-staging:
