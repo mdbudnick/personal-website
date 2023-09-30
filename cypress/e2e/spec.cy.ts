@@ -5,22 +5,14 @@ const menuItemHrefs = [
   "projects.html",
 ];
 
-const menuItemContents = [
-  "about",
-  "certifications",
-  "blog",
-  "projects",
-];
+const menuItemContents = ["about", "certifications", "blog", "projects"];
 
 const socialMediaHrefs = [
   "https://www.linkedin.com/in/michael-budnick-79a40b60",
-  "https://github.com/mdbudnick"
+  "https://github.com/mdbudnick",
 ];
 
-const socialMediaImgs = [
-  "img/linkedin.png",
-  "img/github.png",
-];
+const socialMediaImgs = ["img/linkedin.png", "img/github.png"];
 
 const middlePointContents = [
   "Software Developer",
@@ -29,6 +21,51 @@ const middlePointContents = [
   "Scaling Fanatic",
 ];
 
+describe("root points to index.html", () => {
+  it("has the same index.html page", () => {
+    cy.visit("/");
+  });
+
+  it("index.html title", () => {
+    cy.visit("/");
+    cy.get("title").contains("Michael Budnick");
+  });
+
+  it("/ menu", () => {
+    cy.visit("/");
+    cy.get(".top-row");
+    cy.get(".top-row .item").each(($el, i) => {
+      expect($el.attr("href")).equals(menuItemHrefs[i]);
+      expect($el.text()).equals(menuItemContents[i]);
+    });
+
+    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+      expect($el.attr("href")).equals(socialMediaHrefs[i]);
+      expect($el.attr("target")).equals("_blank");
+      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+    });
+  });
+
+  it("/ middle", () => {
+    cy.visit("/");
+    cy.get(".middle .about-me .name").contains("Michael Budnick");
+
+    cy.get(".middle .points .point").each(($el, i) => {
+      expect($el.text()).equals(middlePointContents[i]);
+    });
+
+    cy.get(".middle .bio").each(($el) => {
+      expect($el.text()).contains("Experienced Senior Software Developer");
+    });
+  });
+
+  it("/ avatar", () => {
+    cy.visit("/");
+    cy.get(".top-row .avatar");
+  });
+});
+
+// Same as root test above
 describe("index.html", () => {
   it("has an index.html page", () => {
     cy.visit("index.html");
@@ -69,7 +106,7 @@ describe("index.html", () => {
 
   it("index.html avatar", () => {
     cy.visit("index.html");
-    cy.get(".top-row .avatar")
+    cy.get(".top-row .avatar");
   });
 });
 
@@ -95,32 +132,26 @@ describe("blog.html", () => {
 
   it("blog.html middle", () => {
     cy.visit("blog.html");
-    cy.get(".middle h2").contains("Personal Blog")
-    cy.get(".middle .title").contains("Personal Blog")
+    cy.get(".middle h2").contains("Personal Blog");
+    cy.get(".middle .title").contains("Personal Blog");
   });
 
   it("blog.html avatar", () => {
     cy.visit("blog.html");
-    cy.get(".top-row .avatar")
+    cy.get(".top-row .avatar");
   });
 
   it("blog.html blog", () => {
     cy.visit("blog.html");
-    cy.get(".blog")
-    cy.get(".blog .wordcloud")
-    cy.get(".blog .posts")
+    cy.get(".blog");
+    cy.get(".blog .wordcloud");
+    cy.get(".blog .posts");
   });
 });
 
-const projectHrefs = [
-  "https://www.breathbox.net",
-  "#"
-]
+const projectHrefs = ["https://www.breathbox.net", "#"];
 
-const projectNames = [
-  "Breathbox",
-  "This website!"
-]
+const projectNames = ["Breathbox", "This website!"];
 
 describe("projects.html", () => {
   it("has an projects.html page", () => {
@@ -144,13 +175,13 @@ describe("projects.html", () => {
 
   it("projects.html middle", () => {
     cy.visit("projects.html");
-    cy.get(".middle h2").contains("Projects")
-    cy.get(".middle .title").contains("Projects")
+    cy.get(".middle h2").contains("Projects");
+    cy.get(".middle .title").contains("Projects");
   });
 
   it("projects.html avatar", () => {
     cy.visit("projects.html");
-    cy.get(".top-row .avatar")
+    cy.get(".top-row .avatar");
   });
 
   it("projects.html projects", () => {
@@ -162,24 +193,23 @@ describe("projects.html", () => {
   });
 });
 
-
 const certBadges = [
   "img/cka-badge.png",
   "img/ckad-badge.png",
-  "img/cks-badge.png"
-]
+  "img/cks-badge.png",
+];
 
 const certTitles = [
   "CKA: Certified Kubernetes Administrator",
   "CKAD: Certified Kubernetes Application Developer",
-  "CKS: Certified Kubernetes Security Specialist"
-]
+  "CKS: Certified Kubernetes Security Specialist",
+];
 
 const certCredlyLinks = [
   "https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f",
   "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
-  "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c"
-]
+  "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c",
+];
 
 describe("certifications.html", () => {
   it("has an certifications.html page", () => {
@@ -203,13 +233,13 @@ describe("certifications.html", () => {
 
   it("certifications.html middle", () => {
     cy.visit("certifications.html");
-    cy.get(".middle h2").contains("Certifications")
-    cy.get(".middle .title").contains("Certifications")
+    cy.get(".middle h2").contains("Certifications");
+    cy.get(".middle .title").contains("Certifications");
   });
 
   it("certifications.html avatar", () => {
     cy.visit("certifications.html");
-    cy.get(".top-row .avatar")
+    cy.get(".top-row .avatar");
   });
 
   it("certifications.html certs (.cert)", () => {
@@ -219,10 +249,10 @@ describe("certifications.html", () => {
     });
 
     cy.get(".cert .about").each(($el, i) => {
-      expect($el.children("h2").text()).equals(certTitles[i])
-      expect($el.children("a").attr("href")).equals(certCredlyLinks[i])
-      expect($el.children("a").attr("target")).equals("_blank")
-      expect($el.children("a").text()).equals("Credly")
+      expect($el.children("h2").text()).equals(certTitles[i]);
+      expect($el.children("a").attr("href")).equals(certCredlyLinks[i]);
+      expect($el.children("a").attr("target")).equals("_blank");
+      expect($el.children("a").text()).equals("Credly");
     });
   });
 });
