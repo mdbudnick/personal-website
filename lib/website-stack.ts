@@ -8,6 +8,7 @@ import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as s3deployment from "aws-cdk-lib/aws-s3-deployment";
+import * as targets from "aws-cdk-lib/aws-route53-targets";
 
 const assetsPath = "./www";
 
@@ -105,6 +106,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
       zone,
       recordName: `www.${domainName}`,
       domainName: distribution.domainName,
+      ttl: cdk.Duration.minutes(5),
+      deleteExisting: true,
+    });
+
+    new route53.ARecord(this, "Alias ARecord", {
+      zone,
+      recordName: domainName,
+      target: route53.RecordTarget.fromAlias(
+        new targets.CloudFrontTarget(distribution)
+      ),
       ttl: cdk.Duration.minutes(5),
       deleteExisting: true,
     });

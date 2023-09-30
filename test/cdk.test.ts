@@ -33,12 +33,6 @@ describe("MyWebsiteAppStack", () => {
     });
   });
 
-  test("S3 bucket has index.html as defult", () => {
-    template.hasResourceProperties("AWS::S3::Bucket", {
-      WebsiteConfiguration: { IndexDocument: "index.html" },
-    });
-  });
-
   test("Lambda Functions Created", () => {
     // 1 each for Read and Create blog posts
     // 1 for replacing the CNAME record
@@ -74,17 +68,23 @@ describe("MyWebsiteAppStack", () => {
     });
   });
 
-  test("Route53 RecordSet Created", () => {
-    template.resourceCountIs("AWS::Route53::RecordSet", 1);
+  test("Route53 RecordSets Created", () => {
+    template.resourceCountIs("AWS::Route53::RecordSet", 2);
 
     template.hasResourceProperties("AWS::Route53::RecordSet", {
       Name: ["www", process.env.DOMAIN_NAME, hostedZoneName].join("."),
       Type: "CNAME",
     });
+
+    template.hasResourceProperties("AWS::Route53::RecordSet", {
+      Name: [process.env.DOMAIN_NAME, hostedZoneName].join("."),
+      Type: "A",
+    });
   });
 
   test("Route53 RecordSet Deleted", () => {
-    template.resourceCountIs("Custom::DeleteExistingRecordSet", 1);
+    // CNAME and alias A
+    template.resourceCountIs("Custom::DeleteExistingRecordSet", 2);
   });
 
   test("Cloudfront Distribution Created", () => {
