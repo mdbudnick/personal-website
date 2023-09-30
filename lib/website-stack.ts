@@ -7,10 +7,7 @@ import * as lambda from "aws-cdk-lib/aws-lambda";
 import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as s3 from "aws-cdk-lib/aws-s3";
-import * as s3deployment from "aws-cdk-lib/aws-s3-deployment";
 import * as targets from "aws-cdk-lib/aws-route53-targets";
-
-const assetsPath = "./www";
 
 export interface MyWebsiteAppStackProps extends cdk.StackProps {
   environment: string;
@@ -37,7 +34,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
       bucketName
     );
     const bucket =
-      props.environment != "test" && existingBucket
+      props.environment != "testing" && existingBucket
         ? (existingBucket as s3.Bucket)
         : new s3.Bucket(this, "WebsiteBucket", {
             bucketName,
@@ -57,11 +54,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
     if (!existingBucket) {
       bucket.grantRead(originAccessIdentity);
     }
-
-    new s3deployment.BucketDeployment(this, "PushFiles", {
-      sources: [s3deployment.Source.asset(assetsPath)],
-      destinationBucket: bucket,
-    });
 
     const blogTable = this.createDynamoDbTable(props.environment);
 
