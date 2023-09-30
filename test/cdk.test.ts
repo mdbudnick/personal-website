@@ -35,9 +35,8 @@ describe("MyWebsiteAppStack", () => {
 
   test("Lambda Functions Created", () => {
     // 1 each for Read and Create blog posts
-    // 1 for replacing the CNAME record
-    // 2 for CDK
-    template.resourceCountIs("AWS::Lambda::Function", 5);
+    // 2 for replacing CNAME and A records
+    template.resourceCountIs("AWS::Lambda::Function", 4);
 
     template.hasResourceProperties("AWS::Lambda::Function", {
       Handler: "create.handler",
