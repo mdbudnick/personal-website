@@ -78,7 +78,7 @@ jobs:
           record: false
           config-file: cypress.config.ts
           wait-on: ${{ secrets.DEV_BASE_URL }}
-          wait-on-timeout: 10
+          wait-on-timeout: 30
           browser: ${{ matrix.browser }}
         env:
           CYPRESS_BASE_URL: ${{ secrets.DEV_BASE_URL }}
