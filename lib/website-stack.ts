@@ -31,25 +31,32 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     const bucketName = props.bucketName;
 
-
+    const existingBucket = s3.Bucket.fromBucketName(
+      this,
+      "ExistingBucket",
+      bucketName
+    );
     const bucket =
-      s3.Bucket.fromBucketName(this, "ExistingBucket", bucketName) ??
-      new s3.Bucket(this, "WebsiteBucket", {
-        bucketName,
-        removalPolicy:
-          props?.environment != "production"
-            ? cdk.RemovalPolicy.DESTROY
-            : cdk.RemovalPolicy.RETAIN,
-        autoDeleteObjects: props?.environment != "production",
-        encryption: s3.BucketEncryption.S3_MANAGED,
-        blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
-        enforceSSL: true,
-      });
+      props.environment != "test" && existingBucket
+        ? (existingBucket as s3.Bucket)
+        : new s3.Bucket(this, "WebsiteBucket", {
+            bucketName,
+            removalPolicy:
+              props.environment != "production"
+                ? cdk.RemovalPolicy.DESTROY
+                : cdk.RemovalPolicy.RETAIN,
+            autoDeleteObjects: props.environment != "production",
+            encryption: s3.BucketEncryption.S3_MANAGED,
+            blockPublicAccess: s3.BlockPublicAccess.BLOCK_ALL,
+            enforceSSL: true,
+          });
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(
       this,
       "OriginAccessIdentity"
     );
-    bucket.grantRead(originAccessIdentity);
+    if (!existingBucket) {
+      bucket.grantRead(originAccessIdentity);
+    }
 
     new s3deployment.BucketDeployment(this, "PushFiles", {
       sources: [s3deployment.Source.asset(assetsPath)],
@@ -242,7 +249,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
         }),
         viewerProtocolPolicy: cloudfront.ViewerProtocolPolicy.REDIRECT_TO_HTTPS,
         originRequestPolicy:
-            cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
+          cloudfront.OriginRequestPolicy.ALL_VIEWER_EXCEPT_HOST_HEADER,
         responseHeadersPolicy: headersPolicy,
       },
 

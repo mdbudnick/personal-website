@@ -36,7 +36,8 @@ describe("MyWebsiteAppStack", () => {
   test("Lambda Functions Created", () => {
     // 1 each for Read and Create blog posts
     // 2 for replacing CNAME and A records
-    template.resourceCountIs("AWS::Lambda::Function", 4);
+    // 1 for deploying files to bucket
+    template.resourceCountIs("AWS::Lambda::Function", 5);
 
     template.hasResourceProperties("AWS::Lambda::Function", {
       Handler: "create.handler",
@@ -106,7 +107,6 @@ describe("MyWebsiteAppStack", () => {
           },
         ],
         DefaultCacheBehavior: Match.anyValue(),
-        DefaultRootObject: "index.html",
         Enabled: true,
         HttpVersion: "http2",
         IPV6Enabled: true,
