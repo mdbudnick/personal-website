@@ -31,14 +31,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     const bucketName = props.bucketName;
 
-    const bucket = new s3.Bucket(this, "WebsiteBucket", {
-      bucketName,
-      removalPolicy:
-        props?.environment != "production"
-          ? cdk.RemovalPolicy.DESTROY
-          : cdk.RemovalPolicy.RETAIN,
-      autoDeleteObjects: props?.environment != "production",
-    });
+    const bucket =
+      s3.Bucket.fromBucketName(this, "ExistingBucket", bucketName) ??
+      new s3.Bucket(this, "WebsiteBucket", {
+        bucketName,
+        removalPolicy:
+          props?.environment != "production"
+            ? cdk.RemovalPolicy.DESTROY
+            : cdk.RemovalPolicy.RETAIN,
+        autoDeleteObjects: props?.environment != "production",
+      });
     const originAccessIdentity = new cloudfront.OriginAccessIdentity(
       this,
       "OriginAccessIdentity"
@@ -94,7 +96,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     const distribution = this.createDistribution(
       certificate,
       domainName,
-      bucket,
+      bucket as s3.Bucket,
       originAccessIdentity,
       responseHeaderPolicy,
       readFunctionUrl,
