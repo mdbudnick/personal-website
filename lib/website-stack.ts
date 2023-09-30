@@ -28,15 +28,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     const bucketName = props.bucketName;
 
-    const existingBucket = s3.Bucket.fromBucketName(
-      this,
-      "ExistingBucket",
-      bucketName
-    );
-    const bucket =
-      (props.environment == "production" && existingBucket.bucketArn)
-        ? (existingBucket as s3.Bucket)
-        : new s3.Bucket(this, "WebsiteBucket", {
+    const bucket = new s3.Bucket(this, "WebsiteBucket", {
             bucketName,
             removalPolicy:
               props.environment != "production"
@@ -51,9 +43,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
       this,
       "OriginAccessIdentity"
     );
-    if (!existingBucket) {
-      bucket.grantRead(originAccessIdentity);
-    }
+    bucket.grantRead(originAccessIdentity);
 
     const blogTable = this.createDynamoDbTable(props.environment);
 
