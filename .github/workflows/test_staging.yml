@@ -25,9 +25,9 @@ jobs:
               with:
                 record: false
                 config-file: cypress.config.ts
-                wait-on: ${{ env.STAGING_BASE_URL }}
+                wait-on: michaelbudnick.dev
                 wait-on-timeout: 10
                 browser: ${{ matrix.browser }}
               env:
-                CYPRESS_BASE_URL: ${{ env.STAGING_BASE_URL }}
+                CYPRESS_BASE_URL: https://www.michaelbudnick.dev/
                 DEBUG: '@cypress/github-action'
