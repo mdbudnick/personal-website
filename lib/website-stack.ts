@@ -32,7 +32,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
 
     const bucket = new s3.Bucket(this, "WebsiteBucket", {
       bucketName,
-      websiteIndexDocument: "index.html",
       removalPolicy:
         props?.environment != "production"
           ? cdk.RemovalPolicy.DESTROY
