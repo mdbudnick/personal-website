@@ -37,6 +37,10 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
         return response;
         }
+        return {
+          statusCode: 500,
+          body: "There was a problem retrieving the posts",
+      };
     } else {
       // Handle /<post-html>
       const filename = event.path.substring(1);
