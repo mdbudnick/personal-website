@@ -16,18 +16,14 @@ const middlePointContents = [
   "Scaling Fanatic",
 ];
 
-describe("root points to index.html", () => {
-  it("has the same index.html page", () => {
-    cy.visit("/");
-  });
-
+function indexTests(path) {
   it("index.html title", () => {
-    cy.visit("/");
+    cy.visit(path);
     cy.get("title").contains("Michael Budnick");
   });
 
   it("/ menu", () => {
-    cy.visit("/");
+    cy.visit(path);
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
@@ -42,7 +38,7 @@ describe("root points to index.html", () => {
   });
 
   it("/ middle", () => {
-    cy.visit("/");
+    cy.visit(path);
     cy.get(".middle .about-me .name").contains("Michael Budnick");
 
     cy.get(".middle .points .point").each(($el, i) => {
@@ -60,9 +56,16 @@ describe("root points to index.html", () => {
   });
 
   it("/ avatar", () => {
-    cy.visit("/");
+    cy.visit(path);
     cy.get(".top-row .avatar");
   });
+}
+
+describe("root points to index.html", () => {
+  it("has the same index.html page", () => {
+    cy.visit("/");
+  });
+  indexTests("/")
 });
 
 // Same as root test above
@@ -71,48 +74,7 @@ describe("index.html", () => {
     cy.visit("index.html");
   });
 
-  it("index.html title", () => {
-    cy.visit("index.html");
-    cy.get("title").contains("Michael Budnick");
-  });
-
-  it("index.html menu", () => {
-    cy.visit("index.html");
-    cy.get(".top-row");
-    cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(menuItemHrefs[i]);
-      expect($el.text()).equals(menuItemContents[i]);
-    });
-
-    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
-      expect($el.attr("href")).equals(socialMediaHrefs[i]);
-      expect($el.attr("target")).equals("_blank");
-      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
-    });
-  });
-
-  it("index.html middle", () => {
-    cy.visit("index.html");
-    cy.get(".middle .about-me .name").contains("Michael Budnick");
-
-    cy.get(".middle .points .point").each(($el, i) => {
-      expect($el.text()).equals(middlePointContents[i]);
-    });
-
-    cy.get(".middle .bio").each(($el) => {
-      expect($el.text()).contains(
-        "Professionally, I am an experienced Senior Software Developer"
-      );
-      expect($el.text()).contains(
-        "Personally, I live in New York City and thrive on life's adventures!"
-      );
-    });
-  });
-
-  it("index.html avatar", () => {
-    cy.visit("index.html");
-    cy.get(".top-row .avatar");
-  });
+  indexTests("index.html")
 });
 
 /*
