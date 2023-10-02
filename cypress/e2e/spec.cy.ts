@@ -1,8 +1,4 @@
-const menuItemHrefs = [
-  "index.html",
-  "certifications.html",
-  "projects.html",
-];
+const menuItemHrefs = ["index.html", "certifications.html", "projects.html"];
 
 const menuItemContents = ["about", "certifications", "projects"];
 
@@ -54,7 +50,12 @@ describe("root points to index.html", () => {
     });
 
     cy.get(".middle .bio").each(($el) => {
-      expect($el.text()).contains("Experienced Senior Software Developer");
+      expect($el.text()).contains(
+        "Professionally, I am an experienced Senior Software Developer"
+      );
+      expect($el.text()).contains(
+        "Personally, I live in New York City and thrive on life's adventures!"
+      );
     });
   });
 
@@ -99,7 +100,12 @@ describe("index.html", () => {
     });
 
     cy.get(".middle .bio").each(($el) => {
-      expect($el.text()).contains("Experienced Senior Software Developer");
+      expect($el.text()).contains(
+        "Professionally, I am an experienced Senior Software Developer"
+      );
+      expect($el.text()).contains(
+        "Personally, I live in New York City and thrive on life's adventures!"
+      );
     });
   });
 
@@ -151,7 +157,7 @@ describe("blog.html", () => {
 */
 const projectHrefs = ["https://www.breathbox.net", "#"];
 
-const projectNames = ["Breathbox", "This website!"];
+const projectNames = ["Breathbox", "This Website!"];
 
 describe("projects.html", () => {
   it("has an projects.html page", () => {
@@ -186,10 +192,12 @@ describe("projects.html", () => {
 
   it("projects.html projects", () => {
     cy.visit("projects.html");
-    cy.get(".projects .project").each(($el, i) => {
-      expect($el.children("a").attr("href")).equals(projectHrefs[i]);
-      expect($el.children("a").text()).equals(projectNames[i]);
-    });
+    cy.get(".projects .project .project-blurb .project-title").each(
+      ($el, i) => {
+        expect($el.attr("href")).equals(projectHrefs[i]);
+        expect($el.children("h2").text()).equals(projectNames[i]);
+      }
+    );
   });
 });
 
