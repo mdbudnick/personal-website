@@ -1,0 +1,29 @@
+.projects {
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(254, 254, 254, 0.5);
+    backdrop-filter: grayscale(0.4);
+    padding-top: 3vw;
+    border-radius: 0 0 1vh 1vh;
+}
+
+.project {
+    width: 100%;
+    display: flex;
+    margin: 2vh;
+}
+
+.project-icon {
+    width: 20vw;
+    height: 20vw;
+    border-radius: 1vh;
+}
+
+.project-summary {
+    width: 60vw;
+    font-weight: 800;
+}
+
+.project-blurb {
+    margin-left: 3vw;
+}
