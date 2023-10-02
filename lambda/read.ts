@@ -13,10 +13,11 @@ const dynamoDb = new DynamoDB.DocumentClient();
 export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayProxyResult> => {
   try {
     // Handle GET /posts request
-    if (event.path === "/posts" || event.path === "/posts/") {
+    if (event.path === "/") {
       const params = {
         TableName: "BlogPosts",
-        Limit: 20,
+        Limit: 100,
+        ProjectionExpression: "title,html,file,tags,posted"
       };
 
       const data = await dynamoDb.scan(params).promise();
@@ -25,6 +26,8 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
             title: item.title,
             html: item.html,
             created: item.created,
+            file: item.file,
+            tags: item.tags
         }));
 
         const response: APIGatewayProxyResult = {
@@ -35,20 +38,13 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
         return response;
         }
     } else {
-        return {
-            statusCode: 500,
-            body: JSON.stringify({ error: "Problem retrieving posts" }),
-        };
-    }
-
-    // Handle GET /posts/{postId} request
-    if (event.path.startsWith("/posts/")) {
-      const postId = event.path.substring("/posts/".length);
+      // Handle /<post-html>
+      const filename = event.path.substring(1);
 
       const params = {
         TableName: "BlogPosts",
         Key: {
-          postId: postId,
+          file: filename,
         },
       };
 
@@ -68,12 +64,6 @@ export const handler = async (event: APIGatewayProxyEvent): Promise<APIGatewayPr
 
       return response;
     }
-
-    // Handle unsupported routes
-    return {
-      statusCode: 404,
-      body: JSON.stringify({ message: "Not Found" }),
-    };
   } catch (error) {
     console.error("Error reading from DynamoDB", error);
 
