@@ -1,11 +1,10 @@
 const menuItemHrefs = [
   "index.html",
   "certifications.html",
-  "blog.html",
   "projects.html",
 ];
 
-const menuItemContents = ["about", "certifications", "blog", "projects"];
+const menuItemContents = ["about", "certifications", "projects"];
 
 const socialMediaHrefs = [
   "https://www.linkedin.com/in/michael-budnick-79a40b60",
@@ -110,6 +109,7 @@ describe("index.html", () => {
   });
 });
 
+/*
 describe("blog.html", () => {
   it("has a blog.html page", () => {
     cy.visit("blog.html");
@@ -148,7 +148,7 @@ describe("blog.html", () => {
     cy.get(".blog .posts");
   });
 });
-
+*/
 const projectHrefs = ["https://www.breathbox.net", "#"];
 
 const projectNames = ["Breathbox", "This website!"];
