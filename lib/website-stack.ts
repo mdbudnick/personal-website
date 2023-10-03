@@ -133,8 +133,8 @@ export class MyWebsiteAppStack extends cdk.Stack {
     }
     table ??= new dynamodb.Table(this, "BlogPosts", {
       tableName: "BlogPosts-" + environment,
-      partitionKey: { name: "file", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "posted", type: dynamodb.AttributeType.NUMBER },
+      partitionKey: { name: "postId", type: dynamodb.AttributeType.STRING },
+      sortKey: { name: "created", type: dynamodb.AttributeType.NUMBER },
       removalPolicy:
         environment == "production"
           ? cdk.RemovalPolicy.RETAIN
