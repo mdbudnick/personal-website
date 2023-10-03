@@ -1,0 +1,23 @@
+.current-media {
+    background-color: rgba(254, 254, 254, 0.5);
+    backdrop-filter: grayscale(0.6);
+    display: flex;
+    padding: 3vw 0;
+    border-radius: 0 0 1vh 1vh;
+}
+
+.media-item {
+    width: 25vw;
+    height: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: 3vw;
+    padding: 1vw;
+    text-align: center;
+    border: solid 1px;
+}
+
+.media-image {
+    width: 10vw;
+}
