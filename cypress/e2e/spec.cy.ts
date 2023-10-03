@@ -1,6 +1,6 @@
-const menuItemHrefs = ["index.html", "certifications.html", "projects.html"];
+const menuItemHrefs = ["index.html", "projects.html", "certifications.html",];
 
-const menuItemContents = ["about", "certifications", "projects"];
+const menuItemContents = ["about", "projects", "certifications"];
 
 const socialMediaHrefs = [
   "https://www.linkedin.com/in/michael-budnick-79a40b60",
