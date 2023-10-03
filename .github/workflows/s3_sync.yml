@@ -120,3 +120,6 @@ jobs:
     - name: Sync files to S3 bucket
       run: |
         aws s3 sync www s3://${{ secrets.PROD_BUCKET_NAME }} --delete
+    - name: Invalidate CloudFront
+      run: |
+        aws cloudfront create-invalidation --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }} --paths /*
