@@ -24,6 +24,7 @@ const middlePointContents = [
 const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
+  // eslint-disable-next-line max-len
   "https://www.abebooks.com/9781492053743/Effective-TypeScript-Specific-Ways-Improve-1492053740/plp",
   "https://www.ageofnapoleon.com",
   "https://www.disneyplus.com/series/ahsoka/",
@@ -35,11 +36,7 @@ const mediaTitles = [
   "Ahsoka",
 ];
 
-const mediaAuthors = [
-  "Dan Vanderkam",
-  "E.M. Rummage",
-  "Disney+",
-];
+const mediaAuthors = ["Dan Vanderkam", "E.M. Rummage", "Disney+"];
 
 function indexTests(path) {
   it("index.html title", () => {
@@ -90,7 +87,7 @@ function indexTests(path) {
     cy.get(".current-media .media-item").each(($el, i) => {
       expect($el.children("h2").text()).equals("Currently " + mediaItems[i]);
       const $mediaATag = $el.children("a");
-      expect($mediaATag.attr("href")).equals(mediaLinks[i])
+      expect($mediaATag.attr("href")).equals(mediaLinks[i]);
       expect($mediaATag.children("h3").text()).contains(mediaTitles[i]);
       expect($mediaATag.children("h3").text()).contains(mediaAuthors[i]);
     });
