@@ -1,4 +1,4 @@
-const menuItemHrefs = ["index.html", "projects.html", "certifications.html",];
+const menuItemHrefs = ["index.html", "projects.html", "certifications.html"];
 
 const menuItemContents = ["about", "projects", "certifications"];
 
@@ -21,13 +21,33 @@ const middlePointContents = [
   "Scaling Fanatic",
 ];
 
+const mediaItems = ["Reading", "Listening", "Watching"];
+
+const mediaLinks = [
+  "https://www.abebooks.com/9781492053743/Effective-TypeScript-Specific-Ways-Improve-1492053740/plp",
+  "https://www.ageofnapoleon.com",
+  "https://www.disneyplus.com/series/ahsoka/",
+];
+
+const mediaTitles = [
+  "Effective TypeScript: 62 Specific Ways to Improve Your TypeScript",
+  "The Age of Napoleon",
+  "Ahsoka",
+];
+
+const mediaAuthors = [
+  "Dan Vanderkam",
+  "E.M. Rummage",
+  "Disney+",
+];
+
 function indexTests(path) {
   it("index.html title", () => {
     cy.visit(path);
     cy.get("title").contains("Michael Budnick");
   });
 
-  it("/ menu", () => {
+  it("menu", () => {
     cy.visit(path);
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
@@ -42,7 +62,7 @@ function indexTests(path) {
     });
   });
 
-  it("/ middle", () => {
+  it("middle", () => {
     cy.visit(path);
     cy.get(".middle .about-me .name").contains("Michael Budnick");
 
@@ -60,9 +80,20 @@ function indexTests(path) {
     });
   });
 
-  it("/ avatar", () => {
+  it("avatar", () => {
     cy.visit(path);
     cy.get(".top-row .avatar");
+  });
+
+  it("media-items", () => {
+    cy.visit(path);
+    cy.get(".current-media .media-item").each(($el, i) => {
+      expect($el.children("h2").text()).equals("Currently " + mediaItems[i]);
+      const $mediaATag = $el.children("a");
+      expect($mediaATag.attr("href")).equals(mediaLinks[i])
+      expect($mediaATag.children("h3").text()).contains(mediaTitles[i]);
+      expect($mediaATag.children("h3").text()).contains(mediaAuthors[i]);
+    });
   });
 }
 
