@@ -23,10 +23,14 @@
         <a href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
             src="img/linkedin.png" /></a>
         <a href="https://github.com/mdbudnick" target="_blank"><img src="img/github.png" /></a>
-        <a href="https://budnick-resume.s3.amazonaws.com/MichaelBudnickResume.pdf" target="_blank"><img src="img/cv-download.png" /></a>
+        <a href="https://budnick-resume.s3.amazonaws.com/MichaelBudnickResume.pdf" target="_blank"><img
+            src="img/cv-download.png" /></a>
       </div>
     </div>
     <div class="middle">
+      <p>These projects serve as a concise showcase of my expertise and commitment to excellence. They are just a small
+        testament to my capacity to create world-class applications in quality, performance, and security ready to meet
+        and exceed your professional needs.</p>
       <h2 class="title">Personal Projects</h2>
     </div>
     <img class="avatar" src="img/sunflower-headshot.jpeg" />
@@ -40,18 +44,18 @@
       </a><a href="https://github.com/mdbudnick/personal-website/" target="_blank">
         <h3>Repository</h3>
       </a>
-      <p class="project-summary">This straightforward website, while presenting an unassuming exterior with its
-        use of native CSS and static HTML for the front-end, conceals a sophisticated infrastructure that exemplifies
+      <p class="project-summary">This straightforward website, while presenting an unassuming exterior with its use of
+        native CSS and static HTML for the front-end, conceals a sophisticated infrastructure that exemplifies
         industry-standard Continuous Integration/Continuous Deployment (CI/CD) technologies. Beneath the surface, it
-        includes both unit and end-to-end (E2E) Cypress testing, which are run against a pre-production "staging"
-        environment
-        before "prod" deployment through the seamless orchestration of GitHub Workflows. The infrastructure for this
-        website is provisioned using the Typescript AWS CDK library, and it is served securely with TLS/HTTPS through
-        Route53, and efficiently through a CloudFront Distribution. This website serves as a concise showcase of my
-        expertise, highlighting the depth of my skills and knowledge and commitment to excellence. It is a testament to
-        my
-        capacity to create world-class applications in quality, performance, and security ready to meet and exceed your
-        needs.</p>
+        includes both unit and end-to-end Cypress testing, which are run against a pre-production "staging"
+        environment before deployment to "prod", where they are run again and will trigger a rollback to a stable
+        version if they fail in prod for whatever reason. This is all seamlessly orchestrated with a GitHub Workflow <a
+          href="https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml"
+          )>(source)</a>
+        whenever user-facing changes are pushed to the main branch. The infrastructure for this website is provisioned
+        using the Typescript AWS CDK library and served securely with TLS/HTTPS through Route53. All content is
+        delivered and cached efficiently via CloudFront Distribution.
+      </p>
     </div>
   </div>
   <div class="project">
