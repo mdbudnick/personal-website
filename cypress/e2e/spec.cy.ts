@@ -5,9 +5,14 @@ const menuItemContents = ["about", "certifications", "projects"];
 const socialMediaHrefs = [
   "https://www.linkedin.com/in/michael-budnick-79a40b60",
   "https://github.com/mdbudnick",
+  "https://budnick-resume.s3.amazonaws.com/MichaelBudnickResume.pdf",
 ];
 
-const socialMediaImgs = ["img/linkedin.png", "img/github.png"];
+const socialMediaImgs = [
+  "img/linkedin.png",
+  "img/github.png",
+  "img/cv-download.png",
+];
 
 const middlePointContents = [
   "Software Developer",
@@ -65,7 +70,7 @@ describe("root points to index.html", () => {
   it("has the same index.html page", () => {
     cy.visit("/");
   });
-  indexTests("/")
+  indexTests("/");
 });
 
 // Same as root test above
@@ -74,7 +79,7 @@ describe("index.html", () => {
     cy.visit("index.html");
   });
 
-  indexTests("index.html")
+  indexTests("index.html");
 });
 
 /*
