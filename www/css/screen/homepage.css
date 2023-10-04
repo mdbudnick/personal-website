@@ -8,12 +8,12 @@
 
 .media-item {
     width: 25vw;
-    height: 30vw;
+    height: auto;
     display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 3vw;
-    padding: 1vw;
+    padding: 2vh 2vw;
     text-align: center;
     border: solid 1px;
 }
