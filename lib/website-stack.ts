@@ -167,10 +167,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
       {
         comment: "Security headers response header policy",
         securityHeadersBehavior: {
-          contentSecurityPolicy: {
-            override: true,
-            contentSecurityPolicy: "default-src 'self'",
-          },
           strictTransportSecurity: {
             override: true,
             accessControlMaxAge: cdk.Duration.days(2 * 365),
