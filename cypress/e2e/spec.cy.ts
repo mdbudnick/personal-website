@@ -5,7 +5,7 @@ const menuItemContents = ["about", "projects", "certifications"];
 const socialMediaHrefs = [
   "https://www.linkedin.com/in/michael-budnick-79a40b60",
   "https://github.com/mdbudnick",
-  "https://budnick-resume.s3.amazonaws.com/MichaelBudnickResume.pdf",
+  "https://www.mike-budnick.com/MichaelBudnickResume.pdf",
 ];
 
 const socialMediaImgs = [
@@ -277,6 +277,12 @@ describe("404.html", () => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
       expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+    });
+  });
+
+  describe("MichaelBudnickResume.pdf", () => {
+    it("serves MichaelBudnickResume.pdf", () => {
+      cy.request("MichaelBudnickResume.pdf");
     });
   });
 });
