@@ -27,16 +27,16 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://www.abebooks.com/9781492053743/Effective-TypeScript-Specific-Ways-Improve-1492053740/plp",
   "https://www.ageofnapoleon.com",
-  "https://www.disneyplus.com/series/ahsoka/",
+  "https://www.netflix.com/title/81134264",
 ];
 
 const mediaTitles = [
   "Effective TypeScript: 62 Specific Ways to Improve Your TypeScript",
   "The Age of Napoleon",
-  "Ahsoka",
+  "Mo",
 ];
 
-const mediaAuthors = ["Dan Vanderkam", "E.M. Rummage", "Disney+"];
+const mediaAuthors = ["Dan Vanderkam", "E.M. Rummage", "Netflix"];
 
 function indexTests(path) {
   it("index.html title", () => {
@@ -200,18 +200,21 @@ const certBadges = [
   "img/cka-badge.png",
   "img/ckad-badge.png",
   "img/cks-badge.png",
+  "img/tf-badge.png",
 ];
 
 const certTitles = [
   "CKA: Certified Kubernetes Administrator",
   "CKAD: Certified Kubernetes Application Developer",
   "CKS: Certified Kubernetes Security Specialist",
+  "HashiCorp Certified: Terraform Associate (003)",
 ];
 
 const certCredlyLinks = [
   "https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f",
   "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
   "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c",
+  "https://www.credly.com/badges/cef85466-bd22-4619-aa91-f3b9b74ac28c",
 ];
 
 describe("certifications.html", () => {
