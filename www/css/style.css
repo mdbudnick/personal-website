@@ -13,6 +13,7 @@ body {
     padding: 2vh 2vw;
     border-radius: 1vh 1vh 0 0;
     margin-top: 2vh;
+    border-bottom: 4px dashed midnightblue;
 }
 
 .four-oh-four {
