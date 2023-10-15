@@ -34,7 +34,8 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    width: 60vw;
+    width: 46vw;
+    padding: 2vw;
 }
 
 .middle .title {
