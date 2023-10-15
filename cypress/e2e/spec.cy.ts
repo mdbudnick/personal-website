@@ -12,6 +12,7 @@ const socialMediaImgs = [
   "img/linkedin.png",
   "img/github.png",
   "img/cv-download.png",
+  "img/light-dark.png"
 ];
 
 const middlePointContents = [
