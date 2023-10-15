@@ -47,9 +47,9 @@ function generateWordCloud() {
 
 async function loadBlogPosts() {
     try {
-        const response = await fetch('./posts/summary.json'); // Adjust the path as needed
+        const response = await fetch("./posts/summary.json"); // Adjust the path as needed
         if (!response.ok) {
-            throw new Error('Failed to load blog posts data');
+            throw new Error("Failed to load blog posts data");
         }
         const data = await response.json();
         return data;
