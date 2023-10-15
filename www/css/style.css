@@ -19,3 +19,7 @@ body {
 .four-oh-four {
     height: 60vh;
 }
+
+.black-background {
+    background-color: black;
+}

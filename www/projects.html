@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <link rel="icon" href="https://zany.sh/favicon.svg?text=MB"/>
+  <link rel="icon" href="https://zany.sh/favicon.svg?text=MB" />
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/screen/top-row.css" />
   <link rel="stylesheet" href="css/mobile/top-row.css" />
@@ -21,11 +21,22 @@
       <a class="item" href="projects.html">projects</a>
       <a class="item" href="certifications.html">certifications</a>
       <div class="third-party-sm">
-        <a href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
+        <a class="sm-click" href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
             src="img/linkedin.png" /></a>
-        <a href="https://github.com/mdbudnick" target="_blank"><img src="img/github.png" /></a>
-        <a href="https://www.mike-budnick.com/MichaelBudnickResume.pdf" target="_blank"><img
+        <a class="sm-click" href="https://github.com/mdbudnick" target="_blank"><img src="img/github.png" /></a>
+        <a class="sm-click" href="https://www.mike-budnick.com/MichaelBudnickResume.pdf" target="_blank"><img
             src="img/cv-download.png" /></a>
+        <img class="sm-click light-dark" class="light-dark" src="img/light-dark.png" />
+        <script>
+          document.addEventListener("DOMContentLoaded", function () {
+            const lightDarkElement = document.querySelector('.light-dark');
+            const body = document.body;
+
+            lightDarkElement.addEventListener("click", function () {
+              body.classList.toggle("black-background");
+            });
+          });
+        </script>
       </div>
     </div>
     <div class="middle">
