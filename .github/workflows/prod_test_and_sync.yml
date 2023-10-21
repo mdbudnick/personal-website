@@ -122,8 +122,7 @@ jobs:
           aws s3 sync www s3://${{ secrets.PROD_BUCKET_NAME }} --delete --exclude "stable-version"
       - name: Invalidate CloudFront and wait for completion
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }} --paths /*
-          aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }}
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }} --paths "/*" --output json --query 'Invalidation.Id' | xargs -I {} aws cloudfront wait invalidation-completed --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }} --id {}
 
   test-prod:
     needs: sync-prod
@@ -153,22 +152,21 @@ jobs:
           CYPRESS_BASE_URL: "https://${{ secrets.PROD_DOMAIN_NAME }}/"
           # DEBUG: '@cypress/github-action'
 
-
   stable-prod:
     needs: test-prod
     if: ${{ needs.test-prod.result == 'success' }}
     timeout-minutes: 15
     runs-on: ubuntu-latest
     steps:
-    - name: Setup AWS CLI
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    - name: Push stable commit to rollback branch
-      run: echo $GITHUB_SHA >> stable-version && aws s3 cp stable-version s3://${{ secrets.PROD_BUCKET_NAME }}
-  
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Push stable commit to rollback branch
+        run: echo $GITHUB_SHA >> stable-version && aws s3 cp stable-version s3://${{ secrets.PROD_BUCKET_NAME }}
+
   rollback-prod:
     runs-on: ubuntu-latest
     needs: test-prod
