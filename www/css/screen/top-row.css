@@ -1,9 +1,10 @@
 .top-row .menu {
     margin-top: 8vh;
     margin-right: 5px;
-    width: 13vw;
+    width: 18%;
     display: flex;
     flex-direction: column;
+    z-index: 1;
 }
 
 .menu .item {
@@ -34,7 +35,7 @@
     display: flex;
     flex-direction: column-reverse;
     align-items: center;
-    width: 46vw;
+    width: 60%;
     padding: 2vw;
 }
 
@@ -60,8 +61,8 @@
 }
 
 .avatar {
-    height: 20vw;
-    width: 20vw;
+    height: 18%;
+    width: 18%;
     border-radius: 50%;
 }
 

@@ -292,12 +292,12 @@ describe("404.html", () => {
 });
 
 describe("darkmode", () => {
-  it("has persistent darkmode settings", () => {
+  it("has darkmode button", () => {
     cy.visit("index.html");
-    cy.get("body").should("have.class", "black-background");
-    cy.get(".light-dark").click();
     cy.get("body").should("not.have.class", "black-background");
     cy.get(".light-dark").click();
     cy.get("body").should("have.class", "black-background");
+    cy.get(".light-dark").click();
+    cy.get("body").should("not.have.class", "black-background");
   });
 });
