@@ -65,5 +65,4 @@ loadBlogPosts().then(postsData => {
     generateBlogListing();
     generateWordCloud();
 });
-
 // TODO Function to sort and filter blog posts (implement sorting and filtering logic here)
