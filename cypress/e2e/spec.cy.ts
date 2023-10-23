@@ -198,6 +198,7 @@ describe("projects.html", () => {
 });
 
 const certBadges = [
+  "img/aws-cloud-practitioner-badge.png",
   "img/cka-badge.png",
   "img/ckad-badge.png",
   "img/cks-badge.png",
@@ -205,6 +206,7 @@ const certBadges = [
 ];
 
 const certTitles = [
+  "AWS Certified Cloud Practitioner",
   "CKA: Certified Kubernetes Administrator",
   "CKAD: Certified Kubernetes Application Developer",
   "CKS: Certified Kubernetes Security Specialist",
@@ -212,6 +214,7 @@ const certTitles = [
 ];
 
 const certCredlyLinks = [
+  "https://www.credly.com/badges/595b50eb-6538-4c75-bb56-b164b4d108a2",
   "https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f",
   "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
   "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c",
