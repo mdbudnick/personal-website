@@ -12,7 +12,7 @@ const socialMediaImgs = [
   "img/linkedin.png",
   "img/github.png",
   "img/cv-download.png",
-  "img/light-dark.png"
+  "img/light-dark.png",
 ];
 
 const middlePointContents = [
@@ -26,18 +26,18 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9781492053743/Effective-TypeScript-Specific-Ways-Improve-1492053740/plp",
+  "https://www.abebooks.com/9780345472328/Mindset-New-Psychology-Success-Dweck-0345472322/plp",
   "https://www.ageofnapoleon.com",
   "https://www.netflix.com/title/81134264",
 ];
 
 const mediaTitles = [
-  "Effective TypeScript: 62 Specific Ways to Improve Your TypeScript",
+  "Mindset: The New Psychology of Success",
   "The Age of Napoleon",
   "Mo",
 ];
 
-const mediaAuthors = ["Dan Vanderkam", "E.M. Rummage", "Netflix"];
+const mediaAuthors = ["Dr. Carol S. Dweck", "E.M. Rummage", "Netflix"];
 
 function indexTests(path) {
   it("index.html title", () => {
