@@ -122,7 +122,7 @@ jobs:
           aws s3 sync www s3://${{ secrets.PROD_BUCKET_NAME }} --delete --exclude "stable-version"
       - name: Invalidate CloudFront and wait for completion
         run: |
-          aws cloudfront create-invalidation --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }} --paths "/*" --output json --query 'Invalidation.Id'
+          aws cloudfront create-invalidation --distribution-id ${{ secrets.PROD_DISTRIBUTION_ID }} --paths "/*"
           sleep 180
 
   test-prod:
