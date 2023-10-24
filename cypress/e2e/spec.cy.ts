@@ -28,16 +28,16 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://www.abebooks.com/9780345472328/Mindset-New-Psychology-Success-Dweck-0345472322/plp",
   "https://www.ageofnapoleon.com",
-  "https://www.netflix.com/title/81134264",
+  "https://youtube.com/watch?v=RrKRN9zRBWs",
 ];
 
 const mediaTitles = [
   "Mindset: The New Psychology of Success",
   "The Age of Napoleon",
-  "Mo",
+  "AWS Certified Developer - Associate 2020 (PASS THE EXAM!)",
 ];
 
-const mediaAuthors = ["Dr. Carol S. Dweck", "E.M. Rummage", "Netflix"];
+const mediaAuthors = ["Dr. Carol S. Dweck", "E.M. Rummage", "freeCodeCamp.org"];
 
 function indexTests(path) {
   it("index.html title", () => {
