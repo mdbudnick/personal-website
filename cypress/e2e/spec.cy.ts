@@ -26,18 +26,18 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9780345472328/Mindset-New-Psychology-Success-Dweck-0345472322/plp",
+  "https://www.abebooks.com/9780986393419/Ansible-DevOps-Server-configuration-management-098639341X/plp",
   "https://www.ageofnapoleon.com",
   "https://youtube.com/watch?v=RrKRN9zRBWs",
 ];
 
 const mediaTitles = [
-  "Mindset: The New Psychology of Success",
+  "Ansible for DevOps",
   "The Age of Napoleon",
   "AWS Certified Developer - Associate 2020 (PASS THE EXAM!)",
 ];
 
-const mediaAuthors = ["Dr. Carol S. Dweck", "E.M. Rummage", "freeCodeCamp.org"];
+const mediaAuthors = ["Jeff Geerling", "E.M. Rummage", "freeCodeCamp.org"];
 
 function indexTests(path) {
   it("index.html title", () => {
