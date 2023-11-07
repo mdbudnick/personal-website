@@ -151,9 +151,9 @@ describe("blog.html", () => {
   });
 });
 */
-const projectHrefs = ["#", "https://www.breathbox.net"];
+const projectHrefs = ["https://lcsltied.azureedge.net/", "#"];
 
-const projectNames = ["This Website!", "Breathbox"];
+const projectNames = ["Breathbox", "This Website!"];
 
 describe("projects.html", () => {
   it("has an projects.html page", () => {
