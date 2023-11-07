@@ -67,7 +67,7 @@
       <p class="project-summary">This straightforward website, while presenting an unassuming exterior with its use of
         native CSS and static HTML for the front-end, conceals a sophisticated infrastructure that exemplifies
         industry-standard Continuous Integration/Continuous Deployment (CI/CD) technologies. Beneath the surface, it
-        includes both unit and end-to-end Cypress testing, which are run against a pre-production "staging"
+        includes both unit and scheduled end-to-end Cypress testing, which are run against a pre-production "staging"
         environment before deployment to "prod", where they are run again and will trigger a rollback to a stable
         version if they fail in prod for whatever reason. This is all seamlessly orchestrated with a GitHub Workflow <a
           href="https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml"
