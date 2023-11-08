@@ -151,7 +151,7 @@ describe("blog.html", () => {
   });
 });
 */
-const projectHrefs = ["https://lcsltied.azureedge.net/", "#"];
+const projectHrefs = ["https://www.breathbox.net/", "#"];
 
 const projectNames = ["Breathbox", "This Website!"];
 
