@@ -1,0 +1,16 @@
+name: Domain Health Check
+
+on:
+  schedule:
+    - cron: '0 */1 * * *'
+jobs:
+  check_domain:
+    runs-on: ubuntu-latest
+    steps:
+      - run: |
+          curl https://www.mike-budnick.com
+          curl https://mike-budnick.com
+          [[ $(curl mike-budnick.com) =~ "301 Moved Permanently" ]] || exit 1
+          [[ $(curl www.mike-budnick.com) =~ "301 Moved Permanently" ]] || exit 1
+          [[ $(curl http://mike-budnick.com) =~ "301 Moved Permanently" ]] || exit 1
+          [[ $(curl http://www.mike-budnick.com) =~ "301 Moved Permanently" ]] || exit 1
