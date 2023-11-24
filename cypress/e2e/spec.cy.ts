@@ -29,6 +29,7 @@ const mediaLinks = [
   "https://www.abebooks.com/9780986393419/Ansible-DevOps-Server-configuration-management-098639341X/plp",
   // eslint-disable-next-line max-len
   "https://www.simonandschuster.com/books/The-White-Wolf/Michael-Moorcock/Elric-Saga-The/9781534445741",
+  // eslint-disable-next-line max-len
   "https://portal.Tutorials Dojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
 
