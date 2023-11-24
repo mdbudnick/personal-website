@@ -203,6 +203,7 @@ const certBadges = [
   "img/ckad-badge.png",
   "img/cks-badge.png",
   "img/tf-badge.png",
+  "img/aws-developer-badge.png",
 ];
 
 const certTitles = [
@@ -211,6 +212,7 @@ const certTitles = [
   "CKAD: Certified Kubernetes Application Developer",
   "CKS: Certified Kubernetes Security Specialist",
   "HashiCorp Certified: Terraform Associate (003)",
+  "AWS Certified Developer Associate",
 ];
 
 const certCredlyLinks = [
@@ -219,6 +221,7 @@ const certCredlyLinks = [
   "https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d",
   "https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c",
   "https://www.credly.com/badges/cef85466-bd22-4619-aa91-f3b9b74ac28c",
+  "https://www.credly.com/badges/ef695cda-e5dd-470f-b0d3-4010f41f21d3",
 ];
 
 describe("certifications.html", () => {
