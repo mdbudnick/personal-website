@@ -29,16 +29,16 @@ const mediaLinks = [
   "https://www.abebooks.com/9780986393419/Ansible-DevOps-Server-configuration-management-098639341X/plp",
   // eslint-disable-next-line max-len
   "https://www.simonandschuster.com/books/The-White-Wolf/Michael-Moorcock/Elric-Saga-The/9781534445741",
-  "https://youtube.com/watch?v=RrKRN9zRBWs",
+  "https://portal.Tutorials Dojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
 
 const mediaTitles = [
   "Ansible for DevOps",
   "The White Wolf",
-  "AWS Certified Developer - Associate 2020 (PASS THE EXAM!)",
+  "AWS Certified SysOps Administrator Associate Video Course",
 ];
 
-const mediaAuthors = ["Jeff Geerling", "Michael Moorcock", "freeCodeCamp.org"];
+const mediaAuthors = ["Jeff Geerling", "Michael Moorcock", "Tutorials Dojo"];
 
 function indexTests(path) {
   it("index.html title", () => {
