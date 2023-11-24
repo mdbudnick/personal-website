@@ -27,17 +27,18 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://www.abebooks.com/9780986393419/Ansible-DevOps-Server-configuration-management-098639341X/plp",
-  "https://www.ageofnapoleon.com",
+  // eslint-disable-next-line max-len
+  "https://www.simonandschuster.com/books/The-White-Wolf/Michael-Moorcock/Elric-Saga-The/9781534445741",
   "https://youtube.com/watch?v=RrKRN9zRBWs",
 ];
 
 const mediaTitles = [
   "Ansible for DevOps",
-  "The Age of Napoleon",
+  "The White Wolf",
   "AWS Certified Developer - Associate 2020 (PASS THE EXAM!)",
 ];
 
-const mediaAuthors = ["Jeff Geerling", "E.M. Rummage", "freeCodeCamp.org"];
+const mediaAuthors = ["Jeff Geerling", "Michael Moorcock", "freeCodeCamp.org"];
 
 function indexTests(path) {
   it("index.html title", () => {
