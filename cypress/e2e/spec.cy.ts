@@ -28,18 +28,18 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://www.abebooks.com/9780986393419/Ansible-DevOps-Server-configuration-management-098639341X/plp",
   // eslint-disable-next-line max-len
-  "https://www.simonandschuster.com/books/The-White-Wolf/Michael-Moorcock/Elric-Saga-The/9781534445741",
+  "https://open.spotify.com/show/5TmEB4SkelLMq8zUyhQ8LP",
   // eslint-disable-next-line max-len
   "https://portal.Tutorials Dojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
 
 const mediaTitles = [
   "Ansible for DevOps",
-  "The White Wolf",
+  "Dark Emu",
   "AWS Certified SysOps Administrator Associate Video Course",
 ];
 
-const mediaAuthors = ["Jeff Geerling", "Michael Moorcock", "Tutorials Dojo"];
+const mediaAuthors = ["Jeff Geerling", "Bruce Pascoe", "Tutorials Dojo"];
 
 function indexTests(path) {
   it("index.html title", () => {
