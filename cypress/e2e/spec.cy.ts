@@ -26,20 +26,20 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9780986393419/Ansible-DevOps-Server-configuration-management-098639341X/plp",
+  "https://www.abebooks.com/9781118380987/Networking-All-in-One-Dummies-Lowe-Doug-1118380983/plp",
   // eslint-disable-next-line max-len
-  "https://open.spotify.com/show/5TmEB4SkelLMq8zUyhQ8LP",
+  "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
   "https://portal.Tutorials Dojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
 
 const mediaTitles = [
-  "Ansible for DevOps",
-  "Dark Emu",
+  "Networking All-in-One",
+  "Napoleon: A Life",
   "AWS Certified SysOps Administrator Associate Video Course",
 ];
 
-const mediaAuthors = ["Jeff Geerling", "Bruce Pascoe", "Tutorials Dojo"];
+const mediaAuthors = ["Doug Lowe", "Andrew Roberts", "Tutorials Dojo"];
 
 function indexTests(path) {
   it("index.html title", () => {
