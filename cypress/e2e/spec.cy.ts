@@ -154,9 +154,21 @@ describe("blog.html", () => {
 });
 */
 
-const projectNames = ["High-Availability Home K8s Cluster", "Breathbox", "This Website!"];
+const projectNames = [
+  "High-Availability Home K8s Cluster",
+  "Breathbox",
+  "This Website!",
+];
 
-const projectHrefs = ["https://mdbudnick.github.io/home-k8s/", "https://github.com/mdbudnick/home-k8s/", "https://www.breathbox.net/", "https://github.com/mdbudnick/breathbox/", "https://github.com/mdbudnick/personal-website/", "https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml"];
+const projectHrefs = [
+  "https://mdbudnick.github.io/home-k8s/",
+  "https://github.com/mdbudnick/home-k8s/",
+  "https://www.breathbox.net/",
+  "https://github.com/mdbudnick/breathbox/",
+  "https://github.com/mdbudnick/personal-website/",
+  // eslint-disable-next-line max-len
+  "https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml",
+];
 
 describe("projects.html", () => {
   it("has an projects.html page", () => {
@@ -200,11 +212,9 @@ describe("projects.html", () => {
 
   it("projects.html links", () => {
     cy.visit("projects.html");
-    cy.get(".projects .project .project-blurb a").each(
-      ($el, i) => {
-        expect($el.attr("href")).equals(projectHrefs[i]);
-      }
-    );
+    cy.get(".projects .project .project-blurb a").each(($el, i) => {
+      expect($el.attr("href")).equals(projectHrefs[i]);
+    });
   });
 });
 
