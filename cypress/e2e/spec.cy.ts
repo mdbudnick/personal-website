@@ -26,7 +26,7 @@ const mediaItems = ["Reading", "Listening", "Practicing"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9781118380987/Networking-All-in-One-Dummies-Lowe-Doug-1118380983/plp",
+  "https://www.goodreads.com/book/show/26329.Emotional_Intelligence",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
@@ -34,12 +34,12 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "Networking All-in-One",
+  "Emotional Intelligence: Why It Can Matter More Than IQ",
   "Napoleon: A Life",
   "Jingle Bell Rock",
 ];
 
-const mediaAuthors = ["Doug Lowe", "Andrew Roberts", "Bobby Helms"];
+const mediaAuthors = ["Daniel Goleman", "Andrew Roberts", "Bobby Helms"];
 
 function indexTests(path) {
   it("index.html title", () => {
