@@ -22,7 +22,7 @@ const middlePointContents = [
   "Scaling Fanatic",
 ];
 
-const mediaItems = ["Reading", "Listening", "Watching"];
+const mediaItems = ["Reading", "Listening", "Practicing"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
@@ -30,16 +30,16 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
-  "https://portal.Tutorials Dojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
+  "https://www.youtube.com/watch?v=P1hxH_xTItg",
 ];
 
 const mediaTitles = [
   "Networking All-in-One",
   "Napoleon: A Life",
-  "AWS Certified SysOps Administrator Associate Video Course",
+  "Jingle Bell Rock",
 ];
 
-const mediaAuthors = ["Doug Lowe", "Andrew Roberts", "Tutorials Dojo"];
+const mediaAuthors = ["Doug Lowe", "Andrew Roberts", "Bobby Helms"];
 
 function indexTests(path) {
   it("index.html title", () => {
