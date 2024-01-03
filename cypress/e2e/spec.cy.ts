@@ -30,16 +30,16 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
-  "https://www.youtube.com/watch?v=P1hxH_xTItg",
+  "https://www.youtube.com/watch?v=5yGdK65Ww2U",
 ];
 
 const mediaTitles = [
   "Emotional Intelligence: Why It Can Matter More Than IQ",
   "Napoleon: A Life",
-  "Jingle Bell Rock",
+  "Sounds of Silence",
 ];
 
-const mediaAuthors = ["Daniel Goleman", "Andrew Roberts", "Bobby Helms"];
+const mediaAuthors = ["Daniel Goleman", "Andrew Roberts", "Simon and Garfunkel"];
 
 function indexTests(path) {
   it("index.html title", () => {
