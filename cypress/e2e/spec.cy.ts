@@ -34,7 +34,7 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "Emotional Intelligence: Why It Can Matter More Than IQ",
+  "Emotional Intelligence",
   "Napoleon: A Life",
   "Sounds of Silence",
 ];
