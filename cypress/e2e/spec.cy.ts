@@ -39,7 +39,11 @@ const mediaTitles = [
   "Sounds of Silence",
 ];
 
-const mediaAuthors = ["Daniel Goleman", "Andrew Roberts", "Simon and Garfunkel"];
+const mediaAuthors = [
+  "Daniel Goleman",
+  "Andrew Roberts",
+  "Simon and Garfunkel",
+];
 
 function indexTests(path) {
   it("index.html title", () => {
