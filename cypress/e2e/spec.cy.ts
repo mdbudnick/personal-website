@@ -30,13 +30,13 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
-  "https://www.youtube.com/watch?v=5yGdK65Ww2U",
+  "https://www.youtube.com/watch?v=qn0QBXMYXsM",
 ];
 
 const mediaTitles = [
   "Emotional Intelligence",
   "Napoleon: A Life",
-  "Sounds of Silence",
+  "The Sound of Silence",
 ];
 
 const mediaAuthors = [
