@@ -1,3 +1,5 @@
+![healthcheck](https://github.com/mdbudnick/personal-website/actions/workflows/healthcheck.yml/badge.svg)
+
 # Personal Website Repository
 
 Welcome to the repository for [mike-budnick.com!](https://www.mike-budnick.com/) - a personal website showcasing a sophisticated infrastructure built with industry-standard Continuous Integration/Continuous Deployment (CI/CD) technologies. This website may appear unassuming on the surface, with its use of native CSS and static HTML for the front-end, but it conceals a powerful architecture beneath.
