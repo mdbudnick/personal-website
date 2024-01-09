@@ -26,7 +26,7 @@ const mediaItems = ["Reading", "Listening", "Practicing"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.goodreads.com/book/show/26329.Emotional_Intelligence",
+  "https://www.abebooks.com/9781984862075/Win-Chess-Ultimate-Guide-Beginners-1984862073/plp",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
@@ -34,13 +34,13 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "Emotional Intelligence",
+  "How to Win at Chess",
   "Napoleon: A Life",
   "The Sound of Silence",
 ];
 
 const mediaAuthors = [
-  "Daniel Goleman",
+  "Levy Rozman",
   "Andrew Roberts",
   "Simon and Garfunkel",
 ];
