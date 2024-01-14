@@ -159,16 +159,18 @@ describe("blog.html", () => {
 */
 
 const projectNames = [
-  "High-Availability Home K8s Cluster",
   "Breathbox",
+  "High-Availability Home K8s Cluster",
   "This Website!",
 ];
 
 const projectHrefs = [
-  "https://mdbudnick.github.io/home-k8s/",
-  "https://github.com/mdbudnick/home-k8s/",
   "https://www.breathbox.net/",
   "https://github.com/mdbudnick/breathbox/",
+  "https://play.google.com/store/apps/details?id=com.michaelbudnick.breathbox/",
+  "https://github.com/mdbudnick/bb-react-native/",
+  "https://mdbudnick.github.io/home-k8s/",
+  "https://github.com/mdbudnick/home-k8s/",
   "https://github.com/mdbudnick/personal-website/",
   // eslint-disable-next-line max-len
   "https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml",
