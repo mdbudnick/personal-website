@@ -1,4 +1,4 @@
-![healthcheck](https://github.com/mdbudnick/personal-website/actions/workflows/healthcheck.yml/badge.svg)
+![healthcheck](https://github.com/mdbudnick/personal-website/actions/workflows/healthcheck.yml/badge.svg) ![syncdeploy](https://github.com/mdbudnick/personal-website/actions/workflows/prod_test_and_sync.yml/badge.svg)
 
 # Personal Website Repository
 
