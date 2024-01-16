@@ -329,10 +329,10 @@ describe("404.html", () => {
 describe("darkmode", () => {
   it("has darkmode button", () => {
     cy.visit("index.html");
-    cy.get("body").should("not.have.class", "white-background");
-    cy.get(".light-dark").click();
     cy.get("body").should("have.class", "white-background");
     cy.get(".light-dark").click();
     cy.get("body").should("not.have.class", "white-background");
+    cy.get(".light-dark").click();
+    cy.get("body").should("have.class", "white-background");
   });
 });
