@@ -22,7 +22,7 @@ const middlePointContents = [
   "Scaling Fanatic",
 ];
 
-const mediaItems = ["Reading", "Listening", "Practicing"];
+const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
@@ -30,19 +30,19 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
-  "https://www.youtube.com/watch?v=qn0QBXMYXsM",
+  "https://portal.tutorialsdojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
 
 const mediaTitles = [
   "The Mountain Is You",
   "Napoleon: A Life",
-  "The Sound of Silence",
+  "AWS Certified SysOps Administrator Associate Course",
 ];
 
 const mediaAuthors = [
   "Brianna Wiest",
   "Andrew Roberts",
-  "Simon and Garfunkel",
+  "Tutorials Dojo",
 ];
 
 function indexTests(path) {
