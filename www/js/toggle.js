@@ -14,6 +14,6 @@ document.addEventListener("DOMContentLoaded", function () {
         body.classList.toggle("white-background");
 
         localStorage.setItem("darkMode",
-            body.classList.contains("white-background"));
+            !body.classList.contains("white-background"));
     });
 });
