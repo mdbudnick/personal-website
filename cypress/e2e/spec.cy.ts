@@ -26,7 +26,7 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9781949759228/Mountain-Transforming-Self-Sabotage-Self-Mastery-Brianna-1949759229/plp",
+  "https://www.abebooks.com/9781541762596/Think-Rocket-Scientist-Simple-Strategies-1541762592/plp",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
   // eslint-disable-next-line max-len
@@ -34,13 +34,13 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "The Mountain Is You",
+  "Think Like a Rocket Scientist",
   "Napoleon: A Life",
   "AWS Certified SysOps Administrator Associate Course",
 ];
 
 const mediaAuthors = [
-  "Brianna Wiest",
+  "Oan Varol",
   "Andrew Roberts",
   "Tutorials Dojo",
 ];
