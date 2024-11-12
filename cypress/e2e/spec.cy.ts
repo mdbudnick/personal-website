@@ -26,23 +26,23 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9781541762596/Think-Rocket-Scientist-Simple-Strategies-1541762592/plp",
+  "https://www.abebooks.com/9780486816432/Peace-Dover-Thrift-Editions-Classic-0486816435/plp",
   // eslint-disable-next-line max-len
-  "https://open.spotify.com/show/1blyhTu0XqgY029MY9Lqj8",
+  "https://www.wtfpod.com/podcast",
   // eslint-disable-next-line max-len
-  "https://portal.tutorialsdojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
+  "https://www.ultimate-guitar.com/courses/guitarjoolz/chord-creation-for-guitar-learn-100s-of-guitar-chords-easily-7ee6",
 ];
 
 const mediaTitles = [
-  "Think Like a Rocket Scientist",
-  "Napoleon: A Life",
-  "AWS Certified SysOps Administrator Associate Course",
+  "War and Peace",
+  "WTF Pod",
+  "Learn 100s of Guitar Chords Easily",
 ];
 
 const mediaAuthors = [
-  "Oan Varol",
-  "Andrew Roberts",
-  "Tutorials Dojo",
+  "Leo Tolstoy",
+  "Marc Maron",
+  "Ultimate Guitar",
 ];
 
 function indexTests(path) {
