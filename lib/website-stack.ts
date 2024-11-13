@@ -2,9 +2,6 @@ import * as acm from "aws-cdk-lib/aws-certificatemanager";
 import * as cdk from "aws-cdk-lib";
 import * as cloudfront from "aws-cdk-lib/aws-cloudfront";
 import { Construct } from "constructs";
-import * as dynamodb from "aws-cdk-lib/aws-dynamodb";
-import * as lambda from "aws-cdk-lib/aws-lambda";
-import * as origins from "aws-cdk-lib/aws-cloudfront-origins";
 import * as route53 from "aws-cdk-lib/aws-route53";
 import * as s3 from "aws-cdk-lib/aws-s3";
 import * as targets from "aws-cdk-lib/aws-route53-targets";
@@ -96,42 +93,6 @@ export class MyWebsiteAppStack extends cdk.Stack {
     new cdk.CfnOutput(this, "Bucket name", { value: bucketName });
     new cdk.CfnOutput(this, "CloudFrontUrl", {
       value: distribution.distributionDomainName,
-    });
-  }
-
-  createDynamoDbTable(environment: string): dynamodb.ITable {
-    // Only the production table is stable
-    let table: dynamodb.ITable;
-
-    if (environment == "production") {
-      table = dynamodb.Table.fromTableName(this, "BlogPostsTable", "BlogPosts");
-    }
-    table ??= new dynamodb.Table(this, "BlogPosts", {
-      tableName: "BlogPosts-" + environment,
-      partitionKey: { name: "postId", type: dynamodb.AttributeType.STRING },
-      sortKey: { name: "created", type: dynamodb.AttributeType.NUMBER },
-      removalPolicy:
-        environment == "production"
-          ? cdk.RemovalPolicy.RETAIN
-          : cdk.RemovalPolicy.DESTROY,
-    });
-
-    return table;
-  }
-
-  createReadLambda() {
-    return new lambda.Function(this, "ReadBlogFunction", {
-      runtime: lambda.Runtime.NODEJS_16_X,
-      handler: "read.handler",
-      code: lambda.Code.fromAsset("lambda"),
-    });
-  }
-
-  createUpsertLambda() {
-    return new lambda.Function(this, "CreateBlogFunction", {
-      runtime: lambda.Runtime.NODEJS_16_X,
-      handler: "create.handler",
-      code: lambda.Code.fromAsset("lambda"),
     });
   }
 
