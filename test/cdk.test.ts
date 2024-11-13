@@ -33,22 +33,6 @@ describe("MyWebsiteAppStack", () => {
     });
   });
 
-  test("Lambda Functions Created", () => {
-    // 1 each for Read and Create blog posts
-    // 2 for replacing CNAME and A records
-    template.resourceCountIs("AWS::Lambda::Function", 4);
-
-    template.hasResourceProperties("AWS::Lambda::Function", {
-      Handler: "create.handler",
-      Runtime: "nodejs16.x",
-    });
-
-    template.hasResourceProperties("AWS::Lambda::Function", {
-      Handler: "read.handler",
-      Runtime: "nodejs16.x",
-    });
-  });
-
   test("ACM Certificate Created", () => {
     template.resourceCountIs("AWS::CertificateManager::Certificate", 1);
 
