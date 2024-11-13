@@ -58,16 +58,16 @@ export class MyWebsiteAppStack extends cdk.Stack {
         method: acm.ValidationMethod.DNS,
         props: { hostedZone: zone },
       },
-    }) : null;
+    }) : undefined;
 
     const responseHeaderPolicy = this.createCFResponseHeadersPolicy();
 
     const distribution = this.createDistribution(
-      certificate,
       domainName,
       bucket as s3.Bucket,
       originAccessIdentity,
-      responseHeaderPolicy
+      responseHeaderPolicy,
+      certificate
     );
 
     // Create a new CNAME record for "www." + domainName pointing to the new distribution
@@ -132,11 +132,11 @@ export class MyWebsiteAppStack extends cdk.Stack {
   }
 
   createDistribution(
-    certificate: acm.Certificate,
     domainName: string,
     bucket: s3.Bucket,
     originAccessIdentity: cloudfront.OriginAccessIdentity,
-    headersPolicy: cloudfront.ResponseHeadersPolicy
+    headersPolicy: cloudfront.ResponseHeadersPolicy,
+    certificate: acm.Certificate | undefined,
   ): cloudfront.Distribution {
     return new cloudfront.Distribution(this, "CloudFrontDistribution", {
       certificate,
