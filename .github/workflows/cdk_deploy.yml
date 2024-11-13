@@ -73,7 +73,7 @@ jobs:
           config-file: cypress.config.ts
           browser: ${{ matrix.browser }}
         env:
-          CYPRESS_BASE_URL: https://www.michaelbudnick.dev/
+          CYPRESS_BASE_URL: http://www.michaelbudnick.dev/
           # DEBUG: '@cypress/github-action'
         
   destroy-staging:
