@@ -50,7 +50,7 @@ export class MyWebsiteAppStack extends cdk.Stack {
             domainName,
           });
 
-    const certificate = props.environment == "production"
+    const certificate = props.environment !== "staging"
     ? new acm.Certificate(this, "SiteCertificate", {
       domainName,
       subjectAlternativeNames: [`*.${domainName}`],

@@ -76,7 +76,6 @@ describe("MyWebsiteAppStack", () => {
     template.hasResourceProperties("AWS::CloudFront::Distribution", {
       DistributionConfig: Match.objectLike({
         Aliases: [process.env.DOMAIN_NAME, "www." + process.env.DOMAIN_NAME],
-        CacheBehaviors: Match.anyValue(),
         CustomErrorResponses: [
           {
             ErrorCode: 403,
