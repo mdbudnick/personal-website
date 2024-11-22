@@ -35,7 +35,7 @@ const mediaLinks = [
 
 const mediaTitles = [
   "War and Peace",
-  "WTF Pod",
+  "Battle Cry of Freedom: The Civil War Era",
   "AWS SysOps Administrator Course",
 ];
 
@@ -160,20 +160,24 @@ describe("blog.html", () => {
 
 const projectNames = [
   "PiHole Kubernetes Ansible Configuration",
-  "Breathbox",
   "High-Availability Home K8s Cluster",
+  "Breathbox App",
+  "Breathbox Website",
   "This Website!",
+  "Breathbox CSS",
 ];
 
 const projectHrefs = [
   "https://github.com/mdbudnick/pihole-k8s-ansible",
-  "https://www.breathbox.net/",
-  "https://github.com/mdbudnick/breathbox/",
-  "https://play.google.com/store/apps/details?id=com.michaelbudnick.breathbox",
-  "https://github.com/mdbudnick/bb-react-native/",
   "https://mdbudnick.github.io/home-k8s/",
   "https://github.com/mdbudnick/home-k8s/",
+  "https://play.google.com/store/apps/details?id=com.michaelbudnick.breathbox",
+  "https://github.com/mdbudnick/bb-react-native/",
+  "https://www.breathbox.net/",
+  "https://github.com/mdbudnick/breathbox/",
   "https://github.com/mdbudnick/personal-website/",
+  "https://mdbudnick.github.io/img-breathbox/",
+  "https://github.com/mdbudnick/img-breathbox/",
   // eslint-disable-next-line max-len
   "https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml",
 ];
