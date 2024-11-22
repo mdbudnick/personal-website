@@ -28,7 +28,7 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://www.abebooks.com/9780486816432/Peace-Dover-Thrift-Editions-Classic-0486816435/plp",
   // eslint-disable-next-line max-len
-  "https://www.wtfpod.com/podcast",
+  "https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19",
   // eslint-disable-next-line max-len
   "https://portal.tutorialsdojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
@@ -41,7 +41,7 @@ const mediaTitles = [
 
 const mediaAuthors = [
   "Leo Tolstoy",
-  "Marc Maron",
+  "James McPherson",
   "Tutorials Dojo",
 ];
 
