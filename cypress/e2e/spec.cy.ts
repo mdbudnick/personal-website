@@ -30,19 +30,19 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://www.wtfpod.com/podcast",
   // eslint-disable-next-line max-len
-  "https://www.ultimate-guitar.com/courses/guitarjoolz/chord-creation-for-guitar-learn-100s-of-guitar-chords-easily-7ee6",
+  "https://portal.tutorialsdojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
 ];
 
 const mediaTitles = [
   "War and Peace",
   "WTF Pod",
-  "Learn 100s of Guitar Chords Easily",
+  "AWS SysOps Administrator Course",
 ];
 
 const mediaAuthors = [
   "Leo Tolstoy",
   "Marc Maron",
-  "Ultimate Guitar",
+  "Tutorials Dojo",
 ];
 
 function indexTests(path) {
