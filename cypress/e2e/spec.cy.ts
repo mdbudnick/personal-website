@@ -179,6 +179,7 @@ const projectHrefs = [
   // eslint-disable-next-line max-len
   "https://github.com/mdbudnick/personal-website/blob/main/.github/workflows/prod_test_and_sync.yml",
   "https://mdbudnick.github.io/img-breathbox/",
+  "https://mdbudnick.github.io/img-breathbox/",
   "https://github.com/mdbudnick/img-breathbox/",
 ];
 
