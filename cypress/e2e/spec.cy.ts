@@ -224,7 +224,6 @@ describe("projects.html", () => {
 
   it("projects.html links", () => {
     cy.visit("projects.html");
-    console.log("All hrefs: " + cy.get(".projects .project .project-blurb a"))
     cy.get(".projects .project .project-blurb a").each(($el, i) => {
       expect($el.attr("href")).equals(projectHrefs[i]);
     });
