@@ -76,7 +76,8 @@ function indexTests(path) {
 
     cy.get(".middle .bio").each(($el) => {
       expect($el.text()).contains(
-        "Professionally, I am an experienced Senior Software Developer"
+        // eslint-disable-next-line max-len
+        "Hello! My name is Michael Budnick, professionally, I am an experienced Senior Software Developer"
       );
       expect($el.text()).contains(
         "Personally, I live in New York City and thrive on life's adventures!"
