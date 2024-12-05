@@ -26,7 +26,7 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9780486816432/Peace-Dover-Thrift-Editions-Classic-0486816435/plp",
+  "https://www.abebooks.com/9781617290541/Third-Party-JavaScript-Vinegar-Ben-Kovalyov-1617290548/plp",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19",
   // eslint-disable-next-line max-len
@@ -34,13 +34,13 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "War and Peace",
+  "Third-Party JavaScript",
   "Battle Cry of Freedom: The Civil War Era",
   "AWS SysOps Administrator Course",
 ];
 
 const mediaAuthors = [
-  "Leo Tolstoy",
+  "Ben Vinegar and Anton Kovalyov",
   "James McPherson",
   "Tutorials Dojo",
 ];
