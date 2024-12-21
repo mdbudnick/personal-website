@@ -36,13 +36,13 @@ const mediaLinks = [
 const mediaTitles = [
   "Third-Party JavaScript",
   "Battle Cry of Freedom: The Civil War Era",
-  "AWS SysOps Administrator Course",
+  "AWS Certified SysOps Administrator Course",
 ];
 
 const mediaAuthors = [
   "Ben Vinegar and Anton Kovalyov",
   "James McPherson",
-  "Tutorials Dojo",
+  "AWS Training and Certification",
 ];
 
 function indexTests(path) {
