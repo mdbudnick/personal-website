@@ -18,7 +18,7 @@ const socialMediaImgs = [
 const middlePointContents = [
   "Cloud-Native Developer",
   "DevOps Enthusiast",
-  "Cybersecurity Champion",
+  "Best Practices Champion",
   "Scaling Fanatic",
 ];
 
