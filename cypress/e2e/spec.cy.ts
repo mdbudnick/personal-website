@@ -30,7 +30,7 @@ const mediaLinks = [
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19",
   // eslint-disable-next-line max-len
-  "https://portal.tutorialsdojo.com/courses/aws-certified-sysops-administrator-associate-video-course/",
+  "https://skillbuilder.aws/exam-prep/sysops-administrator-associate",
 ];
 
 const mediaTitles = [
