@@ -165,6 +165,7 @@ const projectNames = [
   "Breathbox App",
   "Breathbox Website",
   "This Website!",
+  "Kuychi Khipu Game",
   "Breathbox CSS",
 ];
 
