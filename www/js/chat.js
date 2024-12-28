@@ -84,4 +84,41 @@ document.addEventListener("DOMContentLoaded", () => {
             chatButton.textContent = "Close";
         }
     });
+    
+    let chat = {}
+    chat.messages = []
+    inputField.addEventListener("keydown", (event) => {
+        if (event.key === "Enter" && inputField.value.trim() !== "") {
+            const message = inputField.value.trim();
+            const timestamp = new Date().toLocaleString("en-US", {
+                hour: "2-digit",
+                minute: "2-digit",
+                hour12: true,
+                day: "2-digit",
+                month: "short",
+                year: "numeric"
+            });
+
+            const messageData = {
+                agent: "USER",
+                message,
+                time: timestamp
+            };
+
+            chat.messages.push(messageData);
+
+            // Add message to chat window
+            const messageElement = document.createElement("div");
+            messageElement.classList.add("text-right", "my-2");
+            messageElement.innerHTML = `
+                <div class="text-xs text-gray-500 mt-1">${timestamp}</div>
+                <div class="inline-block bg-blue-100 text-blue-800 rounded-lg px-3 py-2">${message}</div>
+            `;
+
+            messagesContainer.appendChild(messageElement);
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            inputField.value = ""; // Clear input field
+        }
+    });
 });
