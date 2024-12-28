@@ -97,7 +97,7 @@ document.addEventListener("DOMContentLoaded", () => {
         messagesContainer.scrollTop = messagesContainer.scrollHeight;
         try {
             // eslint-disable-next-line max-len, no-undef
-            const response = await fetch("https://0ll5z7ycuh.execute-api.us-east-1.amazonaws.com/prod/chat/", {
+            const response = await fetch("https://dxke40ek7f.execute-api.us-east-1.amazonaws.com/prod/chat/", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({
