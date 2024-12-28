@@ -107,6 +107,9 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
+            if (data.errorMessage) {
+                throw new Error("There was a problem with the response.")
+            }
             const body = JSON.parse(data.body)
             threadId = body.threadId
             const botMessage = {
