@@ -42,6 +42,26 @@
   </div>
   <div class="projects">
     <div class="project">
+      <img src="img/chatbot.png"
+          class="project-icon" />
+      <div class="project-blurb">
+        <h2 class="project-title">Website Personal Chatbot</h2>
+        <a href="https://github.com/mdbudnick/personal-website/blob/main/www/js/chat.js" target="_blank">
+          <h3>Front-end Repository</h3>
+        </a>
+        <a href="https://github.com/mdbudnick/open-ai-lambda" target="_blank">
+          <h3>Back-end Repository</h3>
+        </a>
+        <p class="project-summary">
+        The chatbot on this website is a project I was working on to display some of my experience with OpenAI and the front-end.
+        The front-end is a standalone script on this website, sticking to the minimalist philosophy by utilizing raw JS and Tailwind CSS for easy styling.
+        The chatbot is actually an OpenAI Assistant that holds a vector store of my resume, and has been instructed to respond about me and my skills.
+        The backend is hosted on an AWS Lambda behind an AWS API Gateway, provisioned by AWS CDK. 
+        One drawback is the Lambda has to wait for the async call to OpenAI which is not strictly compatible with wanting to optimize Lambda's compute time,
+        but, based on current usage patterns, it is still the most economical choice, compared to a standlone server which is not used very often.</p>
+      </div>
+    </div>
+    <div class="project">
       <a href="https://github.com/mdbudnick/pihole-k8s-ansible" target="_blank"><img src="img/pihole.png"
           class="project-icon" /></a>
       <div class="project-blurb">

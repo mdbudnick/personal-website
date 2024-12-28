@@ -160,6 +160,7 @@ describe("blog.html", () => {
 */
 
 const projectNames = [
+  "Website Personal Chatbot",
   "PiHole Kubernetes Ansible Configuration",
   "High-Availability Home K8s Cluster",
   "Breathbox App",
@@ -170,6 +171,8 @@ const projectNames = [
 ];
 
 const projectHrefs = [
+  "https://github.com/mdbudnick/personal-website/blob/main/www/js/chat.js",
+  "https://github.com/mdbudnick/open-ai-lambda",
   "https://github.com/mdbudnick/pihole-k8s-ansible",
   "https://mdbudnick.github.io/home-k8s/",
   "https://github.com/mdbudnick/home-k8s/",
