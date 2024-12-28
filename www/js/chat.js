@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
             threadId = data.threadId
             const botMessage = {
                 agent: "BOT",
-                message: data.content,
+                message: data.body.response,
                 time: new Date().toLocaleString("en-US", {
                     hour: "2-digit",
                     minute: "2-digit",
