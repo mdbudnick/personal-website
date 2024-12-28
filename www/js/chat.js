@@ -107,10 +107,11 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             const data = await response.json();
-            threadId = data.threadId
+            const body = JSON.parse(data.body)
+            threadId = body.threadId
             const botMessage = {
                 agent: "BOT",
-                message: data.body.response,
+                message: body.response,
                 time: new Date().toLocaleString("en-US", {
                     hour: "2-digit",
                     minute: "2-digit",
