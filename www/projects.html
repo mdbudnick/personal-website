@@ -5,13 +5,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://zany.sh/favicon.svg?text=MB" />
+  <script src="js/tailwindmin.js"></script>
   <link rel="stylesheet" href="css/style.css" />
   <link rel="stylesheet" href="css/screen/top-row.css" />
   <link rel="stylesheet" href="css/mobile/top-row.css" />
   <link rel="stylesheet" href="css/screen/projects.css" />
   <link rel="stylesheet" href="css/mobile/projects.css" />
   <script src="js/toggle.js"></script>
-  <script src="js/tailwindmin.js"></script>
   <script src="js/chat.js"></script>
   <title>Michael Budnick Projects</title>
 </head>
@@ -41,35 +41,48 @@
     <img class="avatar" src="img/avatar-headshot.jpg" />
   </div>
   <div class="projects">
-    <div class="project">
-      <img src="img/chatbot.png"
-          class="project-icon" />
-      <div class="project-blurb">
-        <h2 class="project-title">Website Personal Chatbot</h2>
-        <a href="https://github.com/mdbudnick/personal-website/blob/main/www/js/chat.js" target="_blank">
-          <h3>Front-end Repository</h3>
+    <div class="project flex items-start gap-4">
+      <img 
+        src="img/chatbot.png" 
+        alt="Chatbot Project" 
+        class="w-1/5 flex-shrink-0" 
+      />
+      <div class="project-blurb w-3/5">
+        <h2 class="project-title text-2xl font-extrabold leading-tight">Website Personal Chatbot</h2>
+        <a 
+          href="https://github.com/mdbudnick/personal-website/blob/main/www/js/chat.js" 
+          target="_blank" 
+          class="text-blue-600 hover:underline"
+        >
+          <h3 class="text-base font-medium">Front-end Repository</h3>
         </a>
-        <a href="https://github.com/mdbudnick/open-ai-lambda" target="_blank">
-          <h3>Back-end Repository</h3>
+        <a 
+          href="https://github.com/mdbudnick/open-ai-lambda" 
+          target="_blank" 
+          class="text-blue-600 hover:underline"
+        >
+          <h3 class="text-base font-medium">Back-end Repository</h3>
         </a>
-        <p class="project-summary">
-        The chatbot on this website is a project I was working on to display some of my experience with OpenAI and the front-end.
-        The front-end is a standalone script on this website, sticking to the minimalist philosophy by utilizing raw JS and Tailwind CSS for easy styling.
-        The chatbot is actually an OpenAI Assistant that holds a vector store of my resume, and has been instructed to respond about me and my skills.
-        The backend is hosted on an AWS Lambda behind an AWS API Gateway, provisioned by AWS CDK. 
-        One drawback is the Lambda has to wait for the async call to OpenAI which is not strictly compatible with wanting to optimize Lambda's compute time,
-        but, based on current usage patterns, it is still the most economical choice, compared to a standlone server which is not used very often.</p>
+        <p class="project-summary text-sm mt-2">
+          The chatbot on this website is a project I was working on to display some of my experience with OpenAI and the front-end.
+          The front-end is a standalone script on this website, sticking to the minimalist philosophy by utilizing raw JS and Tailwind CSS for easy styling.
+          The chatbot is actually an OpenAI Assistant that holds a vector store of my resume, and has been instructed to respond about me and my skills.
+          The backend is hosted on an AWS Lambda behind an AWS API Gateway, provisioned by AWS CDK. 
+          One drawback is the Lambda has to wait for the async call to OpenAI which is not strictly compatible with wanting to optimize Lambda's compute time,
+          but, based on current usage patterns, it is still the most economical choice, compared to a standlone server which is not used very often.
+        </p>
       </div>
-    </div>
-    <div class="project">
-      <a href="https://github.com/mdbudnick/pihole-k8s-ansible" target="_blank"><img src="img/pihole.png"
-          class="project-icon" /></a>
+    </div>    
+    <div class="project flex items-start gap-4">
+      <img src="img/pihole.png"
+      class="w-1/5 flex-shrink-0"  />
       <div class="project-blurb">
-        <h2 class="project-title">PiHole Kubernetes Ansible Configuration</h2>
         <a href="https://github.com/mdbudnick/pihole-k8s-ansible" target="_blank">
-          <h3>Repository</h3>
+          <h2 class="project-title text-2xl font-extrabold leading-tight">PiHole Kubernetes Ansible Configuration</h2></a>
+        <a href="https://github.com/mdbudnick/pihole-k8s-ansible" target="_blank">
+          <h3 class="text-blue-600 hover:underline">Repository</h3>
         </a>
-        <p class="project-summary">
+        <p class="project-summary text-sm mt-2">
           PiHole Kubernetes Ansible Configuration is an automation project designed to simplify
           the deployment and management of PiHole servers on a Kubernetes cluster. Leveraging Ansible, this playbook
           configures individual PiHole instances on hosts belonging to the 'piholes' group within the inventory. The
@@ -79,18 +92,20 @@
           reproducible deployment of PiHole with minimal user intervention.</p>
       </div>
     </div>
-    <div class="project">
-      <a href="https://mdbudnick.github.io/home-k8s/" target="_blank"><img src="img/cluster.jpg"
-          class="project-icon" /></a>
+    <div class="project flex items-start gap-4">
+      <img src="img/cluster.jpg"
+        class="w-1/5 flex-shrink-0"  />
       <div class="project-blurb">
-        <h2 class="project-title">High-Availability Home K8s Cluster</h2>
         <a href="https://mdbudnick.github.io/home-k8s/" target="_blank">
-          <h3>Project Website</h3>
+          <h2 class="project-title text-2xl font-extrabold leading-tight">High-Availability Home K8s Cluster</h2>
+        </a>
+        <a href="https://mdbudnick.github.io/home-k8s/" target="_blank">
+          <h3 class="text-blue-600 hover:underline">Project Website</h3>
         </a>
         <a href="https://github.com/mdbudnick/home-k8s/" target="_blank">
-          <h3>Repository</h3>
+          <h3 class="text-blue-600 hover:underline">Repository</h3>
         </a>
-        <p class="project-summary">I've wanted to make a home Kubernetes cluster for a long time, with enough power to
+        <p class="project-summary text-sm mt-2">I've wanted to make a home Kubernetes cluster for a long time, with enough power to
           be meaningful and efficiently based on my personal needs. After naming your hosts correctly, and configuring
           Ansible on the network machine you will be running it from, one will upgrade the target hosts, apply a best
           practices security posture, and install a high-availabilty multi-architecture Kubernetes cluster with a single
@@ -101,33 +116,37 @@
         </p>
       </div>
     </div>
-    <div class="project">
-      <a href="https://www.breathbox.net/" target="_blank"><img src="img/buddha-gnome.jpg" class="project-icon" /></a>
+    <div class="project flex items-start gap-4">
+      <img src="img/buddha-gnome.jpg" class="w-1/5 flex-shrink-0" />
       <div class="project-blurb">
-        <h2 class="project-title">Breathbox App</h2>
+        <a href="https://www.breathbox.net/" target="_blank">
+          <h2 class="project-title text-2xl font-extrabold leading-tight">Breathbox App</h2>
+        </a>
         <a href="https://play.google.com/store/apps/details?id=com.michaelbudnick.breathbox" target="_blank">
-          <h3>Android App</h3>
+          <h3 class="text-blue-600 hover:underline">Android App</h3>
         </a>
         <a href="https://github.com/mdbudnick/bb-react-native/" target="_blank">
-          <h3>React-Native Repository</h3>
+          <h3 class="text-blue-600 hover:underline">React-Native Repository</h3>
         </a>
-        <p class="project-summary"> Now available in the Google Play Store!!! Breathbox is a single-page application that
+        <p class="project-summary text-sm mt-2"> Now available in the Google Play Store!!! Breathbox is a single-page application that
           is thoughtfully engineered to facilitate the practice of the breath box technique with ease. The app is built
           with React-Native and Expo, which allows an app to be developed for Apple, Android or web simultaneously. The
           website had been built in React Native, and developed with Expo!</p>
       </div>
     </div>
-    <div class="project">
-      <a href="https://www.breathbox.net/" target="_blank"><img src="img/buddha-gnome.jpg" class="project-icon" /></a>
+    <div class="project flex items-start gap-4">
+      <img src="img/buddha-gnome.jpg" class="w-1/5 flex-shrink-0" />
       <div class="project-blurb">
-        <h2 class="project-title">Breathbox Website</h2>
         <a href="https://www.breathbox.net/" target="_blank">
-          <h3>Website</h3>
+          <h2 class="project-title text-2xl font-extrabold leading-tight">Breathbox Website</h2>
+        </a>
+        <a href="https://www.breathbox.net/" target="_blank">
+          <h3 class="text-blue-600 hover:underline">Website</h3>
         </a>
         <a href="https://github.com/mdbudnick/breathbox/" target="_blank">
-          <h3>Github Repository</h3>
+          <h3 class="text-blue-600 hover:underline">Github Repository</h3>
         </a>
-        <p class="project-summary">There is also a website version of the app deployed with
+        <p class="project-summary text-sm mt-2">There is also a website version of the app deployed with
           Terraform and hosted with SSL security in a Microsoft Azure Storage Account. Both the App and Website utilize Typsecript as the
           language. The breath box technique, for the uninitiated, is a mindfulness practice that involves structured
           and rhythmic breathing patterns to promote relaxation and stress reduction. Breathbox is just a small example
@@ -137,14 +156,16 @@
           towards enhanced well-being and mindfulness!</p>
       </div>
     </div>
-    <div class="project">
-      <a href="#"><img src="img/website-screen.png" class="project-icon" /></a>
+    <div class="project flex items-start gap-4">
+      <img src="img/website-screen.png" class="w-1/5 flex-shrink-0" />
       <div class="project-blurb">
-        <h2 class="project-title">This Website!</h2>
-        <a href="https://github.com/mdbudnick/personal-website/" target="_blank">
-          <h3>Repository</h3>
+        <a href="#">
+          <h2 class="project-title text-2xl font-extrabold leading-tight">This Website!</h2>
         </a>
-        <p class="project-summary">This straightforward website, while presenting an unassuming exterior with its use of
+        <a href="https://github.com/mdbudnick/personal-website/" target="_blank">
+          <h3 class="text-blue-600 hover:underline">Repository</h3>
+        </a>
+        <p class="project-summary text-sm mt-2">This straightforward website, while presenting an unassuming exterior with its use of
           native CSS and static HTML for the front-end, conceals a sophisticated infrastructure that exemplifies
           industry-standard Continuous Integration/Continuous Deployment (CI/CD) technologies. Beneath the surface, it
           includes both unit and scheduled end-to-end Cypress testing, which are run against a pre-production "staging"
@@ -158,18 +179,19 @@
         </p>
       </div>
     </div>
-    <div class="project">
-      <a href="https://github.com/mdbudnick/khipugame" target="_blank"><img src="img/khipu-game.png"
-          class="project-icon" /></a>
+    <div class="project flex items-start gap-4">
+      <img src="img/khipu-game.png" class="w-1/5 flex-shrink-0" />
       <div class="project-blurb">
-        <h2 class="project-title">Kuychi Khipu Game</h2>
+        <a href="https://github.com/mdbudnick/khipugame" target="_blank">
+          <h2 class="project-title text-2xl font-extrabold leading-tight">Kuychi Khipu Game</h2>
+        </a>
         <a href="https://mdbudnick.github.io/khipugame/" target="_blank">
-          <h3>Live Website</h3>
+          <h3 class="text-blue-600 hover:underline">Live Website</h3>
         </a>
         <a href="https://github.com/mdbudnick/khipugame" target="_blank">
-          <h3>Repository</h3>
+          <h3 class="text-blue-600 hover:underline">Repository</h3>
         </a>
-        <p class="project-summary">Khipu game is a Phaser creation that I worked on in collaboration with the Kuychi Project.
+        <p class="project-summary text-sm mt-2">Khipu game is a Phaser creation that I worked on in collaboration with the Kuychi Project.
           The project was founded to spread bilingualism and cultural exchange between the Spanish and Quechua speaking populations in Peru.
           This game is a simple platformer with enemies that is an introduction to the Quechua language, teaching the numbers 1 - 10.
           I was brought in to help modernize the game to the latest version and Phaser, in the hopes of creating a mobile app of the game.
@@ -178,16 +200,18 @@
       </div>
     </div>
     <div class="project">
-      <a href="https://mdbudnick.github.io/img-breathbox/" target="_blank"><img src="img/flo-cropped.jpg" class="project-icon" /></a>
+      <img src="img/flo-cropped.jpg" class="w-1/5 flex-shrink-0" />
       <div class="project-blurb">
-        <h2 class="project-title">Breathbox CSS</h2>
         <a href="https://mdbudnick.github.io/img-breathbox/" target="_blank">
-          <h3>Website</h3>
+          <h2 class="project-title text-2xl font-extrabold leading-tight">Breathbox CSS</h2>
+        </a>
+        <a href="https://mdbudnick.github.io/img-breathbox/" target="_blank">
+          <h3 class="text-blue-600 hover:underline">Website</h3>
         </a>
         <a href="https://github.com/mdbudnick/img-breathbox/" target="_blank">
-          <h3>Github Repository</h3>
+          <h3 class="text-blue-600 hover:underline">Github Repository</h3>
         </a>
-        <p class="project-summary"> This is a simple minimalistic revisit of the breathbox animation! I wanted to make something
+        <p class="project-summary text-sm mt-2"> This is a simple minimalistic revisit of the breathbox animation! I wanted to make something
           in CSS native, so I came up with this design, which uses webkit-animation and keyframes to step through changes to
           width, height, top, left and border-radius, with a border: 2px solid white; in the middle of the AI-generated image.
           It looks really great, and with the addition of a slider and a smattering of JQuery, we have a really powerful, but
