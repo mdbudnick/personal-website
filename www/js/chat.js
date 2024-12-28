@@ -127,8 +127,8 @@ document.addEventListener("DOMContentLoaded", () => {
             const messageElement = document.createElement("div");
             messageElement.classList.add("text-left", "my-2");
             messageElement.innerHTML = `
-                <div class="inline-block bg-gray-100 text-gray-800 rounded-lg px-3 py-2">${botMessage.message}</div>
                 <div class="text-xs text-gray-500 mt-1">${botMessage.time}</div>
+                <div class="inline-block bg-gray-100 text-gray-800 rounded-lg px-3 py-2">${botMessage.message}</div>
             `;
             messagesContainer.removeChild(placeholder)
             messagesContainer.appendChild(messageElement);
