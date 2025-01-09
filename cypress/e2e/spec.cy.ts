@@ -26,7 +26,7 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9781617290541/Third-Party-JavaScript-Vinegar-Ben-Kovalyov-1617290548/plp",
+  "https://www.abebooks.com/servlet/BookDetailsPL?bi=31171981469",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19",
   // eslint-disable-next-line max-len
@@ -34,13 +34,13 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "Third-Party JavaScript",
+  "System Design Interview An insider's guide",
   "Battle Cry of Freedom: The Civil War Era",
   "AWS Certified SysOps Administrator Course",
 ];
 
 const mediaAuthors = [
-  "Ben Vinegar and Anton Kovalyov",
+  "Alex Xu",
   "James McPherson",
   "AWS Training and Certification",
 ];
