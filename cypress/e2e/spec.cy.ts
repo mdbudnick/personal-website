@@ -28,7 +28,7 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/9780345321206/Diet-Small-Planet-20th-Anniversary-0345321200/plp",
+  "https://www.abebooks.com/9780593357774/Diet-Small-Planet-Revised-Updated-0593357779/plp",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19",
   // eslint-disable-next-line max-len
