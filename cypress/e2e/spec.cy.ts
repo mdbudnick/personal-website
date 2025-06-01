@@ -26,7 +26,7 @@ const mediaItems = ["Reading", "Listening", "Watching"];
 
 const mediaLinks = [
   // eslint-disable-next-line max-len
-  "https://www.abebooks.com/servlet/BookDetailsPL?bi=31171981469",
+  "https://www.abebooks.com/9780345321206/Diet-Small-Planet-20th-Anniversary-0345321200/plp",
   // eslint-disable-next-line max-len
   "https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19",
   // eslint-disable-next-line max-len
@@ -34,13 +34,13 @@ const mediaLinks = [
 ];
 
 const mediaTitles = [
-  "System Design Interview An insider's guide",
+  "Diet for a Small Planet",
   "Battle Cry of Freedom: The Civil War Era",
   "AWS Certified SysOps Administrator Course",
 ];
 
 const mediaAuthors = [
-  "Alex Xu",
+  "Frances Moore Lappé",
   "James McPherson",
   "AWS Training and Certification",
 ];
