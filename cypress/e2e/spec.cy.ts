@@ -1,3 +1,5 @@
+/// <reference types="cypress" />
+
 const menuItemHrefs = ["index.html", "projects.html", "certifications.html"];
 
 const menuItemContents = ["about", "projects", "certifications"];
@@ -16,10 +18,10 @@ const socialMediaImgs = [
 ];
 
 const middlePointContents = [
-  "Cloud-Native Developer",
-  "DevOps Enthusiast",
-  "Best Practices Champion",
-  "Scaling Fanatic",
+  "Full Stack Product Developer",
+  "Cloud-Native & DevOps Expert",
+  "UI/UX & API Integrator",
+  "End-to-End Solution Builder",
 ];
 
 const mediaItems = ["Reading", "Listening", "Watching"];
@@ -48,38 +50,40 @@ const mediaAuthors = [
 function indexTests(path) {
   it("index.html title", () => {
     cy.visit(path);
-    cy.get("title").contains("Michael Budnick");
+    cy.get("title").should("contain", "Michael Budnick");
   });
 
   it("menu", () => {
     cy.visit(path);
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(menuItemHrefs[i]);
-      expect($el.text()).equals(menuItemContents[i]);
+      cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
+      cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
-      expect($el.attr("href")).equals(socialMediaHrefs[i]);
-      expect($el.attr("target")).equals("_blank");
-      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+      cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
+      cy.wrap($el).should("have.attr", "target", "_blank");
+      cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
     });
   });
 
   it("middle", () => {
     cy.visit(path);
-    cy.get(".middle .about-me .name").contains("Michael Budnick");
+    cy.get(".middle .about-me .name").should("contain", "Michael Budnick");
 
     cy.get(".middle .points .point").each(($el, i) => {
-      expect($el.text()).equals(middlePointContents[i]);
+      cy.wrap($el).should("have.text", middlePointContents[i]);
     });
 
     cy.get(".middle .bio").each(($el) => {
-      expect($el.text()).contains(
-        // eslint-disable-next-line max-len
-        "Hello! My name is Michael Budnick, professionally, I am an experienced Senior Software Developer"
+      cy.wrap($el).should(
+        "contain",
+        "Hello! My name is Michael Budnick. I am a Senior Software Developer " +
+          "specializing in full stack and product development"
       );
-      expect($el.text()).contains(
+      cy.wrap($el).should(
+        "contain",
         "Personally, I live in New York City and thrive on life's adventures!"
       );
     });
@@ -93,11 +97,13 @@ function indexTests(path) {
   it("media-items", () => {
     cy.visit(path);
     cy.get(".current-media .media-item").each(($el, i) => {
-      expect($el.children("h2").text()).equals("Currently " + mediaItems[i]);
+      cy.wrap($el)
+        .find("h2")
+        .should("have.text", "Currently " + mediaItems[i]);
       const $mediaATag = $el.children("a");
-      expect($mediaATag.attr("href")).equals(mediaLinks[i]);
-      expect($mediaATag.children("h3").text()).contains(mediaTitles[i]);
-      expect($mediaATag.children("h3").text()).contains(mediaAuthors[i]);
+      cy.wrap($mediaATag).should("have.attr", "href", mediaLinks[i]);
+      cy.wrap($mediaATag).find("h3").should("contain", mediaTitles[i]);
+      cy.wrap($mediaATag).find("h3").should("contain", mediaAuthors[i]);
     });
   });
 }
@@ -205,14 +211,14 @@ describe("projects.html", () => {
     cy.visit("projects.html");
     cy.get(".top-row");
     cy.get(".top-row .item").each(($el, i) => {
-      expect($el.attr("href")).equals(menuItemHrefs[i]);
-      expect($el.text()).equals(menuItemContents[i]);
+      cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
+      cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
-      expect($el.attr("href")).equals(socialMediaHrefs[i]);
-      expect($el.attr("target")).equals("_blank");
-      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+      cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
+      cy.wrap($el).should("have.attr", "target", "_blank");
+      cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
     });
   });
 
@@ -231,7 +237,7 @@ describe("projects.html", () => {
     cy.visit("projects.html");
     cy.get(".projects .project .project-blurb .project-title").each(
       ($el, i) => {
-        expect($el.text()).equals(projectNames[i]);
+        cy.wrap($el).should("have.text", projectNames[i]);
       }
     );
   });
@@ -239,7 +245,7 @@ describe("projects.html", () => {
   it("projects.html links", () => {
     cy.visit("projects.html");
     cy.get(".projects .project .project-blurb a").each(($el, i) => {
-      expect($el.attr("href")).equals(projectHrefs[i]);
+      cy.wrap($el).should("have.attr", "href", projectHrefs[i]);
     });
   });
 });
@@ -280,14 +286,14 @@ describe("certifications.html", () => {
     cy.visit("certifications.html");
     cy.get(".top-row");
     cy.get(".top-row .menu .item").each(($el, i) => {
-      expect($el.attr("href")).equals(menuItemHrefs[i]);
-      expect($el.text()).equals(menuItemContents[i]);
+      cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
+      cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
-      expect($el.attr("href")).equals(socialMediaHrefs[i]);
-      expect($el.attr("target")).equals("_blank");
-      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+      cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
+      cy.wrap($el).should("have.attr", "target", "_blank");
+      cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
     });
   });
 
@@ -305,14 +311,16 @@ describe("certifications.html", () => {
   it("certifications.html certs (.cert)", () => {
     cy.visit("certifications.html");
     cy.get(".cert .badge").each(($el, i) => {
-      expect($el.attr("src")).equals(certBadges[i]);
+      cy.wrap($el).should("have.attr", "src", certBadges[i]);
     });
 
     cy.get(".cert .about").each(($el, i) => {
-      expect($el.children("h2").text()).equals(certTitles[i]);
-      expect($el.children("a").attr("href")).equals(certCredlyLinks[i]);
-      expect($el.children("a").attr("target")).equals("_blank");
-      expect($el.children("a").text()).equals("Credly");
+      cy.wrap($el).children("h2").should("have.text", certTitles[i]);
+      cy.wrap($el)
+        .children("a")
+        .should("have.attr", "href", certCredlyLinks[i]);
+      cy.wrap($el).children("a").should("have.attr", "target", "_blank");
+      cy.wrap($el).children("a").should("have.text", "Credly");
     });
   });
 });
@@ -326,14 +334,14 @@ describe("404.html", () => {
     cy.visit("404.html");
     cy.get(".top-row");
     cy.get(".top-row .menu .item").each(($el, i) => {
-      expect($el.attr("href")).equals(menuItemHrefs[i]);
-      expect($el.text()).equals(menuItemContents[i]);
+      cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
+      cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
     cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
-      expect($el.attr("href")).equals(socialMediaHrefs[i]);
-      expect($el.attr("target")).equals("_blank");
-      expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
+      cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
+      cy.wrap($el).should("have.attr", "target", "_blank");
+      cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
     });
   });
 
