@@ -1,11 +1,11 @@
 @media screen and (min-width: 0px) and (max-width: 800px) {
-
     .avatar {
         display: none;
     }
 
     .third-party-sm {
-        width: 40vw;
+        width: 100%;
+        justify-content: space-around;
     }
 
     .third-party-sm .sm-click {
@@ -14,8 +14,7 @@
     }
 
     .third-party-sm img {
-        width: 10%;
-        height: 10%;
+        width: 100%;
+        height: 100%;
     }
-
 }
