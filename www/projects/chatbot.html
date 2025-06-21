@@ -5,34 +5,36 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" href="https://zany.sh/favicon.svg?text=MB" />
-    <script src="../../js/tailwindmin.js"></script>
-    <link rel="stylesheet" href="../../css/style.css" />
-    <link rel="stylesheet" href="../../css/screen/left-panel.css" />
-    <link rel="stylesheet" href="../../css/mobile/left-panel.css" />
-    <link rel="stylesheet" href="../../css/screen/projects.css" />
-    <link rel="stylesheet" href="../../css/mobile/projects.css" />
-    <script src="../../js/toggle.js"></script>
-    <script src="../../js/chat.js"></script>
+    <script src="../js/tailwindmin.js"></script>
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/screen/left-panel.css" />
+    <link rel="stylesheet" href="../css/mobile/left-panel.css" />
+    <link rel="stylesheet" href="../css/screen/projects.css" />
+    <link rel="stylesheet" href="../css/mobile/projects.css" />
+    <script src="../js/toggle.js"></script>
+    <script src="../js/chat.js"></script>
     <title>Michael Budnick Projects</title>
 </head>
 
 <body class="white-background">
-    <div class="left-panel">
-        <img class="avatar" src="img/avatar-headshot.jpg" />
-        <div class="third-party-sm">
-            <a class="sm-click" href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
-                    src="img/linkedin.png" /></a>
-            <a class="sm-click" href="https://github.com/mdbudnick" target="_blank"><img src="img/github.png" /></a>
-            <a class="sm-click" href="https://www.mike-budnick.com/MichaelBudnickResume.pdf" target="_blank"><img
-                    src="img/cv-download.png" /></a>
-            <img class="sm-click light-dark" src="img/theme-icon.png" />
+    <div class="container">
+        <div class="left-panel">
+            <img class="avatar" src="../img/avatar-headshot.jpg" />
+            <div class="third-party-sm">
+                <a class="sm-click" href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
+                        src="../img/linkedin.png" /></a>
+                <a class="sm-click" href="https://github.com/mdbudnick" target="_blank"><img src="../img/github.png" /></a>
+                <a class="sm-click" href="https://www.mike-budnick.com/MichaelBudnickResume.pdf" target="_blank"><img
+                        src="../img/cv-download.png" /></a>
+                <img class="sm-click light-dark" src="../img/theme-icon.png" />
+            </div>
         </div>
-    </div>
-    <div class="projects">
-        <div class="project flex items-start gap-4">
-            <img src="../../img/chatbot.png" alt="Chatbot Project" class="w-1/5 flex-shrink-0" />
-            <div class="project-blurb w-3/5">
-                <h2 class="project-title text-2xl font-extrabold leading-tight">Website Personal Chatbot</h2>
+        <div class="right-panel">
+            <a href="../index.html" class="back-link">← Back to Home</a>
+        <div class="project">
+            <img src="../img/chatbot.png" alt="Chatbot Project" />
+            <div class="project-blurb">
+                <h2 class="project-title">Website Personal Chatbot</h2>
                 <a href="https://github.com/mdbudnick/personal-website/blob/main/www/js/chat.js" target="_blank"
                     class="text-blue-600 hover:underline">
                     <h3 class="text-base font-medium">Front-end Repository</h3>
@@ -52,6 +54,7 @@
                 </p>
             </div>
         </div>
+        <div id="chat-button-container"></div>
     </div>
 </body>
 
