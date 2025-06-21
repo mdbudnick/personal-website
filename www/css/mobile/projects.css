@@ -1,0 +1,43 @@
+@media screen and (min-width: 0px) and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+        padding: 1rem;
+    }
+
+    .right-panel {
+        width: 100%;
+        padding: 1rem;
+        min-height: 60vh;
+    }
+
+    .project {
+        flex-direction: column;
+    }
+
+    .project img {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+
+    .project-blurb {
+        width: 100%;
+    }
+
+    .project-title {
+        font-size: 1.25rem;
+    }
+
+    .project-summary {
+        font-size: 0.9rem;
+    }
+
+    #chat-button-container {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+    }
+}
