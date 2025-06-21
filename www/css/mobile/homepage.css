@@ -1,4 +1,18 @@
 @media screen and (min-width: 0px) and (max-width: 1024px) {
+    .container {
+        flex-direction: column;
+    }
+
+    .left-panel {
+        width: 100%;
+        padding: 1rem;
+    }
+    
+    .right-panel {
+        width: 100%;
+        padding: 1rem;
+        min-height: 60vh; /* Ensures space for chat button */
+    }
 
     .middle ul {
         margin-left: 0;
@@ -20,5 +34,16 @@
     #currently-reading a {
         margin-left: 1rem;
         /* Match mobile list item indentation */
+    }
+
+    #chat-button-container {
+        position: fixed; /* Fixed position on mobile */
+        bottom: 2rem;
+        right: 2rem;
+    }
+
+    .avatar {
+        width: 30vw;
+        height: 30vw;
     }
 }

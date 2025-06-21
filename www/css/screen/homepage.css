@@ -1,39 +1,4 @@
-.container {
-    display: flex;
-}
-
-.left-panel {
-    width: 25vw;
-    padding: 2rem;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.right-panel {
-    padding: 2rem;
-}
-
-.avatar {
-    width: 15vw;
-    height: 15vw;
-    object-fit: cover;
-    /* Prevents distortion */
-}
-
-.third-party-sm {
-    display: flex;
-    justify-content: space-around;
-    width: 100%;
-    margin-top: 1rem;
-}
-
-.sm-click img {
-    width: 2.5vw;
-    /* Reduced size */
-    height: 2.5vw;
-    /* Reduced size */
-}
+/* These styles are now in style.css */
 
 .middle {
     margin-left: 0;

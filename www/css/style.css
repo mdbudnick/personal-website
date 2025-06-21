@@ -8,13 +8,50 @@ body {
     background-color: white;
 }
 
-.left-panel {
+.container {
     display: flex;
+    justify-content: flex-start;
+}
+
+.left-panel {
+    width: 25vw;
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     background-color: rgba(254, 254, 254, 0.5);
     backdrop-filter: grayscale(0.6);
-    padding: 2vh 2vw;
     border-radius: 1vh 1vh 0 0;
     margin-top: 2vh;
+}
+
+.right-panel {
+    width: 50vw; /* Takes up half of the page */
+    padding: 2rem;
+    position: relative;
+    min-height: 80vh; /* Ensures enough height for chat button at bottom */
+}
+
+.avatar {
+    width: 15vw;
+    height: 15vw;
+    object-fit: cover;
+    border-radius: 50%; /* Perfect circle */
+    aspect-ratio: 1/1; /* Ensures perfect square dimensions */
+    overflow: hidden; /* Ensures the image doesn't break the circular shape */
+    display: block; /* Remove any extra space */
+}
+
+.third-party-sm {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.sm-click img {
+    width: 2.5vw;
+    height: 2.5vw;
 }
 
 .four-oh-four {
@@ -23,4 +60,15 @@ body {
 
 .white-background {
     background-color: white;
+}
+
+#name {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+#chat-button-container {
+    position: absolute;
+    bottom: 2rem;
+    right: 2rem;
 }
