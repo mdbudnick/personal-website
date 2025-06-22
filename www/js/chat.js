@@ -1,11 +1,16 @@
 document.addEventListener("DOMContentLoaded", () => {
-    // Append chatbot UI container
-    const chatbotContainer = document.createElement("div");
-    chatbotContainer.id = "chatbot-container";
-    // eslint-disable-next-line max-len
-    chatbotContainer.classList.add("fixed", "bottom-4", "right-4", "flex", "flex-col", "items-end", "z-50");
-    document.body.appendChild(chatbotContainer);
-
+    // Use the existing container in the HTML
+    const chatbotContainer = document.getElementById("chat-button-container");
+    
+    // Ensure the container exists
+    if (!chatbotContainer) {
+        console.error("Chat button container not found in HTML");
+        return;
+    }
+    
+    // Add styling to the container
+    chatbotContainer.classList.add("flex", "flex-col", "items-end", "z-50");
+    
     // Add closed chat button
     const chatButton = document.createElement("button");
     chatButton.id = "chatbot-button";
@@ -20,6 +25,7 @@ document.addEventListener("DOMContentLoaded", () => {
         "hover:bg-blue-500",
         "transition-all"
     );
+    // Position within the container rather than fixed to viewport
     chatbotContainer.appendChild(chatButton);
 
     // Add chat room container (hidden by default)
@@ -33,7 +39,10 @@ document.addEventListener("DOMContentLoaded", () => {
         "shadow-lg",
         "rounded-lg",
         "flex",
-        "flex-col"
+        "flex-col",
+        "absolute",  /* Absolute positioning within the container */
+        "bottom-16", /* Position above the button */
+        "right-0"    /* Align to right of container */
     );
     chatbotContainer.appendChild(chatRoom);
 
