@@ -6,33 +6,41 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://zany.sh/favicon.svg?text=MB" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" href="css/screen/left-panel.css" />
+  <link rel="stylesheet" media="screen" href="css/screen/left-panel.css" />
   <link rel="stylesheet" href="css/mobile/left-panel.css" />
+  <!-- Add appropriate screen and mobile CSS for specific page -->
+  <!-- <link rel="stylesheet" media="screen" href="css/screen/homepage.css" /> -->
+  <!-- <link rel="stylesheet" href="css/mobile/homepage.css" /> -->
   <script src="js/toggle.js"></script>
+  <script src="js/tailwindmin.js"></script>
+  <script src="js/chat.js"></script>
   <title>Michael Budnick</title>
 </head>
 
 <body class="white-background">
-  <div class="left-panel">
-    <h1 class="name">Michael Budnick</h1>
-    <div class="menu">
-      <a class="item" href="index.html">about</a>
-      <a class="item" href="projects.html">projects</a>
-      <a class="item" href="certifications.html">certifications</a>
-      <a class="item" href="blog.html">blog</a>
+  <div class="container">
+    <div class="left-panel">
+      <img class="avatar" src="img/avatar-headshot.jpg" />
       <div class="third-party-sm">
         <a class="sm-click" href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
             src="img/linkedin.png" /></a>
         <a class="sm-click" href="https://github.com/mdbudnick" target="_blank"><img src="img/github.png" /></a>
         <a class="sm-click" href="https://www.mike-budnick.com/MichaelBudnickResume.pdf" target="_blank"><img
             src="img/cv-download.png" /></a>
-        <img class="sm-click light-dark" src="img/light-dark.png" />
+        <img class="sm-click light-dark" src="img/theme-icon.png" />
       </div>
     </div>
-    <div class="middle">
-      <div>filler</div>
+    <div class="right-panel">
+      <h1 id="name">Page Title</h1>
+      <div class="middle">
+        <!-- Page content goes here -->
+        <div>
+          <h2>Section Title</h2>
+          <p>Content goes here</p>
+        </div>
+      </div>
+      <div id="chat-button-container"></div>
     </div>
-    <img class="avatar" src="img/avatar-headshot.jpg" />
   </div>
 </body>
 
