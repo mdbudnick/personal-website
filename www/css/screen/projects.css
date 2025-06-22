@@ -25,11 +25,13 @@
 .project-summary {
     margin-top: 1rem;
     line-height: 1.6;
-    font-size: 0.875rem; /* text-sm equivalent */
+    font-size: 0.875rem;
+    /* text-sm equivalent */
 }
 
 .text-blue-600 {
-    color: #2563eb; /* blue-600 equivalent */
+    color: #2563eb;
+    /* blue-600 equivalent */
 }
 
 .text-blue-600:hover {

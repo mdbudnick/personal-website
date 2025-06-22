@@ -26,20 +26,26 @@ body {
 }
 
 .right-panel {
-    width: 50vw; /* Takes up half of the page */
+    width: 50vw;
+    /* Takes up half of the page */
     padding: 2rem;
     position: relative;
-    min-height: 80vh; /* Ensures enough height for chat button at bottom */
+    min-height: 80vh;
+    /* Ensures enough height for chat button at bottom */
 }
 
 .avatar {
     width: 15vw;
     height: 15vw;
     object-fit: cover;
-    border-radius: 50%; /* Perfect circle */
-    aspect-ratio: 1/1; /* Ensures perfect square dimensions */
-    overflow: hidden; /* Ensures the image doesn't break the circular shape */
-    display: block; /* Remove any extra space */
+    border-radius: 50%;
+    /* Perfect circle */
+    aspect-ratio: 1/1;
+    /* Ensures perfect square dimensions */
+    overflow: hidden;
+    /* Ensures the image doesn't break the circular shape */
+    display: block;
+    /* Remove any extra space */
 }
 
 .third-party-sm {
@@ -69,6 +75,7 @@ body {
 
 #chat-button-container {
     position: absolute;
-    bottom: 2rem;
-    right: 2rem;
+    bottom: 1rem;
+    right: 1rem;
+    margin: 0;
 }

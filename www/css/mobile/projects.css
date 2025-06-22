@@ -12,6 +12,7 @@
         width: 100%;
         padding: 1rem;
         min-height: 60vh;
+        position: relative;
     }
 
     .project {
@@ -36,7 +37,7 @@
     }
 
     #chat-button-container {
-        position: fixed;
+        position: absolute;
         bottom: 2rem;
         right: 2rem;
     }

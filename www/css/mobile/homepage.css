@@ -7,11 +7,13 @@
         width: 100%;
         padding: 1rem;
     }
-    
+
     .right-panel {
         width: 100%;
         padding: 1rem;
-        min-height: 60vh; /* Ensures space for chat button */
+        min-height: 60vh;
+        position: relative;
+        /* Ensures space for chat button and positions it properly */
     }
 
     .middle ul {
@@ -37,7 +39,8 @@
     }
 
     #chat-button-container {
-        position: fixed; /* Fixed position on mobile */
+        position: absolute;
+        /* Absolute position within the right panel */
         bottom: 2rem;
         right: 2rem;
     }
