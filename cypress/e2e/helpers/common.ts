@@ -1,7 +1,7 @@
 /// <reference types="cypress" />
 
 export const socialMediaHrefs = [
-  "https://www.linkedin.com/in/michael-budnick-79a40b60",
+  "https://www.linkedin.com/in/michaeldbudnick/",
   "https://github.com/mdbudnick",
   "https://www.mike-budnick.com/MichaelBudnickResume.pdf",
 ];
