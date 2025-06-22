@@ -6,18 +6,39 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://zany.sh/favicon.svg?text=MB" />
   <link rel="stylesheet" href="css/style.css" />
+  <link rel="stylesheet" media="screen" href="css/screen/left-panel.css" />
   <link rel="stylesheet" href="css/mobile/left-panel.css" />
-  <link rel="stylesheet" href="css/screen/left-panel.css" />
   <script src="js/toggle.js"></script>
+  <script src="js/tailwindmin.js"></script>
+  <script src="js/chat.js"></script>
   <title>Page Not Found!</title>
+  <style>
+    .four-oh-four {
+      display: block;
+      margin: 1rem auto 2rem;
+      max-width: 90%;
+      max-height: 60vh;
+      border-radius: 8px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .error-message {
+      text-align: center;
+      margin: 0 auto;
+    }
+
+    .back-link {
+      margin-top: 1rem;
+      color: #3366cc;
+      text-decoration: underline;
+    }
+  </style>
 </head>
 
 <body class="white-background">
-  <div class="left-panel">
-    <div class="menu">
-      <a class="item" href="index.html">about</a>
-      <a class="item" href="projects.html">projects</a>
-      <a class="item" href="certifications.html">certifications</a>
+  <div class="container">
+    <div class="left-panel">
+      <img class="avatar" src="img/avatar-headshot.jpg" />
       <div class="third-party-sm">
         <a class="sm-click" href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
             src="img/linkedin.png" /></a>
@@ -27,7 +48,17 @@
         <img class="sm-click light-dark" src="img/light-dark.png" />
       </div>
     </div>
-    <img class="four-oh-four" src="img/404-parakeet.jpg" />
+    <div class="right-panel">
+      <h1 id="name">Page Not Found</h1>
+      <img class="four-oh-four" src="img/404-parakeet.jpg" alt="404 Error Parakeet" />
+      <div class="middle">
+        <div class="error-message">
+          <h2>The page you're looking for doesn't exist.</h2>
+          <a href="index.html" class="back-link">Return to Homepage</a>
+        </div>
+      </div>
+      <div id="chat-button-container"></div>
+    </div>
   </div>
 </body>
 
