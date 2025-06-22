@@ -1,4 +1,4 @@
-name: CDK Deploy (staging first)
+name: Deploy to production and run E2E tests
 
 on:
   workflow_dispatch:
@@ -47,7 +47,7 @@ jobs:
   #   - name: Sync files to S3 bucket
   #     run: |
   #       aws s3 sync www s3://${{ secrets.DEV_BUCKET_NAME }} --delete
-  
+
   # test-staging:
   #   needs: sync-staging
   #   timeout-minutes: 15
@@ -67,7 +67,7 @@ jobs:
   #     - run: npm run build --if-present
   #     # Run all cypress tests.
   #     - name: Cypress run
-  #       uses: cypress-io/github-action@v6          
+  #       uses: cypress-io/github-action@v6
   #       with:
   #         record: false
   #         config-file: cypress.config.ts
@@ -75,7 +75,7 @@ jobs:
   #       env:
   #         CYPRESS_BASE_URL: http://www.michaelbudnick.dev/
   #         # DEBUG: '@cypress/github-action'
-        
+
   # destroy-staging:
   #   needs: [deploy-staging, test-staging]
   #   if: always() && needs.deploy-staging.result == 'success'
@@ -106,17 +106,17 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
       - run: npm ci
       - run: npm run build --if-present
       - run: npm test
       - name: Create .env.production file
         run: |
-              touch .env.production
-              echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.production
-              echo "CDK_DEPLOY_REGION=us-east-1" >> .env.production
-              echo "BUCKET_NAME=${{ secrets.PROD_BUCKET_NAME }}" >> .env.production
-              echo "DOMAIN_NAME=${{ secrets.PROD_DOMAIN_NAME }}" >> .env.production
+          touch .env.production
+          echo "CDK_DEPLOY_ACCOUNT=${{ secrets.AWS_DEPLOY_ACCOUNT }}" >> .env.production
+          echo "CDK_DEPLOY_REGION=us-east-1" >> .env.production
+          echo "BUCKET_NAME=${{ secrets.PROD_BUCKET_NAME }}" >> .env.production
+          echo "DOMAIN_NAME=${{ secrets.PROD_DOMAIN_NAME }}" >> .env.production
       - name: cdk deploy
         uses: youyo/aws-cdk-github-actions@v2
         with:
@@ -127,22 +127,22 @@ jobs:
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_DEFAULT_REGION: "us-east-1"
-  
+
   sync-prod:
     runs-on: ubuntu-latest
     needs: deploy-prod
     steps:
-    - name: Checkout
-      uses: actions/checkout@v4
-    - name: Setup AWS CLI
-      uses: aws-actions/configure-aws-credentials@v4
-      with:
-        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        aws-region: us-east-1
-    - name: Sync files to S3 bucket
-      run: |
-        aws s3 sync www s3://${{ secrets.PROD_BUCKET_NAME }} --delete
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup AWS CLI
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-east-1
+      - name: Sync files to S3 bucket
+        run: |
+          aws s3 sync www s3://${{ secrets.PROD_BUCKET_NAME }} --delete
 
   test-prod:
     needs: sync-prod
@@ -158,12 +158,12 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v3
         with:
-          node-version: '20.x'
+          node-version: "20.x"
       - run: npm ci
       - run: npm run build --if-present
       # Run all cypress tests.
       - name: Cypress run
-        uses: cypress-io/github-action@v6          
+        uses: cypress-io/github-action@v6
         with:
           record: false
           config-file: cypress.config.ts
