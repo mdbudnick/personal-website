@@ -1,0 +1,21 @@
+@media screen and (min-width: 0px) and (max-width: 800px) {
+
+    .avatar {
+        display: none;
+    }
+
+    .third-party-sm {
+        width: 40vw;
+    }
+
+    .third-party-sm .sm-click {
+        height: 3em;
+        width: 3em;
+    }
+
+    .third-party-sm img {
+        width: 10%;
+        height: 10%;
+    }
+
+}

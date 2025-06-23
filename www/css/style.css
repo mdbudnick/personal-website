@@ -1,21 +1,20 @@
 body {
     padding: 5vh 5vw;
     background-size: contain;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-family: 'Helvetica Neue', sans-serif;
+    font-weight: 300;
     line-height: 1.3;
-    color: midnightblue;
-    background-color: black;
-    max-width: 80vw;
+    color: black;
+    background-color: white;
 }
 
-.top-row {
+.left-panel {
     display: flex;
     background-color: rgba(254, 254, 254, 0.5);
     backdrop-filter: grayscale(0.6);
     padding: 2vh 2vw;
     border-radius: 1vh 1vh 0 0;
     margin-top: 2vh;
-    border-bottom: 4px dashed midnightblue;
 }
 
 .four-oh-four {

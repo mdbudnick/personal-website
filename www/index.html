@@ -6,8 +6,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="https://zany.sh/favicon.svg?text=MB" />
   <link rel="stylesheet" href="css/style.css" />
-  <link rel="stylesheet" media="screen" href="css/screen/top-row.css" />
-  <link rel="stylesheet" href="css/mobile/top-row.css" />
+  <link rel="stylesheet" media="screen" href="css/screen/left-panel.css" />
+  <link rel="stylesheet" href="css/mobile/left-panel.css" />
   <link rel="stylesheet" media="screen" href="css/screen/homepage.css" />
   <link rel="stylesheet" href="css/mobile/homepage.css" />
   <script src="js/toggle.js"></script>
@@ -17,81 +17,65 @@
 </head>
 
 <body class="white-background">
-  <div class="top-row">
-    <h1 class="name">Michael Budnick</h1>
-    <div class="menu">
-      <a class="item" href="index.html">about</a>
-      <a class="item" href="projects.html">projects</a>
-      <a class="item" href="certifications.html">certifications</a>
+  <div class="container">
+    <div class="left-panel">
+      <img class="avatar" src="img/avatar-headshot.jpg" />
       <div class="third-party-sm">
         <a class="sm-click" href="https://www.linkedin.com/in/michael-budnick-79a40b60" target="_blank"><img
             src="img/linkedin.png" /></a>
         <a class="sm-click" href="https://github.com/mdbudnick" target="_blank"><img src="img/github.png" /></a>
         <a class="sm-click" href="https://www.mike-budnick.com/MichaelBudnickResume.pdf" target="_blank"><img
             src="img/cv-download.png" /></a>
-        <img class="sm-click light-dark" src="img/light-dark.png" />
+        <img class="sm-click light-dark" src="img/theme-icon.png" />
       </div>
     </div>
-    <div class="middle">
-      <div class="about-me">
-        <h1 class="name">Michael Budnick</h1>
-        <div class="points">
-          <div class="point">Full Stack Product Developer</div>
-          <div class="point">Cloud-Native & DevOps Expert</div>
-          <div class="point">UI/UX & API Integrator</div>
-          <div class="point">End-to-End Solution Builder</div>
+    <div class="right-panel">
+      <h1 id="name">Michael Budnick</h1>
+      <div class="middle">
+        <div>
+          <h2>Projects</h2>
+          <ul>
+            <li><a href="projects/chatbot.html">Website Personal Chatbot</a></li>
+            <li><a href="projects/pihole.html">PiHole Kubernetes Ansible Configuration</a></li>
+            <li><a href="projects/k8s-cluster.html">High-Availability Home K8s Cluster</a></li>
+            <li><a href="projects/breathbox-app.html">Breathbox App</a></li>
+            <li><a href="projects/breathbox-website.html">Breathbox Website</a></li>
+            <li><a href="projects/personal-website.html">This Website!</a></li>
+            <li><a href="projects/khipu-game.html">Kuychi Khipu Game</a></li>
+            <li><a href="projects/breathbox-css.html">Breathbox CSS</a></li>
+          </ul>
         </div>
-        <div class="bio">
-          Hello! My name is Michael Budnick. I am a Senior Software Developer specializing in full stack and product
-          development, with a strong foundation in both front-end and back-end technologies. My experience spans
-          building user interfaces, designing scalable APIs, and delivering robust, user-focused products from concept
-          to production.<br /><br />
-          I have a proven track record of integrating modern DevOps practices and cloud infrastructure to accelerate
-          product delivery and ensure reliability. Whether it's architecting cloud-native systems, developing engaging
-          web applications, or optimizing CI/CD pipelines, I bring a holistic, product-oriented mindset to every
-          project.<br /><br />
-          I am always learning and hold several industry certifications—check out my <a
-            href="https://www.mike-budnick.com/certifications.html">Certifications</a>!<br /><br />
-          Personally, I live in New York City and thrive on life's adventures! Outside of coding, you might find me
-          biking, reading, cooking, rock climbing, playing guitar, or experimenting with 3D printing. I'm always up for
-          discovery and exploration!
+        <div>
+          <h2>Certifications</h2>
+          <ul>
+            <li><a href="https://www.credly.com/badges/595b50eb-6538-4c75-bb56-b164b4d108a2" target="_blank">AWS
+                Certified
+                Cloud Practitioner</a></li>
+            <li><a href="https://www.credly.com/badges/be49e46f-e2a4-48cd-aa0d-095076b29e0f" target="_blank">CKA:
+                Certified
+                Kubernetes Administrator</a></li>
+            <li><a href="https://www.credly.com/badges/92e639c1-500e-400a-9a2e-cea433e3348d" target="_blank">CKAD:
+                Certified
+                Kubernetes Application Developer</a></li>
+            <li><a href="https://www.credly.com/badges/9bd50578-bd01-4060-8895-1f3ef62cf62c" target="_blank">CKS:
+                Certified
+                Kubernetes Security Specialist</a></li>
+            <li><a href="https://www.credly.com/badges/cef85466-bd22-4619-aa91-f3b9b74ac28c" target="_blank">HashiCorp
+                Certified: Terraform Associate (003)</a></li>
+            <li><a href="https://www.credly.com/badges/ef695cda-e5dd-470f-b0d3-4010f41f21d3" target="_blank">AWS
+                Certified
+                Developer Associate</a></li>
+          </ul>
+        </div>
+        <div>
+          <h2>Currently Reading</h2>
+          <ul>
+            <li><a href="https://www.abebooks.com/9780593357774/Diet-Small-Planet-Revised-Updated-0593357779/plp"
+                target="_blank">Diet for a Small Planet by Frances Moore Lappé</a></li>
+          </ul>
         </div>
       </div>
-      <!-- Highlight full stack and product focus -->
-      <div class="product-focus" style="margin-top:2rem; text-align:center; font-weight:bold; font-size:1.2em;">
-        Building impactful products with a full stack approach: UI, APIs, DevOps, and everything in between.
-      </div>
-    </div>
-    <img class="avatar" src="img/avatar-headshot.jpg" />
-  </div>
-  <div class="current-media">
-    <div class="media-item">
-      <h2>Currently Reading</h2>
-      <a href="https://www.abebooks.com/9780593357774/Diet-Small-Planet-Revised-Updated-0593357779/plp" target="_blank">
-        <img class="media-image" src="img/currently-reading.jpg" />
-        <h3>Diet for a Small Planet
-          <br><br>Frances Moore Lappé
-        </h3>
-      </a>
-    </div>
-    <div class="media-item">
-      <h2>Currently Listening</h2>
-      <a href="https://open.spotify.com/show/5jojerqfKxYXc5POfxC1o9?si=a1059cba459f469d&nd=1&dlsi=a543505099704c19"
-        target="_blank">
-        <img class="media-image" src="img/currently-listening.jpg" />
-        <h3>Battle Cry of Freedom: The Civil War Era
-          <br><br>James McPherson
-        </h3>
-      </a>
-    </div>
-    <div class="media-item">
-      <h2>Currently Watching</h2>
-      <a href="https://skillbuilder.aws/exam-prep/sysops-administrator-associate" target="_blank">
-        <img class="media-image" src="img/currently-watching.svg" />
-        <h3>AWS Certified SysOps Administrator Course
-          <br><br>AWS Training and Certification
-        </h3>
-      </a>
+      <div id="chat-button-container"></div>
     </div>
   </div>
 </body>

@@ -19,7 +19,6 @@
 
 .blog .posts {
     display: flex;
-    flex-direction: column-reverse;
 }
 
 .blog .posts .post-item {

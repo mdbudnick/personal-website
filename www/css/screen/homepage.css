@@ -1,26 +1,70 @@
-.current-media {
-    background-color: rgba(254, 254, 254, 0.5);
-    backdrop-filter: grayscale(0.6);
+.container {
     display: flex;
-    padding: 3vw 0;
-    border-radius: 0 0 1vh 1vh;
 }
 
-.media-item {
+.left-panel {
     width: 25vw;
-    height: auto;
+    padding: 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: 0 3vw;
-    padding: 2vh 2vw;
-    text-align: center;
-    border: solid 1px;
 }
 
-.media-image {
-    width: 10vw;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+.right-panel {
+    padding: 2rem;
+}
+
+.avatar {
+    width: 15vw;
+    height: 15vw;
+    object-fit: cover;
+    /* Prevents distortion */
+}
+
+.third-party-sm {
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 1rem;
+}
+
+.sm-click img {
+    width: 2.5vw;
+    /* Reduced size */
+    height: 2.5vw;
+    /* Reduced size */
+}
+
+.middle {
+    margin-left: 0;
+}
+
+.middle ul {
+    list-style: none;
+    padding: 0;
+    margin-left: 0;
+    /* Remove any default margin */
+}
+
+.middle li {
+    margin-bottom: 0.5rem;
+    margin-left: 1.5rem;
+    /* Indent list items */
+}
+
+.middle h2 {
+    margin-top: 2rem;
+    font-weight: bold;
+    /* Makes headers bold */
+}
+
+#chat-button-container {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+}
+
+#name {
+    font-weight: bold;
+    font-size: 1.5rem;
 }

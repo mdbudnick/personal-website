@@ -55,13 +55,13 @@ function indexTests(path) {
 
   it("menu", () => {
     cy.visit(path);
-    cy.get(".top-row");
-    cy.get(".top-row .item").each(($el, i) => {
+    cy.get(".left-panel");
+    cy.get(".left-panel .item").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
       cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
-    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+    cy.get(".left-panel .menu .third-party-sm a").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
       cy.wrap($el).should("have.attr", "target", "_blank");
       cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
@@ -91,7 +91,7 @@ function indexTests(path) {
 
   it("avatar", () => {
     cy.visit(path);
-    cy.get(".top-row .avatar");
+    cy.get(".left-panel .avatar");
   });
 
   it("media-items", () => {
@@ -132,13 +132,13 @@ describe("blog.html", () => {
 
   it("blog.html menu", () => {
     cy.visit("blog.html");
-    cy.get(".top-row");
-    cy.get(".top-row .item").each(($el, i) => {
+    cy.get(".left-panel");
+    cy.get(".left-panel .item").each(($el, i) => {
       expect($el.attr("href")).equals(menuItemHrefs[i]);
       expect($el.text()).equals(menuItemContents[i]);
     });
 
-    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+    cy.get(".left-panel .menu .third-party-sm a").each(($el, i) => {
       expect($el.attr("href")).equals(socialMediaHrefs[i]);
       expect($el.attr("target")).equals("_blank");
       expect($el.children("img").attr("src")).equals(socialMediaImgs[i]);
@@ -153,7 +153,7 @@ describe("blog.html", () => {
 
   it("blog.html avatar", () => {
     cy.visit("blog.html");
-    cy.get(".top-row .avatar");
+    cy.get(".left-panel .avatar");
   });
 
   it("blog.html blog", () => {
@@ -209,13 +209,13 @@ describe("projects.html", () => {
 
   it("projects.html menu", () => {
     cy.visit("projects.html");
-    cy.get(".top-row");
-    cy.get(".top-row .item").each(($el, i) => {
+    cy.get(".left-panel");
+    cy.get(".left-panel .item").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
       cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
-    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+    cy.get(".left-panel .menu .third-party-sm a").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
       cy.wrap($el).should("have.attr", "target", "_blank");
       cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
@@ -230,7 +230,7 @@ describe("projects.html", () => {
 
   it("projects.html avatar", () => {
     cy.visit("projects.html");
-    cy.get(".top-row .avatar");
+    cy.get(".left-panel .avatar");
   });
 
   it("projects.html titles", () => {
@@ -284,13 +284,13 @@ describe("certifications.html", () => {
 
   it("certifications.html menu", () => {
     cy.visit("certifications.html");
-    cy.get(".top-row");
-    cy.get(".top-row .menu .item").each(($el, i) => {
+    cy.get(".left-panel");
+    cy.get(".left-panel .menu .item").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
       cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
-    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+    cy.get(".left-panel .menu .third-party-sm a").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
       cy.wrap($el).should("have.attr", "target", "_blank");
       cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);
@@ -305,7 +305,7 @@ describe("certifications.html", () => {
 
   it("certifications.html avatar", () => {
     cy.visit("certifications.html");
-    cy.get(".top-row .avatar");
+    cy.get(".left-panel .avatar");
   });
 
   it("certifications.html certs (.cert)", () => {
@@ -332,13 +332,13 @@ describe("404.html", () => {
 
   it("404.html menu", () => {
     cy.visit("404.html");
-    cy.get(".top-row");
-    cy.get(".top-row .menu .item").each(($el, i) => {
+    cy.get(".left-panel");
+    cy.get(".left-panel .menu .item").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", menuItemHrefs[i]);
       cy.wrap($el).should("have.text", menuItemContents[i]);
     });
 
-    cy.get(".top-row .menu .third-party-sm a").each(($el, i) => {
+    cy.get(".left-panel .menu .third-party-sm a").each(($el, i) => {
       cy.wrap($el).should("have.attr", "href", socialMediaHrefs[i]);
       cy.wrap($el).should("have.attr", "target", "_blank");
       cy.wrap($el).find("img").should("have.attr", "src", socialMediaImgs[i]);

@@ -1,15 +1,24 @@
 @media screen and (min-width: 0px) and (max-width: 1024px) {
-    .current-media {
-        flex-direction: column;
-        align-items: center;
+
+    .middle ul {
+        margin-left: 0;
     }
 
-    .media-item {
-        width: 50vw;
-        margin-top: 2vh;
+    .middle li {
+        margin-left: 1rem;
+        /* Slightly less indentation on mobile */
     }
 
-    .media-image {
-        width: 20vw;
+    .middle {
+        margin-left: 0;
+    }
+
+    .middle h2 {
+        font-weight: bold;
+    }
+
+    #currently-reading a {
+        margin-left: 1rem;
+        /* Match mobile list item indentation */
     }
 }
