@@ -1,19 +1,41 @@
-document.addEventListener("DOMContentLoaded", function () {
-    const lightDarkElement = document.querySelector(".light-dark");
-    const body = document.body;
+// Wait for DOM to be ready
+window.onload = function () {
+    // Get references to DOM elements
+    var lightDarkElement = document.querySelector(".light-dark");
+    var body = document.body;
 
-    const darkMode = localStorage.getItem("darkMode") === "true";
-
-    if (darkMode) {
-        body.classList.remove("white-background");
-    } else {
-        body.classList.add("white-background");
+    // Helper function to safely use localStorage
+    function getPreference() {
+        try {
+            return window.localStorage && window.localStorage.getItem("darkMode") === "true";
+        } catch (e) {
+            return false;
+        }
     }
 
-    lightDarkElement.addEventListener("click", function () {
-        body.classList.toggle("white-background");
+    function savePreference(isDark) {
+        try {
+            if (window.localStorage) {
+                window.localStorage.setItem("darkMode", isDark);
+            }
+        } catch (e) {
+            // Ignore storage errors
+        }
+    }
 
-        localStorage.setItem("darkMode",
-            !body.classList.contains("white-background"));
-    });
-});
+    // Apply saved preference if available
+    if (getPreference()) {
+        body.classList.add("dark-mode");
+    }
+
+    // Toggle dark mode on click
+    if (lightDarkElement) {
+        lightDarkElement.addEventListener("click", function () {
+            // Toggle class
+            body.classList.toggle("dark-mode");
+
+            // Save preference
+            savePreference(body.classList.contains("dark-mode"));
+        });
+    }
+};
